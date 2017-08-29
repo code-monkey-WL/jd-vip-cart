@@ -309,7 +309,7 @@ public class BaseController {
      * @return
      */
     protected BaseEntityBean buildBaseEntityBean(BaseEntityBean baseEntityBean,OperEnum operEnum){
-        String pin = getUserPinFromGateway(null).getUserId();
+        String pin = "test";
         if(operEnum == OperEnum.ADD){
             baseEntityBean.setCreatePin(pin);
         }else{
