@@ -3,6 +3,7 @@ package com.jd.o2o.vipcart.web.controller;
 import com.jd.o2o.vipcart.common.domain.BaseEntityBean;
 import com.jd.o2o.vipcart.common.domain.PageBean;
 import com.jd.o2o.vipcart.common.domain.context.AppContext;
+import com.jd.o2o.vipcart.common.domain.enums.OperEnum;
 import com.jd.o2o.vipcart.common.domain.enums.YNEnum;
 import com.jd.o2o.vipcart.common.domain.exception.BaseMsgException;
 import com.jd.o2o.vipcart.common.domain.response.ServiceResponse;
@@ -300,5 +301,21 @@ public class BaseController {
         JsonResponse jsonResponse = new JsonResponse(serviceResponse.getCode(), serviceResponse.getMsg());
         jsonResponse.setResult(serviceResponse.getResult());
         return jsonResponse;
+    }
+
+    /**
+     * 填充操作人信息
+     * @param baseEntityBean
+     * @return
+     */
+    protected BaseEntityBean buildBaseEntityBean(BaseEntityBean baseEntityBean,OperEnum operEnum){
+        String pin = getUserPinFromGateway(null).getUserId();
+        if(operEnum == OperEnum.ADD){
+            baseEntityBean.setCreatePin(pin);
+        }else{
+            baseEntityBean.setUpdatePin(pin);
+        }
+        baseEntityBean.setYn(YNEnum.Y.getCode());
+        return baseEntityBean;
     }
 }

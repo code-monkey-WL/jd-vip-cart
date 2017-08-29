@@ -12,8 +12,8 @@
 
     <!-- 切面实现类 -->
     <bean id="exceptionAlarmAdvice" class="com.jd.o2o.vipcart.service.advise.ExceptionAlarmAdvice"/>
-    <bean id="accessAuthorityAdvice" class="com.jd.o2o.road.common.plugins.monitor.impl.AccessAuthorityAdvice"/>
-    <!--<bean id="accessCountAdvice" class="com.jd.o2o.road.common.plugins.monitor.impl.AccessCountAdvice"/>-->
+    <bean id="accessAuthorityAdvice" class="com.jd.o2o.vipcart.common.plugins.monitor.impl.AccessAuthorityAdvice"/>
+    <!--<bean id="accessCountAdvice" class="com.jd.o2o.vipcart.common.plugins.monitor.impl.AccessCountAdvice"/>-->
     <bean id="trackingAdvice" class="com.jd.o2ovipcart..service.common.project.advice.TrackingAdvice">
         <property name="appName" value="o2o-coupon-open-api"/>
     </bean>

@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title></title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initList("goodInfoListDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="goodInfoListDiv" v="goodInfo">
+		<div id="operation_table">
+			<div class="toolbar">
+    			<input type="buttion" class="b_text add" value="新 增">
+    			<input type="buttion" class="b_text deleteAll" value="删 除">
+			</div>
+			<div class="title">
+				<div class="text quickSearch">
+					<select class="quickSearchKey">
+						<option value="skuId">商品编号</option>
+						<option value="outSkuCode">第三方商品编码</option>
+						<option value="skuCode">商品编码</option>
+						<option value="skuName">商品名称</option>
+						<option value="skuDesc">商品说明</option>
+						<option value="skuSummary">商品摘要</option>
+						<option value="skuPrice">价格</option>
+						<option value="originPrice">原价格</option>
+						<option value="promotionSummary">促销摘要</option>
+						<option value="skuLink">商品原链接</option>
+						<option value="skuImg">商品图片</option>
+						<option value="fromSource">商品来源 1:jd 2:tmall</option>
+						<option value="categoryCode">类目编码</option>
+						<option value="fullCategoryCode">全路径类目编码逗号隔开</option>
+						<option value="brandCode">品牌编号</option>
+						<option value="orgCode">商家编号</option>
+						<option value="stockType">库存标记类型 0:数量 1:百分比</option>
+						<option value="stockNum">库存量</option>
+						<option value="commentNum">评论数量</option>
+						<option value="grabTime">抓取时间</option>
+						<option value="skuStatus">商品状态 0:上架 2:下架</option>
+						<option value="ext">扩展字段</option>
+						<option value="sort">排序</option>
+						<option value="createTime">创建时间</option>
+						<option value="createPin">创建人</option>
+						<option value="updateTime">更新时间</option>
+						<option value="updatePin">更新人</option>
+						<option value="sysVersion">版本号</option>
+						<option value="yn">删除标识 0:有效 1:无效</option>
+						<option value="ts">时间戳</option>
+					</select>
+					<input type="text" quickSearchKey="skuId" class="quickSearchValue" title="按下回车进行快速查询，按下Esc进行表单查询"/>
+					<input type="button" class="b_text quickSearchButton" value="搜 索"/>
+				</div>
+			</div>
+			<div class="list">
+				<table>
+					<tr>
+						<th><input type="checkbox" name="goodInfoAllCheckbox"></th>
+						<th>id</th>
+						<th>商品编号</th>
+						<th>第三方商品编码</th>
+						<th>商品编码</th>
+						<th>商品名称</th>
+						<th>商品说明</th>
+						<th>商品摘要</th>
+						<th>价格</th>
+						<th>原价格</th>
+						<th>促销摘要</th>
+						<th>商品原链接</th>
+						<th>商品图片</th>
+						<th>商品来源 1:jd 2:tmall</th>
+						<th>类目编码</th>
+						<th>全路径类目编码逗号隔开</th>
+						<th>品牌编号</th>
+						<th>商家编号</th>
+						<th>库存标记类型 0:数量 1:百分比</th>
+						<th>库存量</th>
+						<th>评论数量</th>
+						<th>抓取时间</th>
+						<th>商品状态 0:上架 2:下架</th>
+						<th>扩展字段</th>
+						<th>排序</th>
+						<th>创建时间</th>
+						<th>创建人</th>
+						<th>更新时间</th>
+						<th>更新人</th>
+						<th>版本号</th>
+						<th>删除标识 0:有效 1:无效</th>
+						<th>时间戳</th>
+						<th>操 作</th>
+					</tr>
+            #if(${result} && ${result.result})
+    			#set ($list=${result.result})
+    			#if($list && ${result.result.resultList})
+    				#set ($list=${result.result.resultList})
+    			#end
+    			#foreach( $data in $list )
+					<tr>
+						<td><input type="checkbox" name="goodInfoCheckbox" value="${data.id}"></td>
+						<td>$!{data.id}</td>
+						<td>$!{data.skuId}</td>
+						<td>$!{data.outSkuCode}</td>
+						<td>$!{data.skuCode}</td>
+						<td>$!{data.skuName}</td>
+						<td>$!{data.skuDesc}</td>
+						<td>$!{data.skuSummary}</td>
+						<td>$!{data.skuPrice}</td>
+						<td>$!{data.originPrice}</td>
+						<td>$!{data.promotionSummary}</td>
+						<td>$!{data.skuLink}</td>
+						<td>$!{data.skuImg}</td>
+						<td>$!{data.fromSource}</td>
+						<td>$!{data.categoryCode}</td>
+						<td>$!{data.fullCategoryCode}</td>
+						<td>$!{data.brandCode}</td>
+						<td>$!{data.orgCode}</td>
+						<td>$!{data.stockType}</td>
+						<td>$!{data.stockNum}</td>
+						<td>$!{data.commentNum}</td>
+						<td>$!dateFormatUtils.format($!{data.grabTime},"yyyy-MM-dd HH:mm:ss")</td>
+						<td>$!{data.skuStatus}</td>
+						<td>$!{data.ext}</td>
+						<td>$!{data.sort}</td>
+						<td>$!dateFormatUtils.format($!{data.createTime},"yyyy-MM-dd HH:mm:ss")</td>
+						<td>$!{data.createPin}</td>
+						<td>$!dateFormatUtils.format($!{data.updateTime},"yyyy-MM-dd HH:mm:ss")</td>
+						<td>$!{data.updatePin}</td>
+						<td>$!{data.sysVersion}</td>
+						<td>$!{data.yn}</td>
+						<td>$!dateFormatUtils.format($!{data.ts},"yyyy-MM-dd HH:mm:ss")</td>
+						<td class="manage">
+							<input type="button" class="b_text edit" v="${data.id}" value="修 改">
+							<input type="button" class="b_text delete" v="${data.id}" value="删 除">
+						</td>
+					</tr>
+			#end
+		#end
+				</table>
+			</div>
+##			#parse("/common/error.vm")
+        	<!--分页-->
+        	<div class="msdn">
+        		#pageTag("/goodInfo", "plist",$page,$params)
+        	</div>
+		</div>
+	</div>
+</body>
+</html>

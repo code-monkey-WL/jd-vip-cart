@@ -11,30 +11,30 @@
     </bean>
 
     <!-- 本地缓存 -->
-    <bean id="localCachedAspect" class="com.jd.o2o.road.common.plugins.cache.aspect.impl.LocalCachedAspect"></bean>
+    <bean id="localCachedAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.LocalCachedAspect"></bean>
     <!-- redis缓存 -->
-    <bean id="jedisCache" class="com.jd.o2o.road.common.plugins.cache.aspect.impl.JimDBCache">
+    <bean id="jedisCache" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.JimDBCache">
         <property name="name" value="coupon-open"/>
         <property name="client" ref="jimClient"></property>
         <property name="maskException" value="true"></property>
     </bean>
     <!-- redis缓存 -->
-    <bean id="redisCache" class="com.jd.o2o.road.common.plugins.cache.aspect.impl.JsonCache">
+    <bean id="redisCache" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.JsonCache">
         <property name="client" ref="jimClient"></property>
         <property name="maskException" value="true"></property>
     </bean>
     <!-- 缓存切面 -->
-    <bean id="cachedAspect" class="com.jd.o2o.road.common.plugins.cache.aspect.impl.SPELCachedAspect">
+    <bean id="cachedAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.SPELCachedAspect">
         <constructor-arg index="0" value="true"></constructor-arg>
         <constructor-arg index="1" ref="jedisCache"></constructor-arg>
     </bean>
     <!-- 缓存备份切面 -->
-    <bean id="backupAspect" class="com.jd.o2o.road.common.plugins.cache.aspect.impl.BackupAspect">
+    <bean id="backupAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.BackupAspect">
         <constructor-arg index="0" value="true"></constructor-arg>
         <constructor-arg index="1" ref="jedisCache"></constructor-arg>
     </bean>
     <!-- 基于redis的分布式锁 -->
-    <bean id="lockHandler" class="com.jd.o2o.road.common.plugins.lock.impl.JimDBLockHandler">
+    <bean id="lockHandler" class="com.jd.o2o.vipcart.common.plugins.lock.impl.JimDBLockHandler">
         <property name="client" ref="jimClient"></property>
     </bean>
 

@@ -1,6 +1,6 @@
 package com.jd.o2o.vipcart.service.busi.common.depend;
 
-import com.jd.o2o.vipcart.domain.inside.common.Dictionary;
+import com.jd.o2o.vipcart.domain.entity.DictEntryEntity;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface BasicDataDependService {
      * @param dictTypeCode
      * @return
      */
-    public List<Dictionary> findDictByDictTypeCode(String dictTypeCode);
+    public List<DictEntryEntity> findDictByDictTypeCode(String dictTypeCode);
 
     /**
      * 根据字典类型编号和字典项编号获得字典项
@@ -22,5 +22,5 @@ public interface BasicDataDependService {
      * @param dictCode
      * @return
      */
-    public Dictionary findDictByDictCode(String dictTypeCode,String dictCode);
+    public DictEntryEntity findDictByDictCode(String dictTypeCode,String dictCode);
 }

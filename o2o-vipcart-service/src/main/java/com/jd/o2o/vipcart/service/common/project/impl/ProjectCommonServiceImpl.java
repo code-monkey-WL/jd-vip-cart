@@ -4,11 +4,11 @@ import com.jd.o2o.vipcart.common.domain.SoftHashMap;
 import com.jd.o2o.vipcart.common.plugins.cache.aspect.JCache;
 import com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackFactory;
 import com.jd.o2o.vipcart.common.service.id.IDGeneratorService;
-import com.jd.o2o.vipcart.service.busi.common.depend.BasicDataDependService;
-import com.jd.o2o.vipcart.service.common.project.ProjectCommonService;
 import com.jd.o2o.vipcart.dao.BaseDateTimeDAO;
 import com.jd.o2o.vipcart.domain.constant.DictTypeCodeEnum;
-import com.jd.o2o.vipcart.domain.inside.common.Dictionary;
+import com.jd.o2o.vipcart.domain.entity.DictEntryEntity;
+import com.jd.o2o.vipcart.service.busi.common.depend.BasicDataDependService;
+import com.jd.o2o.vipcart.service.common.project.ProjectCommonService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class ProjectCommonServiceImpl implements ProjectCommonService {
     private IDGeneratorService idGenerator;
     @Resource
     private IDGeneratorService registerGenerator;
-    @Resource
+    //    @Resource
     private JCache redisCache;
     // 缓存容器
     private SoftHashMap<String, Object> localCache = new SoftHashMap<String, Object>();
@@ -42,14 +42,14 @@ public class ProjectCommonServiceImpl implements ProjectCommonService {
     public void afterPropertiesSet() throws Exception {
         // 字典降级
         for (DictTypeCodeEnum dictTypeCodeEnum : DictTypeCodeEnum.values()) {
-            List<Dictionary> dictionaryList = getDictValue(dictTypeCodeEnum.getCode());
+            List<DictEntryEntity> dictionaryList = getDictValue(dictTypeCodeEnum.getCode());
             if (dictionaryList == null) {
                 continue;
             }
             String key = getDictCacheKeyByDictTypeCode(dictTypeCodeEnum.getCode());
             localCache.put(key, dictionaryList);
 //            redisCache.put(key, dictionaryList, 6 * 30 * 24 * 60 * 60);
-            for (Dictionary dictionary : dictionaryList) {
+            for (DictEntryEntity dictionary : dictionaryList) {
                 String dictKey = getDictCacheKeyByDictCode(dictTypeCodeEnum.getCode(), dictionary.getDictCode());
                 localCache.put(dictKey, dictionary.getDictName());
 //                redisCache.put(dictKey, dictionary.getDictName(), 6 * 30 * 24 * 60 * 60);
@@ -58,7 +58,7 @@ public class ProjectCommonServiceImpl implements ProjectCommonService {
     }
 
     @Override
-    public List<Dictionary> getDictValue(String dictTypeCode) {
+    public List<DictEntryEntity> getDictValue(String dictTypeCode) {
         try {
             return basicDataDependServiceImpl.findDictByDictTypeCode(dictTypeCode);
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class ProjectCommonServiceImpl implements ProjectCommonService {
     public String getDictValue(String dictTypeCode, String dictCode) {
         String value = null;
         try {
-            Dictionary dictionary = basicDataDependServiceImpl.findDictByDictCode(dictTypeCode, dictCode);
+            DictEntryEntity dictionary = basicDataDependServiceImpl.findDictByDictCode(dictTypeCode, dictCode);
             if (dictionary == null || StringUtils.isEmpty(dictionary.getDictName())) {
                 LOGGER.warn("字典类型{}中，没有配置{}对应的字典项值", dictTypeCode, dictCode);
             } else {
@@ -117,13 +117,13 @@ public class ProjectCommonServiceImpl implements ProjectCommonService {
      * @param dictTypeCode
      * @return
      */
-    private List<Dictionary> getDictValueByDictTypeCodeFromCache(String dictTypeCode) {
+    private List<DictEntryEntity> getDictValueByDictTypeCodeFromCache(String dictTypeCode) {
         String key = getDictCacheKeyByDictTypeCode(dictTypeCode);
-        List<Dictionary> dictionaryList = null;
+        List<DictEntryEntity> dictionaryList = null;
         try {
-            dictionaryList = (List<Dictionary>) localCache.get(key);
+            dictionaryList = (List<DictEntryEntity>) localCache.get(key);
             if (dictionaryList == null) {
-                dictionaryList = (List<Dictionary>) redisCache.list(key, Dictionary.class);
+                dictionaryList = (List<DictEntryEntity>) redisCache.list(key, DictEntryEntity.class);
             }
         } catch (Exception e) {
             LOGGER.error("字典类型" + key + "缓存降级失败！", e);

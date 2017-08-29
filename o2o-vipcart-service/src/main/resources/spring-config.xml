@@ -22,7 +22,7 @@
 
 
     <context:annotation-config/>
-    <context:component-scan base-package="com.jd.o2o.coupon" />
+    <context:component-scan base-package="com.jd.o2o.vipcart.dao,com.jd.o2o.vipcart.service" />
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <!-- 日志跟踪切面 -->
     <bean id="loggerTrackAspect" class="com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackAspect"></bean>

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="dict_typeMapper">
+	<resultMap id="dictTypeMap" type="com.jd.o2o.vipcart.domain.entity.DictTypeEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="dict_type_id" property="dictTypeId" jdbcType="BIGINT" javaType="Long"/>
+		<result column="app_code" property="appCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="dict_type_code" property="dictTypeCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="dict_type_name" property="dictTypeName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sort" property="sort" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_pin" property="updatePin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="yn" property="yn" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ts" property="ts" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			dict_type_id AS dictTypeId,
+			app_code AS appCode,
+			dict_type_code AS dictTypeCode,
+			dict_type_name AS dictTypeName,
+			remark AS remark,
+			sort AS sort,
+			create_time AS createTime,
+			create_pin AS createPin,
+			update_time AS updateTime,
+			update_pin AS updatePin,
+			sys_version AS sysVersion,
+			yn AS yn,
+			ts AS ts
+		FROM dict_type
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="dictTypeId != null">
+			and dict_type_id = #{dictTypeId,jdbcType=BIGINT}
+		</if>
+		<if test="appCode != null and appCode != ''">
+			and app_code = #{appCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictTypeCode != null and dictTypeCode != ''">
+			and dict_type_code = #{dictTypeCode,jdbcType=VARCHAR}
+		</if>
+		<if test="dictTypeName != null and dictTypeName != ''">
+			and dict_type_name = #{dictTypeName,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null and remark != ''">
+			and remark = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="sort != null">
+			and sort = #{sort,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createPin != null and createPin != ''">
+			and create_pin = #{createPin,jdbcType=VARCHAR}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatePin != null and updatePin != ''">
+			and update_pin = #{updatePin,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=TINYINT}
+		</if>
+		<if test="ts != null">
+			and ts = #{ts,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectDictType" parameterType="com.jd.o2o.vipcart.domain.entity.DictTypeEntity" resultMap="dictTypeMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneDictType" parameterType="java.lang.Long" resultMap="dictTypeMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countDictType" parameterType="com.jd.o2o.vipcart.domain.entity.DictTypeEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM dict_type
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertDictType" parameterType="com.jd.o2o.vipcart.domain.entity.DictTypeEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO dict_type (
+	<if test="dictTypeId != null">
+		dict_type_id,
+	</if>
+	<if test="appCode != null">
+		app_code,
+	</if>
+	<if test="dictTypeCode != null">
+		dict_type_code,
+	</if>
+	<if test="dictTypeName != null">
+		dict_type_name,
+	</if>
+	<if test="remark != null">
+		remark,
+	</if>
+	<if test="sort != null">
+		sort,
+	</if>
+	<if test="createPin != null">
+		create_pin,
+	</if>
+	<if test="updatePin != null">
+		update_pin,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="dictTypeId != null">
+    	#{dictTypeId,jdbcType=BIGINT},
+    </if>
+    <if test="appCode != null">
+    	#{appCode,jdbcType=VARCHAR},
+    </if>
+    <if test="dictTypeCode != null">
+    	#{dictTypeCode,jdbcType=VARCHAR},
+    </if>
+    <if test="dictTypeName != null">
+    	#{dictTypeName,jdbcType=VARCHAR},
+    </if>
+    <if test="remark != null">
+    	#{remark,jdbcType=VARCHAR},
+    </if>
+    <if test="sort != null">
+    	#{sort,jdbcType=INTEGER},
+    </if>
+    <if test="createPin != null">
+    	#{createPin,jdbcType=VARCHAR},
+    </if>
+    <if test="updatePin != null">
+    	#{updatePin,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=TINYINT},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertDictTypeBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO dict_type (
+		dict_type_id,
+		app_code,
+		dict_type_code,
+		dict_type_name,
+		remark,
+		sort,
+		create_pin,
+		update_pin,
+		yn,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.dictTypeId,jdbcType=BIGINT},
+		#{item.appCode,jdbcType=VARCHAR},
+		#{item.dictTypeCode,jdbcType=VARCHAR},
+		#{item.dictTypeName,jdbcType=VARCHAR},
+		#{item.remark,jdbcType=VARCHAR},
+		#{item.sort,jdbcType=INTEGER},
+		#{item.createPin,jdbcType=VARCHAR},
+		#{item.updatePin,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=TINYINT},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateDictType" parameterType="java.util.Map">
+		UPDATE dict_type
+		<set>
+    	<if test="dictTypeId != null">
+            dict_type_id = #{dictTypeId,jdbcType=BIGINT},
+    	</if>
+    	<if test="appCode != null">
+            app_code = #{appCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="dictTypeCode != null">
+            dict_type_code = #{dictTypeCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="dictTypeName != null">
+            dict_type_name = #{dictTypeName,jdbcType=VARCHAR},
+    	</if>
+    	<if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+    	</if>
+    	<if test="sort != null">
+            sort = #{sort,jdbcType=INTEGER},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="createPin != null">
+            create_pin = #{createPin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updatePin != null">
+            update_pin = #{updatePin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=TINYINT},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateDictTypeBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update dict_type 
+		<set>
+		<if test="item.dictTypeId != null">
+			dict_type_id = #{item.dictTypeId,jdbcType=BIGINT},
+		</if>
+		<if test="item.appCode != null">
+			app_code = #{item.appCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.dictTypeCode != null">
+			dict_type_code = #{item.dictTypeCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.dictTypeName != null">
+			dict_type_name = #{item.dictTypeName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.remark != null">
+			remark = #{item.remark,jdbcType=VARCHAR},
+		</if>
+		<if test="item.sort != null">
+			sort = #{item.sort,jdbcType=INTEGER},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.createPin != null">
+			create_pin = #{item.createPin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.updatePin != null">
+			update_pin = #{item.updatePin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=TINYINT},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteDictType" parameterType="com.jd.o2o.vipcart.domain.entity.DictTypeEntity">
+		DELETE FROM dict_type
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneDictType" parameterType="java.lang.Long">
+		DELETE FROM dict_type
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

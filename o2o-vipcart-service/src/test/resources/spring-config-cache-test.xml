@@ -22,11 +22,11 @@
         <!--<constructor-arg index="1" ref="redisCache"></constructor-arg>-->
     <!--</bean>-->
     <!-- 线程池工厂 -->
-    <!--<bean id="threadPoolFactory" class="com.jd.o2o.road.common.plugins.thread.ThreadPoolFactory"></bean>-->
+    <!--<bean id="threadPoolFactory" class="com.jd.o2o.vipcart.common.plugins.thread.ThreadPoolFactory"></bean>-->
     <!-- 重要日志存库切面 -->
     <bean id="loggableAspect" class="com.jd.o2o.vipcart.common.plugins.log.impl.LoggableAspect"></bean>
     <!-- 基于redis的分布式锁 -->
-    <!--<bean id="lockHandler" class="com.jd.o2o.road.common.plugins.lock.impl.JimDBLockHandler">-->
+    <!--<bean id="lockHandler" class="com.jd.o2o.vipcart.common.plugins.lock.impl.JimDBLockHandler">-->
         <!--<property name="client" ref="jimClient"></property>-->
     <!--</bean>-->
 </beans>

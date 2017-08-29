@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="user_infoMapper">
+	<resultMap id="userInfoMap" type="com.jd.o2o.vipcart.domain.entity.UserInfoEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="user_id" property="userId" jdbcType="BIGINT" javaType="Long"/>
+		<result column="login_name" property="loginName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="login_password" property="loginPassword" jdbcType="VARCHAR" javaType="String"/>
+		<result column="salt_code" property="saltCode" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="cn" property="cn" jdbcType="VARCHAR" javaType="String"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR" javaType="String"/>
+		<result column="email" property="email" jdbcType="VARCHAR" javaType="String"/>
+		<result column="wei_xin_id" property="weiXinId" jdbcType="VARCHAR" javaType="String"/>
+		<result column="status" property="status" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="login_fail_count" property="loginFailCount" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR" javaType="String"/>
+		<result column="register_source" property="registerSource" jdbcType="VARCHAR" javaType="String"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_pin" property="updatePin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="yn" property="yn" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ts" property="ts" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			user_id AS userId,
+			login_name AS loginName,
+			login_password AS loginPassword,
+			salt_code AS saltCode,
+			cn AS cn,
+			phone AS phone,
+			email AS email,
+			wei_xin_id AS weiXinId,
+			status AS status,
+			last_login_time AS lastLoginTime,
+			login_fail_count AS loginFailCount,
+			remark AS remark,
+			register_source AS registerSource,
+			create_time AS createTime,
+			create_pin AS createPin,
+			update_time AS updateTime,
+			update_pin AS updatePin,
+			sys_version AS sysVersion,
+			yn AS yn,
+			ts AS ts
+		FROM user_info
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="userId != null">
+			and user_id = #{userId,jdbcType=BIGINT}
+		</if>
+		<if test="loginName != null and loginName != ''">
+			and login_name = #{loginName,jdbcType=VARCHAR}
+		</if>
+		<if test="loginPassword != null and loginPassword != ''">
+			and login_password = #{loginPassword,jdbcType=VARCHAR}
+		</if>
+		<if test="saltCode != null">
+			and salt_code = #{saltCode,jdbcType=INTEGER}
+		</if>
+		<if test="cn != null and cn != ''">
+			and cn = #{cn,jdbcType=VARCHAR}
+		</if>
+		<if test="phone != null and phone != ''">
+			and phone = #{phone,jdbcType=VARCHAR}
+		</if>
+		<if test="email != null and email != ''">
+			and email = #{email,jdbcType=VARCHAR}
+		</if>
+		<if test="weiXinId != null and weiXinId != ''">
+			and wei_xin_id = #{weiXinId,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			and status = #{status,jdbcType=TINYINT}
+		</if>
+		<if test="lastLoginTime != null">
+			and last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="loginFailCount != null">
+			and login_fail_count = #{loginFailCount,jdbcType=INTEGER}
+		</if>
+		<if test="remark != null and remark != ''">
+			and remark = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="registerSource != null and registerSource != ''">
+			and register_source = #{registerSource,jdbcType=VARCHAR}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createPin != null and createPin != ''">
+			and create_pin = #{createPin,jdbcType=VARCHAR}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatePin != null and updatePin != ''">
+			and update_pin = #{updatePin,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=TINYINT}
+		</if>
+		<if test="ts != null">
+			and ts = #{ts,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectUserInfo" parameterType="com.jd.o2o.vipcart.domain.entity.UserInfoEntity" resultMap="userInfoMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneUserInfo" parameterType="java.lang.Long" resultMap="userInfoMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countUserInfo" parameterType="com.jd.o2o.vipcart.domain.entity.UserInfoEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM user_info
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertUserInfo" parameterType="com.jd.o2o.vipcart.domain.entity.UserInfoEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO user_info (
+	<if test="userId != null">
+		user_id,
+	</if>
+	<if test="loginName != null">
+		login_name,
+	</if>
+	<if test="loginPassword != null">
+		login_password,
+	</if>
+	<if test="saltCode != null">
+		salt_code,
+	</if>
+	<if test="cn != null">
+		cn,
+	</if>
+	<if test="phone != null">
+		phone,
+	</if>
+	<if test="email != null">
+		email,
+	</if>
+	<if test="weiXinId != null">
+		wei_xin_id,
+	</if>
+	<if test="status != null">
+		status,
+	</if>
+	<if test="lastLoginTime != null">
+		last_login_time,
+	</if>
+	<if test="loginFailCount != null">
+		login_fail_count,
+	</if>
+	<if test="remark != null">
+		remark,
+	</if>
+	<if test="registerSource != null">
+		register_source,
+	</if>
+	<if test="createPin != null">
+		create_pin,
+	</if>
+	<if test="updatePin != null">
+		update_pin,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="userId != null">
+    	#{userId,jdbcType=BIGINT},
+    </if>
+    <if test="loginName != null">
+    	#{loginName,jdbcType=VARCHAR},
+    </if>
+    <if test="loginPassword != null">
+    	#{loginPassword,jdbcType=VARCHAR},
+    </if>
+    <if test="saltCode != null">
+    	#{saltCode,jdbcType=INTEGER},
+    </if>
+    <if test="cn != null">
+    	#{cn,jdbcType=VARCHAR},
+    </if>
+    <if test="phone != null">
+    	#{phone,jdbcType=VARCHAR},
+    </if>
+    <if test="email != null">
+    	#{email,jdbcType=VARCHAR},
+    </if>
+    <if test="weiXinId != null">
+    	#{weiXinId,jdbcType=VARCHAR},
+    </if>
+    <if test="status != null">
+    	#{status,jdbcType=TINYINT},
+    </if>
+    <if test="lastLoginTime != null">
+    	#{lastLoginTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="loginFailCount != null">
+    	#{loginFailCount,jdbcType=INTEGER},
+    </if>
+    <if test="remark != null">
+    	#{remark,jdbcType=VARCHAR},
+    </if>
+    <if test="registerSource != null">
+    	#{registerSource,jdbcType=VARCHAR},
+    </if>
+    <if test="createPin != null">
+    	#{createPin,jdbcType=VARCHAR},
+    </if>
+    <if test="updatePin != null">
+    	#{updatePin,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=TINYINT},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertUserInfoBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO user_info (
+		user_id,
+		login_name,
+		login_password,
+		salt_code,
+		cn,
+		phone,
+		email,
+		wei_xin_id,
+		status,
+		last_login_time,
+		login_fail_count,
+		remark,
+		register_source,
+		create_pin,
+		update_pin,
+		yn,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.userId,jdbcType=BIGINT},
+		#{item.loginName,jdbcType=VARCHAR},
+		#{item.loginPassword,jdbcType=VARCHAR},
+		#{item.saltCode,jdbcType=INTEGER},
+		#{item.cn,jdbcType=VARCHAR},
+		#{item.phone,jdbcType=VARCHAR},
+		#{item.email,jdbcType=VARCHAR},
+		#{item.weiXinId,jdbcType=VARCHAR},
+		#{item.status,jdbcType=TINYINT},
+		#{item.lastLoginTime,jdbcType=TIMESTAMP},
+		#{item.loginFailCount,jdbcType=INTEGER},
+		#{item.remark,jdbcType=VARCHAR},
+		#{item.registerSource,jdbcType=VARCHAR},
+		#{item.createPin,jdbcType=VARCHAR},
+		#{item.updatePin,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=TINYINT},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateUserInfo" parameterType="java.util.Map">
+		UPDATE user_info
+		<set>
+    	<if test="userId != null">
+            user_id = #{userId,jdbcType=BIGINT},
+    	</if>
+    	<if test="loginName != null">
+            login_name = #{loginName,jdbcType=VARCHAR},
+    	</if>
+    	<if test="loginPassword != null">
+            login_password = #{loginPassword,jdbcType=VARCHAR},
+    	</if>
+    	<if test="saltCode != null">
+            salt_code = #{saltCode,jdbcType=INTEGER},
+    	</if>
+    	<if test="cn != null">
+            cn = #{cn,jdbcType=VARCHAR},
+    	</if>
+    	<if test="phone != null">
+            phone = #{phone,jdbcType=VARCHAR},
+    	</if>
+    	<if test="email != null">
+            email = #{email,jdbcType=VARCHAR},
+    	</if>
+    	<if test="weiXinId != null">
+            wei_xin_id = #{weiXinId,jdbcType=VARCHAR},
+    	</if>
+    	<if test="status != null">
+            status = #{status,jdbcType=TINYINT},
+    	</if>
+    	<if test="lastLoginTime != null">
+            last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="loginFailCount != null">
+            login_fail_count = #{loginFailCount,jdbcType=INTEGER},
+    	</if>
+    	<if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+    	</if>
+    	<if test="registerSource != null">
+            register_source = #{registerSource,jdbcType=VARCHAR},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="createPin != null">
+            create_pin = #{createPin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updatePin != null">
+            update_pin = #{updatePin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=TINYINT},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateUserInfoBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update user_info 
+		<set>
+		<if test="item.userId != null">
+			user_id = #{item.userId,jdbcType=BIGINT},
+		</if>
+		<if test="item.loginName != null">
+			login_name = #{item.loginName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.loginPassword != null">
+			login_password = #{item.loginPassword,jdbcType=VARCHAR},
+		</if>
+		<if test="item.saltCode != null">
+			salt_code = #{item.saltCode,jdbcType=INTEGER},
+		</if>
+		<if test="item.cn != null">
+			cn = #{item.cn,jdbcType=VARCHAR},
+		</if>
+		<if test="item.phone != null">
+			phone = #{item.phone,jdbcType=VARCHAR},
+		</if>
+		<if test="item.email != null">
+			email = #{item.email,jdbcType=VARCHAR},
+		</if>
+		<if test="item.weiXinId != null">
+			wei_xin_id = #{item.weiXinId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.status != null">
+			status = #{item.status,jdbcType=TINYINT},
+		</if>
+		<if test="item.lastLoginTime != null">
+			last_login_time = #{item.lastLoginTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.loginFailCount != null">
+			login_fail_count = #{item.loginFailCount,jdbcType=INTEGER},
+		</if>
+		<if test="item.remark != null">
+			remark = #{item.remark,jdbcType=VARCHAR},
+		</if>
+		<if test="item.registerSource != null">
+			register_source = #{item.registerSource,jdbcType=VARCHAR},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.createPin != null">
+			create_pin = #{item.createPin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.updatePin != null">
+			update_pin = #{item.updatePin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=TINYINT},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteUserInfo" parameterType="com.jd.o2o.vipcart.domain.entity.UserInfoEntity">
+		DELETE FROM user_info
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneUserInfo" parameterType="java.lang.Long">
+		DELETE FROM user_info
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

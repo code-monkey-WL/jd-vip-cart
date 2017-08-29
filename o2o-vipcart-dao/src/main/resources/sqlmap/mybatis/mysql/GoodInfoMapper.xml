@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="good_infoMapper">
+	<resultMap id="goodInfoMap" type="com.jd.o2o.vipcart.domain.entity.GoodInfoEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="sku_id" property="skuId" jdbcType="VARCHAR" javaType="String"/>
+		<result column="out_sku_code" property="outSkuCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sku_code" property="skuCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sku_name" property="skuName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sku_desc" property="skuDesc" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sku_summary" property="skuSummary" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sku_price" property="skuPrice" jdbcType="BIGINT" javaType="Long"/>
+		<result column="origin_price" property="originPrice" jdbcType="BIGINT" javaType="Long"/>
+		<result column="promotion_summary" property="promotionSummary" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sku_link" property="skuLink" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sku_img" property="skuImg" jdbcType="VARCHAR" javaType="String"/>
+		<result column="from_source" property="fromSource" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="category_code" property="categoryCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="full_category_code" property="fullCategoryCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="brand_code" property="brandCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="org_code" property="orgCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="stock_type" property="stockType" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="stock_num" property="stockNum" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="comment_num" property="commentNum" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="grab_time" property="grabTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="sku_status" property="skuStatus" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ext" property="ext" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sort" property="sort" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_pin" property="updatePin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="yn" property="yn" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ts" property="ts" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			sku_id AS skuId,
+			out_sku_code AS outSkuCode,
+			sku_code AS skuCode,
+			sku_name AS skuName,
+			sku_desc AS skuDesc,
+			sku_summary AS skuSummary,
+			sku_price AS skuPrice,
+			origin_price AS originPrice,
+			promotion_summary AS promotionSummary,
+			sku_link AS skuLink,
+			sku_img AS skuImg,
+			from_source AS fromSource,
+			category_code AS categoryCode,
+			full_category_code AS fullCategoryCode,
+			brand_code AS brandCode,
+			org_code AS orgCode,
+			stock_type AS stockType,
+			stock_num AS stockNum,
+			comment_num AS commentNum,
+			grab_time AS grabTime,
+			sku_status AS skuStatus,
+			ext AS ext,
+			sort AS sort,
+			create_time AS createTime,
+			create_pin AS createPin,
+			update_time AS updateTime,
+			update_pin AS updatePin,
+			sys_version AS sysVersion,
+			yn AS yn,
+			ts AS ts
+		FROM good_info
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="skuId != null and skuId != ''">
+			and sku_id = #{skuId,jdbcType=VARCHAR}
+		</if>
+		<if test="outSkuCode != null and outSkuCode != ''">
+			and out_sku_code = #{outSkuCode,jdbcType=VARCHAR}
+		</if>
+		<if test="skuCode != null and skuCode != ''">
+			and sku_code = #{skuCode,jdbcType=VARCHAR}
+		</if>
+		<if test="skuName != null and skuName != ''">
+			and sku_name = #{skuName,jdbcType=VARCHAR}
+		</if>
+		<if test="skuDesc != null and skuDesc != ''">
+			and sku_desc = #{skuDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="skuSummary != null and skuSummary != ''">
+			and sku_summary = #{skuSummary,jdbcType=VARCHAR}
+		</if>
+		<if test="skuPrice != null">
+			and sku_price = #{skuPrice,jdbcType=BIGINT}
+		</if>
+		<if test="originPrice != null">
+			and origin_price = #{originPrice,jdbcType=BIGINT}
+		</if>
+		<if test="promotionSummary != null and promotionSummary != ''">
+			and promotion_summary = #{promotionSummary,jdbcType=VARCHAR}
+		</if>
+		<if test="skuLink != null and skuLink != ''">
+			and sku_link = #{skuLink,jdbcType=VARCHAR}
+		</if>
+		<if test="skuImg != null and skuImg != ''">
+			and sku_img = #{skuImg,jdbcType=VARCHAR}
+		</if>
+		<if test="fromSource != null">
+			and from_source = #{fromSource,jdbcType=INTEGER}
+		</if>
+		<if test="categoryCode != null and categoryCode != ''">
+			and category_code = #{categoryCode,jdbcType=VARCHAR}
+		</if>
+		<if test="fullCategoryCode != null and fullCategoryCode != ''">
+			and full_category_code = #{fullCategoryCode,jdbcType=VARCHAR}
+		</if>
+		<if test="brandCode != null and brandCode != ''">
+			and brand_code = #{brandCode,jdbcType=VARCHAR}
+		</if>
+		<if test="orgCode != null and orgCode != ''">
+			and org_code = #{orgCode,jdbcType=VARCHAR}
+		</if>
+		<if test="stockType != null">
+			and stock_type = #{stockType,jdbcType=TINYINT}
+		</if>
+		<if test="stockNum != null">
+			and stock_num = #{stockNum,jdbcType=INTEGER}
+		</if>
+		<if test="commentNum != null">
+			and comment_num = #{commentNum,jdbcType=INTEGER}
+		</if>
+		<if test="grabTime != null">
+			and grab_time = #{grabTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="skuStatus != null">
+			and sku_status = #{skuStatus,jdbcType=TINYINT}
+		</if>
+		<if test="ext != null and ext != ''">
+			and ext = #{ext,jdbcType=VARCHAR}
+		</if>
+		<if test="sort != null">
+			and sort = #{sort,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createPin != null and createPin != ''">
+			and create_pin = #{createPin,jdbcType=VARCHAR}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatePin != null and updatePin != ''">
+			and update_pin = #{updatePin,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=TINYINT}
+		</if>
+		<if test="ts != null">
+			and ts = #{ts,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectGoodInfo" parameterType="com.jd.o2o.vipcart.domain.entity.GoodInfoEntity" resultMap="goodInfoMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneGoodInfo" parameterType="java.lang.Long" resultMap="goodInfoMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countGoodInfo" parameterType="com.jd.o2o.vipcart.domain.entity.GoodInfoEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM good_info
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertGoodInfo" parameterType="com.jd.o2o.vipcart.domain.entity.GoodInfoEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO good_info (
+	<if test="skuId != null">
+		sku_id,
+	</if>
+	<if test="outSkuCode != null">
+		out_sku_code,
+	</if>
+	<if test="skuCode != null">
+		sku_code,
+	</if>
+	<if test="skuName != null">
+		sku_name,
+	</if>
+	<if test="skuDesc != null">
+		sku_desc,
+	</if>
+	<if test="skuSummary != null">
+		sku_summary,
+	</if>
+	<if test="skuPrice != null">
+		sku_price,
+	</if>
+	<if test="originPrice != null">
+		origin_price,
+	</if>
+	<if test="promotionSummary != null">
+		promotion_summary,
+	</if>
+	<if test="skuLink != null">
+		sku_link,
+	</if>
+	<if test="skuImg != null">
+		sku_img,
+	</if>
+	<if test="fromSource != null">
+		from_source,
+	</if>
+	<if test="categoryCode != null">
+		category_code,
+	</if>
+	<if test="fullCategoryCode != null">
+		full_category_code,
+	</if>
+	<if test="brandCode != null">
+		brand_code,
+	</if>
+	<if test="orgCode != null">
+		org_code,
+	</if>
+	<if test="stockType != null">
+		stock_type,
+	</if>
+	<if test="stockNum != null">
+		stock_num,
+	</if>
+	<if test="commentNum != null">
+		comment_num,
+	</if>
+	<if test="grabTime != null">
+		grab_time,
+	</if>
+	<if test="skuStatus != null">
+		sku_status,
+	</if>
+	<if test="ext != null">
+		ext,
+	</if>
+	<if test="sort != null">
+		sort,
+	</if>
+	<if test="createPin != null">
+		create_pin,
+	</if>
+	<if test="updatePin != null">
+		update_pin,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="skuId != null">
+    	#{skuId,jdbcType=VARCHAR},
+    </if>
+    <if test="outSkuCode != null">
+    	#{outSkuCode,jdbcType=VARCHAR},
+    </if>
+    <if test="skuCode != null">
+    	#{skuCode,jdbcType=VARCHAR},
+    </if>
+    <if test="skuName != null">
+    	#{skuName,jdbcType=VARCHAR},
+    </if>
+    <if test="skuDesc != null">
+    	#{skuDesc,jdbcType=VARCHAR},
+    </if>
+    <if test="skuSummary != null">
+    	#{skuSummary,jdbcType=VARCHAR},
+    </if>
+    <if test="skuPrice != null">
+    	#{skuPrice,jdbcType=BIGINT},
+    </if>
+    <if test="originPrice != null">
+    	#{originPrice,jdbcType=BIGINT},
+    </if>
+    <if test="promotionSummary != null">
+    	#{promotionSummary,jdbcType=VARCHAR},
+    </if>
+    <if test="skuLink != null">
+    	#{skuLink,jdbcType=VARCHAR},
+    </if>
+    <if test="skuImg != null">
+    	#{skuImg,jdbcType=VARCHAR},
+    </if>
+    <if test="fromSource != null">
+    	#{fromSource,jdbcType=INTEGER},
+    </if>
+    <if test="categoryCode != null">
+    	#{categoryCode,jdbcType=VARCHAR},
+    </if>
+    <if test="fullCategoryCode != null">
+    	#{fullCategoryCode,jdbcType=VARCHAR},
+    </if>
+    <if test="brandCode != null">
+    	#{brandCode,jdbcType=VARCHAR},
+    </if>
+    <if test="orgCode != null">
+    	#{orgCode,jdbcType=VARCHAR},
+    </if>
+    <if test="stockType != null">
+    	#{stockType,jdbcType=TINYINT},
+    </if>
+    <if test="stockNum != null">
+    	#{stockNum,jdbcType=INTEGER},
+    </if>
+    <if test="commentNum != null">
+    	#{commentNum,jdbcType=INTEGER},
+    </if>
+    <if test="grabTime != null">
+    	#{grabTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="skuStatus != null">
+    	#{skuStatus,jdbcType=TINYINT},
+    </if>
+    <if test="ext != null">
+    	#{ext,jdbcType=VARCHAR},
+    </if>
+    <if test="sort != null">
+    	#{sort,jdbcType=INTEGER},
+    </if>
+    <if test="createPin != null">
+    	#{createPin,jdbcType=VARCHAR},
+    </if>
+    <if test="updatePin != null">
+    	#{updatePin,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=TINYINT},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertGoodInfoBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO good_info (
+		sku_id,
+		out_sku_code,
+		sku_code,
+		sku_name,
+		sku_desc,
+		sku_summary,
+		sku_price,
+		origin_price,
+		promotion_summary,
+		sku_link,
+		sku_img,
+		from_source,
+		category_code,
+		full_category_code,
+		brand_code,
+		org_code,
+		stock_type,
+		stock_num,
+		comment_num,
+		grab_time,
+		sku_status,
+		ext,
+		sort,
+		create_pin,
+		update_pin,
+		yn,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.skuId,jdbcType=VARCHAR},
+		#{item.outSkuCode,jdbcType=VARCHAR},
+		#{item.skuCode,jdbcType=VARCHAR},
+		#{item.skuName,jdbcType=VARCHAR},
+		#{item.skuDesc,jdbcType=VARCHAR},
+		#{item.skuSummary,jdbcType=VARCHAR},
+		#{item.skuPrice,jdbcType=BIGINT},
+		#{item.originPrice,jdbcType=BIGINT},
+		#{item.promotionSummary,jdbcType=VARCHAR},
+		#{item.skuLink,jdbcType=VARCHAR},
+		#{item.skuImg,jdbcType=VARCHAR},
+		#{item.fromSource,jdbcType=INTEGER},
+		#{item.categoryCode,jdbcType=VARCHAR},
+		#{item.fullCategoryCode,jdbcType=VARCHAR},
+		#{item.brandCode,jdbcType=VARCHAR},
+		#{item.orgCode,jdbcType=VARCHAR},
+		#{item.stockType,jdbcType=TINYINT},
+		#{item.stockNum,jdbcType=INTEGER},
+		#{item.commentNum,jdbcType=INTEGER},
+		#{item.grabTime,jdbcType=TIMESTAMP},
+		#{item.skuStatus,jdbcType=TINYINT},
+		#{item.ext,jdbcType=VARCHAR},
+		#{item.sort,jdbcType=INTEGER},
+		#{item.createPin,jdbcType=VARCHAR},
+		#{item.updatePin,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=TINYINT},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateGoodInfo" parameterType="java.util.Map">
+		UPDATE good_info
+		<set>
+    	<if test="skuId != null">
+            sku_id = #{skuId,jdbcType=VARCHAR},
+    	</if>
+    	<if test="outSkuCode != null">
+            out_sku_code = #{outSkuCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="skuCode != null">
+            sku_code = #{skuCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="skuName != null">
+            sku_name = #{skuName,jdbcType=VARCHAR},
+    	</if>
+    	<if test="skuDesc != null">
+            sku_desc = #{skuDesc,jdbcType=VARCHAR},
+    	</if>
+    	<if test="skuSummary != null">
+            sku_summary = #{skuSummary,jdbcType=VARCHAR},
+    	</if>
+    	<if test="skuPrice != null">
+            sku_price = #{skuPrice,jdbcType=BIGINT},
+    	</if>
+    	<if test="originPrice != null">
+            origin_price = #{originPrice,jdbcType=BIGINT},
+    	</if>
+    	<if test="promotionSummary != null">
+            promotion_summary = #{promotionSummary,jdbcType=VARCHAR},
+    	</if>
+    	<if test="skuLink != null">
+            sku_link = #{skuLink,jdbcType=VARCHAR},
+    	</if>
+    	<if test="skuImg != null">
+            sku_img = #{skuImg,jdbcType=VARCHAR},
+    	</if>
+    	<if test="fromSource != null">
+            from_source = #{fromSource,jdbcType=INTEGER},
+    	</if>
+    	<if test="categoryCode != null">
+            category_code = #{categoryCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="fullCategoryCode != null">
+            full_category_code = #{fullCategoryCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="brandCode != null">
+            brand_code = #{brandCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="orgCode != null">
+            org_code = #{orgCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="stockType != null">
+            stock_type = #{stockType,jdbcType=TINYINT},
+    	</if>
+    	<if test="stockNum != null">
+            stock_num = #{stockNum,jdbcType=INTEGER},
+    	</if>
+    	<if test="commentNum != null">
+            comment_num = #{commentNum,jdbcType=INTEGER},
+    	</if>
+    	<if test="grabTime != null">
+            grab_time = #{grabTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="skuStatus != null">
+            sku_status = #{skuStatus,jdbcType=TINYINT},
+    	</if>
+    	<if test="ext != null">
+            ext = #{ext,jdbcType=VARCHAR},
+    	</if>
+    	<if test="sort != null">
+            sort = #{sort,jdbcType=INTEGER},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="createPin != null">
+            create_pin = #{createPin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updatePin != null">
+            update_pin = #{updatePin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=TINYINT},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateGoodInfoBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update good_info 
+		<set>
+		<if test="item.skuId != null">
+			sku_id = #{item.skuId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.outSkuCode != null">
+			out_sku_code = #{item.outSkuCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuCode != null">
+			sku_code = #{item.skuCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuName != null">
+			sku_name = #{item.skuName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuDesc != null">
+			sku_desc = #{item.skuDesc,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuSummary != null">
+			sku_summary = #{item.skuSummary,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuPrice != null">
+			sku_price = #{item.skuPrice,jdbcType=BIGINT},
+		</if>
+		<if test="item.originPrice != null">
+			origin_price = #{item.originPrice,jdbcType=BIGINT},
+		</if>
+		<if test="item.promotionSummary != null">
+			promotion_summary = #{item.promotionSummary,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuLink != null">
+			sku_link = #{item.skuLink,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuImg != null">
+			sku_img = #{item.skuImg,jdbcType=VARCHAR},
+		</if>
+		<if test="item.fromSource != null">
+			from_source = #{item.fromSource,jdbcType=INTEGER},
+		</if>
+		<if test="item.categoryCode != null">
+			category_code = #{item.categoryCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.fullCategoryCode != null">
+			full_category_code = #{item.fullCategoryCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.brandCode != null">
+			brand_code = #{item.brandCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.orgCode != null">
+			org_code = #{item.orgCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.stockType != null">
+			stock_type = #{item.stockType,jdbcType=TINYINT},
+		</if>
+		<if test="item.stockNum != null">
+			stock_num = #{item.stockNum,jdbcType=INTEGER},
+		</if>
+		<if test="item.commentNum != null">
+			comment_num = #{item.commentNum,jdbcType=INTEGER},
+		</if>
+		<if test="item.grabTime != null">
+			grab_time = #{item.grabTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.skuStatus != null">
+			sku_status = #{item.skuStatus,jdbcType=TINYINT},
+		</if>
+		<if test="item.ext != null">
+			ext = #{item.ext,jdbcType=VARCHAR},
+		</if>
+		<if test="item.sort != null">
+			sort = #{item.sort,jdbcType=INTEGER},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.createPin != null">
+			create_pin = #{item.createPin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.updatePin != null">
+			update_pin = #{item.updatePin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=TINYINT},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteGoodInfo" parameterType="com.jd.o2o.vipcart.domain.entity.GoodInfoEntity">
+		DELETE FROM good_info
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneGoodInfo" parameterType="java.lang.Long">
+		DELETE FROM good_info
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

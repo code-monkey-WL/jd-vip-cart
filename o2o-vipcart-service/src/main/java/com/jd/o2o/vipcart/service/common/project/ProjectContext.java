@@ -3,7 +3,7 @@ package com.jd.o2o.vipcart.service.common.project;
 import com.jd.o2o.vipcart.common.plugins.cache.aspect.JCache;
 import com.jd.o2o.vipcart.common.utils.BeanHelper;
 import com.jd.o2o.vipcart.common.utils.json.JsonUtils;
-import com.jd.o2o.vipcart.domain.inside.common.Dictionary;
+import com.jd.o2o.vipcart.domain.entity.DictEntryEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -96,33 +96,36 @@ public class ProjectContext implements ApplicationContextAware {
      * @param dictTypeCode
      * @return
      */
-    public static List<Dictionary> getDictValue(String dictTypeCode) {
+    public static List<DictEntryEntity> getDictValue(String dictTypeCode) {
         return projectCommonServiceImpl.getDictValue(dictTypeCode);
     }
 
     /**
      * 获得缓存对象
+     *
      * @return
      */
-    public static JCache getCache(){
+    public static JCache getCache() {
         return redisCache;
     }
 
     /**
      * 业务序列生成
+     *
      * @param sequenceKey
      * @return
      */
-    public static long nextSequence(String sequenceKey){
+    public static long nextSequence(String sequenceKey) {
         return projectCommonServiceImpl.nextSequence(sequenceKey);
     }
 
     /**
      * 生成长序列号
+     *
      * @param sequenceKey
      * @return
      */
-    public static long nextLongSequence(String sequenceKey){
+    public static long nextLongSequence(String sequenceKey) {
         return projectCommonServiceImpl.nextLongSequence(sequenceKey);
     }
 

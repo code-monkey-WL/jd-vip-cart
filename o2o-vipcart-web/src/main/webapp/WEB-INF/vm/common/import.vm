@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="#springUrl('')/static/css/page.css?v=$!{iversion}" charset="utf-8"/>
 
 <script type="text/javascript" src="#springUrl('')/static/plugins/jquery.js?v=$!{iversion}"></script>
-<script type="text/javascript" src="#springUrl('')/static/js/plugin.js?v=$!{iversion}"></script>
+<script type="text/javascript" src="#springUrl('')/static/plugins/plugin.js?v=$!{iversion}"></script>
 <script type="text/javascript" src="#springUrl('')/static/plugins/$!{itheme}/js/bootstrap.min.js?v=$!{iversion}"></script>
 <script type="text/javascript" src="#springUrl('')/static/plugins/$!{itheme}/js/bootbox.min.js?v=$!{iversion}"></script>
 <script type="text/javascript" src="#springUrl('')/static/plugins/$!{itheme}/js/tabs.js?v=$!{iversion}"></script>

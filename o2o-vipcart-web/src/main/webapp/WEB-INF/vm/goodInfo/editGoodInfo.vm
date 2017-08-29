@@ -1,0 +1,79 @@
+###parse("/common/error.vm")
+#set($result=${result.result})
+<div id="goodInfoInputDiv" v="goodInfo">
+    <div id="operation">
+    	<form method="post" id="goodInfoInputForm" name="goodInfoInputForm" action="">
+    		<div id="operation_table">
+    			<div class="title"><div class="text">输入区域</div></div>
+    			<div class="input">
+    				<table>
+    					<tr>
+	    				    <th>id</th>
+	    				    <td><input id="id" name="id" type="text" value="$!{result.id}"  readonly="readonly" class="input_disabled"   maxLength=19 /></td>
+	    				    <th>商品编号</th>
+	    				    <td><input id="skuId" name="skuId" type="text" value="$!{result.skuId}"  class="required"   maxLength=64 /></td>
+	    				    <th>第三方商品编码</th>
+	    				    <td><input id="outSkuCode" name="outSkuCode" type="text" value="$!{result.outSkuCode}"  class="required"   maxLength=64 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>商品编码</th>
+	    				    <td><input id="skuCode" name="skuCode" type="text" value="$!{result.skuCode}"  class="required"   maxLength=64 /></td>
+	    				    <th>商品名称</th>
+	    				    <td><input id="skuName" name="skuName" type="text" value="$!{result.skuName}"  class="required"   maxLength=256 /></td>
+	    				    <th>商品说明</th>
+	    				    <td><input id="skuDesc" name="skuDesc" type="text" value="$!{result.skuDesc}"  class="required"   maxLength=512 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>商品摘要</th>
+	    				    <td><input id="skuSummary" name="skuSummary" type="text" value="$!{result.skuSummary}"  class="required"   maxLength=512 /></td>
+	    				    <th>价格</th>
+	    				    <td><input id="skuPrice" name="skuPrice" type="text" value="$!{result.skuPrice}"  class="required"   maxLength=19 /></td>
+	    				    <th>原价格</th>
+	    				    <td><input id="originPrice" name="originPrice" type="text" value="$!{result.originPrice}"  class="required"   maxLength=19 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>促销摘要</th>
+	    				    <td><input id="promotionSummary" name="promotionSummary" type="text" value="$!{result.promotionSummary}"  class="required"   maxLength=128 /></td>
+	    				    <th>商品原链接</th>
+	    				    <td><input id="skuLink" name="skuLink" type="text" value="$!{result.skuLink}"  class="required"   maxLength=256 /></td>
+	    				    <th>商品图片</th>
+	    				    <td><input id="skuImg" name="skuImg" type="text" value="$!{result.skuImg}"  class="required"   maxLength=256 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>商品来源 1:jd 2:tmall</th>
+	    				    <td><input id="fromSource" name="fromSource" type="text" value="$!{result.fromSource}"  class="required"   maxLength=10 /></td>
+	    				    <th>类目编码</th>
+	    				    <td><input id="categoryCode" name="categoryCode" type="text" value="$!{result.categoryCode}"  class="required"   maxLength=64 /></td>
+	    				    <th>全路径类目编码逗号隔开</th>
+	    				    <td><input id="fullCategoryCode" name="fullCategoryCode" type="text" value="$!{result.fullCategoryCode}"  class="required"   maxLength=256 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>品牌编号</th>
+	    				    <td><input id="brandCode" name="brandCode" type="text" value="$!{result.brandCode}"  class="required"   maxLength=64 /></td>
+	    				    <th>商家编号</th>
+	    				    <td><input id="orgCode" name="orgCode" type="text" value="$!{result.orgCode}"  class="required"   maxLength=64 /></td>
+	    				    <th>库存标记类型 0:数量 1:百分比</th>
+	    				    <td><input id="stockType" name="stockType" type="text" value="$!{result.stockType}"  class="required"   maxLength=3 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>库存量</th>
+	    				    <td><input id="stockNum" name="stockNum" type="text" value="$!{result.stockNum}"  class="required"   maxLength=10 /></td>
+	    				    <th>评论数量</th>
+	    				    <td><input id="commentNum" name="commentNum" type="text" value="$!{result.commentNum}"  class="required"   maxLength=10 /></td>
+	    				    <th>抓取时间</th>
+	    				    <td><input id="grabTime" name="grabTime" type="text" value="$!{result.grabTime}"  class="required"   maxLength=19 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>商品状态 0:上架 2:下架</th>
+	    				    <td><input id="skuStatus" name="skuStatus" type="text" value="$!{result.skuStatus}"  class="required"   maxLength=3 /></td>
+	    				    <th>扩展字段</th>
+	    				    <td><input id="ext" name="ext" type="text" value="$!{result.ext}"  class="required"   maxLength=1024 /></td>
+	    				    <th>排序</th>
+	    				    <td><input id="sort" name="sort" type="text" value="$!{result.sort}"  class="required"   maxLength=10 /></td>
+    					</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

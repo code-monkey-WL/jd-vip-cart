@@ -10,21 +10,19 @@
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
 	default-autowire="byName">
-	
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:important.properties</value>
-				<value>classpath:config.properties</value>
-				<!--<value>classpath:mq/mq.properties</value>-->
-			</list>
-		</property>
-	</bean>
-	<bean id="appContext" class="com.jd.o2o.vipcart.common.domain.context.AppContext">
-		<property name="source" value="o2o-officer"/>
-	</bean>
 
-	<bean id="springUtils" class="com.jd.o2o.vipcart.common.utils.SpringUtils"></bean>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:important.properties</value>
+                <value>classpath:config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.jd.o2o.vipcart.dao,com.jd.o2o.vipcart.service" />
+    <aop:aspectj-autoproxy proxy-target-class="true" />
     <!-- 日志跟踪切面 -->
     <bean id="loggerTrackAspect" class="com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackAspect"></bean>
     <aop:config>
@@ -35,10 +33,9 @@
                        "/>
         </aop:aspect>
     </aop:config>
-	<context:annotation-config/>
-	<context:component-scan base-package="com.jd.o2o.vipcart.rpc,com.jd.o2o.vipcart.web" />
-    <aop:aspectj-autoproxy proxy-target-class="true" />
-
+    <bean id="springUtils" class="com.jd.o2o.vipcart.common.utils.SpringUtils"></bean>
+    <import resource="spring-config-bean.xml" />
+    <import resource="spring-config-datasource-dbcp.xml" />
     <import resource="spring-config-message.xml"/>
-    <!--<import resource="spring-config-ump.xml" />-->
+    <import resource="spring-config-executor.xml" />
 </beans>

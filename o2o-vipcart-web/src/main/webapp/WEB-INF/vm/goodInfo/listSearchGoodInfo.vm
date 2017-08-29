@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title>GoodInfo</title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initSearch("goodInfoSearchDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="goodInfoSearchDiv" v="goodInfo">
+		<div id="operation">
+		<form method="post" id="goodInfoSearchForm" name="goodInfoSearchForm" action="">
+			<div id="operation_table">
+				<div class="title"><div class="text">查询区</div></div>
+				<div class="search">
+					<table>
+						<tr>
+							<th>id</th>
+							<td><input id="id" name="id" type="text" value="$!{result.id}"/></td>
+							<th>商品编号</th>
+							<td><input id="skuId" name="skuId" type="text" value="$!{result.skuId}"/></td>
+							<th>第三方商品编码</th>
+							<td><input id="outSkuCode" name="outSkuCode" type="text" value="$!{result.outSkuCode}"/></td>
+						</tr>
+						<tr>
+							<th>商品编码</th>
+							<td><input id="skuCode" name="skuCode" type="text" value="$!{result.skuCode}"/></td>
+							<th>商品名称</th>
+							<td><input id="skuName" name="skuName" type="text" value="$!{result.skuName}"/></td>
+							<th>商品说明</th>
+							<td><input id="skuDesc" name="skuDesc" type="text" value="$!{result.skuDesc}"/></td>
+						</tr>
+						<tr>
+							<th>商品摘要</th>
+							<td><input id="skuSummary" name="skuSummary" type="text" value="$!{result.skuSummary}"/></td>
+							<th>价格</th>
+							<td><input id="skuPrice" name="skuPrice" type="text" value="$!{result.skuPrice}"/></td>
+							<th>原价格</th>
+							<td><input id="originPrice" name="originPrice" type="text" value="$!{result.originPrice}"/></td>
+						</tr>
+						<tr>
+							<th>促销摘要</th>
+							<td><input id="promotionSummary" name="promotionSummary" type="text" value="$!{result.promotionSummary}"/></td>
+							<th>商品原链接</th>
+							<td><input id="skuLink" name="skuLink" type="text" value="$!{result.skuLink}"/></td>
+							<th>商品图片</th>
+							<td><input id="skuImg" name="skuImg" type="text" value="$!{result.skuImg}"/></td>
+						</tr>
+						<tr>
+							<th>商品来源 1:jd 2:tmall</th>
+							<td><input id="fromSource" name="fromSource" type="text" value="$!{result.fromSource}"/></td>
+							<th>类目编码</th>
+							<td><input id="categoryCode" name="categoryCode" type="text" value="$!{result.categoryCode}"/></td>
+							<th>全路径类目编码逗号隔开</th>
+							<td><input id="fullCategoryCode" name="fullCategoryCode" type="text" value="$!{result.fullCategoryCode}"/></td>
+						</tr>
+						<tr>
+							<th>品牌编号</th>
+							<td><input id="brandCode" name="brandCode" type="text" value="$!{result.brandCode}"/></td>
+							<th>商家编号</th>
+							<td><input id="orgCode" name="orgCode" type="text" value="$!{result.orgCode}"/></td>
+							<th>库存标记类型 0:数量 1:百分比</th>
+							<td><input id="stockType" name="stockType" type="text" value="$!{result.stockType}"/></td>
+						</tr>
+						<tr>
+							<th>库存量</th>
+							<td><input id="stockNum" name="stockNum" type="text" value="$!{result.stockNum}"/></td>
+							<th>评论数量</th>
+							<td><input id="commentNum" name="commentNum" type="text" value="$!{result.commentNum}"/></td>
+							<th>抓取时间</th>
+							<td><input id="grabTime" name="grabTime" type="text" value="$!{result.grabTime}"/></td>
+						</tr>
+						<tr>
+							<th>商品状态 0:上架 2:下架</th>
+							<td><input id="skuStatus" name="skuStatus" type="text" value="$!{result.skuStatus}"/></td>
+							<th>扩展字段</th>
+							<td><input id="ext" name="ext" type="text" value="$!{result.ext}"/></td>
+							<th>排序</th>
+							<td><input id="sort" name="sort" type="text" value="$!{result.sort}"/></td>
+						</tr>
+						<tr>
+							<th>创建时间</th>
+							<td><input id="createTime" name="createTime" type="text" value="$!{result.createTime}"/></td>
+							<th>创建人</th>
+							<td><input id="createPin" name="createPin" type="text" value="$!{result.createPin}"/></td>
+							<th>更新时间</th>
+							<td><input id="updateTime" name="updateTime" type="text" value="$!{result.updateTime}"/></td>
+						</tr>
+						<tr>
+							<th>更新人</th>
+							<td><input id="updatePin" name="updatePin" type="text" value="$!{result.updatePin}"/></td>
+							<th>版本号</th>
+							<td><input id="sysVersion" name="sysVersion" type="text" value="$!{result.sysVersion}"/></td>
+							<th>删除标识 0:有效 1:无效</th>
+							<td><input id="yn" name="yn" type="text" value="$!{result.yn}"/></td>
+						</tr>
+						<tr>
+							<th>时间戳</th>
+							<td><input id="ts" name="ts" type="text" value="$!{result.ts}"/></td>
+    						<th colspan="4" class="manage">
+    							<input class="b_foot_long find" type="button" onClick="checksubmit(goodInfoSearchForm)" value="查 询"/>
+    							<input class="b_foot_long" type="reset" value="清 空"/>
+    						</th>
+    					</tr>
+    				</table>
+    			</div>
+    		</div>
+    	</form>
+    </div>
+##	#parse("/common/error.vm")
+    <div id="searchList">
+		#parse("/goodInfo/listGoodInfo.vm" )
+	</div>
+</div>
+</body>
+</html>

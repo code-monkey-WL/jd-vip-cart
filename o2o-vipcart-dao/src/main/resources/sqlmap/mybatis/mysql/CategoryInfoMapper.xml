@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="category_infoMapper">
+	<resultMap id="categoryInfoMap" type="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="category_code" property="categoryCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="category_name" property="categoryName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="category_desc" property="categoryDesc" jdbcType="VARCHAR" javaType="String"/>
+		<result column="category_status" property="categoryStatus" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="full_path" property="fullPath" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="category_level" property="categoryLevel" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="sort" property="sort" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_pin" property="updatePin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="yn" property="yn" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ts" property="ts" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			category_code AS categoryCode,
+			category_name AS categoryName,
+			category_desc AS categoryDesc,
+			category_status AS categoryStatus,
+			full_path AS fullPath,
+			category_level AS categoryLevel,
+			sort AS sort,
+			create_time AS createTime,
+			create_pin AS createPin,
+			update_time AS updateTime,
+			update_pin AS updatePin,
+			sys_version AS sysVersion,
+			yn AS yn,
+			ts AS ts
+		FROM category_info
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="categoryCode != null and categoryCode != ''">
+			and category_code = #{categoryCode,jdbcType=VARCHAR}
+		</if>
+		<if test="categoryName != null and categoryName != ''">
+			and category_name = #{categoryName,jdbcType=VARCHAR}
+		</if>
+		<if test="categoryDesc != null and categoryDesc != ''">
+			and category_desc = #{categoryDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="categoryStatus != null">
+			and category_status = #{categoryStatus,jdbcType=TINYINT}
+		</if>
+		<if test="fullPath != null">
+			and full_path = #{fullPath,jdbcType=INTEGER}
+		</if>
+		<if test="categoryLevel != null">
+			and category_level = #{categoryLevel,jdbcType=INTEGER}
+		</if>
+		<if test="sort != null">
+			and sort = #{sort,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createPin != null and createPin != ''">
+			and create_pin = #{createPin,jdbcType=VARCHAR}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatePin != null and updatePin != ''">
+			and update_pin = #{updatePin,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=TINYINT}
+		</if>
+		<if test="ts != null">
+			and ts = #{ts,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity" resultMap="categoryInfoMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneCategoryInfo" parameterType="java.lang.Long" resultMap="categoryInfoMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM category_info
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO category_info (
+	<if test="categoryCode != null">
+		category_code,
+	</if>
+	<if test="categoryName != null">
+		category_name,
+	</if>
+	<if test="categoryDesc != null">
+		category_desc,
+	</if>
+	<if test="categoryStatus != null">
+		category_status,
+	</if>
+	<if test="fullPath != null">
+		full_path,
+	</if>
+	<if test="categoryLevel != null">
+		category_level,
+	</if>
+	<if test="sort != null">
+		sort,
+	</if>
+	<if test="createPin != null">
+		create_pin,
+	</if>
+	<if test="updatePin != null">
+		update_pin,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="categoryCode != null">
+    	#{categoryCode,jdbcType=VARCHAR},
+    </if>
+    <if test="categoryName != null">
+    	#{categoryName,jdbcType=VARCHAR},
+    </if>
+    <if test="categoryDesc != null">
+    	#{categoryDesc,jdbcType=VARCHAR},
+    </if>
+    <if test="categoryStatus != null">
+    	#{categoryStatus,jdbcType=TINYINT},
+    </if>
+    <if test="fullPath != null">
+    	#{fullPath,jdbcType=INTEGER},
+    </if>
+    <if test="categoryLevel != null">
+    	#{categoryLevel,jdbcType=INTEGER},
+    </if>
+    <if test="sort != null">
+    	#{sort,jdbcType=INTEGER},
+    </if>
+    <if test="createPin != null">
+    	#{createPin,jdbcType=VARCHAR},
+    </if>
+    <if test="updatePin != null">
+    	#{updatePin,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=TINYINT},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertCategoryInfoBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO category_info (
+		category_code,
+		category_name,
+		category_desc,
+		category_status,
+		full_path,
+		category_level,
+		sort,
+		create_pin,
+		update_pin,
+		yn,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.categoryCode,jdbcType=VARCHAR},
+		#{item.categoryName,jdbcType=VARCHAR},
+		#{item.categoryDesc,jdbcType=VARCHAR},
+		#{item.categoryStatus,jdbcType=TINYINT},
+		#{item.fullPath,jdbcType=INTEGER},
+		#{item.categoryLevel,jdbcType=INTEGER},
+		#{item.sort,jdbcType=INTEGER},
+		#{item.createPin,jdbcType=VARCHAR},
+		#{item.updatePin,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=TINYINT},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateCategoryInfo" parameterType="java.util.Map">
+		UPDATE category_info
+		<set>
+    	<if test="categoryCode != null">
+            category_code = #{categoryCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="categoryName != null">
+            category_name = #{categoryName,jdbcType=VARCHAR},
+    	</if>
+    	<if test="categoryDesc != null">
+            category_desc = #{categoryDesc,jdbcType=VARCHAR},
+    	</if>
+    	<if test="categoryStatus != null">
+            category_status = #{categoryStatus,jdbcType=TINYINT},
+    	</if>
+    	<if test="fullPath != null">
+            full_path = #{fullPath,jdbcType=INTEGER},
+    	</if>
+    	<if test="categoryLevel != null">
+            category_level = #{categoryLevel,jdbcType=INTEGER},
+    	</if>
+    	<if test="sort != null">
+            sort = #{sort,jdbcType=INTEGER},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="createPin != null">
+            create_pin = #{createPin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updatePin != null">
+            update_pin = #{updatePin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=TINYINT},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateCategoryInfoBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update category_info 
+		<set>
+		<if test="item.categoryCode != null">
+			category_code = #{item.categoryCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.categoryName != null">
+			category_name = #{item.categoryName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.categoryDesc != null">
+			category_desc = #{item.categoryDesc,jdbcType=VARCHAR},
+		</if>
+		<if test="item.categoryStatus != null">
+			category_status = #{item.categoryStatus,jdbcType=TINYINT},
+		</if>
+		<if test="item.fullPath != null">
+			full_path = #{item.fullPath,jdbcType=INTEGER},
+		</if>
+		<if test="item.categoryLevel != null">
+			category_level = #{item.categoryLevel,jdbcType=INTEGER},
+		</if>
+		<if test="item.sort != null">
+			sort = #{item.sort,jdbcType=INTEGER},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.createPin != null">
+			create_pin = #{item.createPin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.updatePin != null">
+			update_pin = #{item.updatePin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=TINYINT},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity">
+		DELETE FROM category_info
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneCategoryInfo" parameterType="java.lang.Long">
+		DELETE FROM category_info
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>
