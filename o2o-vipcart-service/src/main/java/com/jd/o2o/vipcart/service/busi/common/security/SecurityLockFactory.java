@@ -1,4 +1,4 @@
-package com.jd.o2o.vipcart.service.common.busi.security;
+package com.jd.o2o.vipcart.service.busi.common.security;
 
 import java.util.HashMap;
 import java.util.Map;

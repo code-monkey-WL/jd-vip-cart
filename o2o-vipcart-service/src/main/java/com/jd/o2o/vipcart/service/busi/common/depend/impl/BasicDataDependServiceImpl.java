@@ -1,7 +1,7 @@
-package com.jd.o2o.vipcart.service.common.busi.depend.impl;
+package com.jd.o2o.vipcart.service.busi.common.depend.impl;
 
 import com.jd.o2o.vipcart.common.plugins.cache.aspect.LocalCached;
-import com.jd.o2o.vipcart.service.common.busi.depend.BasicDataDependService;
+import com.jd.o2o.vipcart.service.busi.common.depend.BasicDataDependService;
 import com.jd.o2o.vipcart.domain.inside.common.Dictionary;
 import org.springframework.stereotype.Service;
 

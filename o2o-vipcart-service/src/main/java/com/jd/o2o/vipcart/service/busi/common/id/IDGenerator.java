@@ -1,4 +1,4 @@
-package com.jd.o2o.vipcart.service.common.busi.id;
+package com.jd.o2o.vipcart.service.busi.common.id;
 
 import com.jd.o2o.vipcart.common.domain.exception.BaseMsgException;
 import com.jd.o2o.vipcart.common.plugins.cache.aspect.JCache;

@@ -1,4 +1,4 @@
-package com.jd.o2o.vipcart.service.common.busi.depend;
+package com.jd.o2o.vipcart.service.busi.common.depend;
 
 import com.jd.o2o.vipcart.domain.inside.common.Dictionary;
 

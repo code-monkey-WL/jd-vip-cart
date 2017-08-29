@@ -18,7 +18,7 @@ if [ -z "$JAVACMD" ] ; then
 fi
 
 
-# BASEDIR=/export/App/service.template.o2o.jd.com
+# BASEDIR=/export/App/service.vipcart
 BASEDIR=$(cd "$(dirname "$0")"; cd ../; pwd)
 CLASSPATH="$BASEDIR"/:"$BASEDIR"/lib/*
 
@@ -31,7 +31,8 @@ if [ ! -x "$JAVACMD" ] ; then
 fi
 
 if [ -z "$OPTS_MEMORY" ] ; then
-    OPTS_MEMORY="-Xms2048M -Xmx2048M"
+    #OPTS_MEMORY="-Xms2048M -Xmx2048M"
+    OPTS_MEMORY="-server -Xms4096M -Xmx4096M -Xmn1536M -XX:PermSize=256m -XX:MaxPermSize=256m -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:ParallelGCThreads=2 -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCDateStamps -XX:+PrintAdaptiveSizePolicy -XX:+PrintReferenceGC -verbose:gc -Xloggc:../gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./java_HeapDump.hprof"
 fi
 
 setsid "$JAVACMD" $JAVA_OPTS \
@@ -39,5 +40,9 @@ setsid "$JAVACMD" $JAVA_OPTS \
   -classpath "$CLASSPATH" \
   -Dbasedir="$BASEDIR" \
   -Dfile.encoding="UTF-8" \
-  com.jd.o2o.vipcart.worker.launcher.VipcartWorkerLauncher \
+  -Dcom.sun.management.jmxremote\
+  -Dcom.sun.management.jmxremote.port=12323\
+  -Dcom.sun.management.jmxremote.authenticate=false\
+  -Dcom.sun.management.jmxremote.ssl=false\
+  com.jd.o2o.vipcart.launcher.VipcartServiceLauncher \
   "$@" > /dev/null 2>&1 &

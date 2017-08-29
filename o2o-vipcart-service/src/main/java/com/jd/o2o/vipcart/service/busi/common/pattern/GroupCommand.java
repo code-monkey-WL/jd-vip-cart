@@ -1,4 +1,4 @@
-package com.jd.o2o.vipcart.service.common.busi.pattern;
+package com.jd.o2o.vipcart.service.busi.common.pattern;
 
 /**
  * 组命令实现

@@ -1,4 +1,4 @@
-package com.jd.o2o.vipcart.service.common.busi.security;
+package com.jd.o2o.vipcart.service.busi.common.security;
 
 import com.jd.o2o.vipcart.common.domain.BaseBean;
 import com.jd.o2o.vipcart.common.domain.exception.BaseMsgException;

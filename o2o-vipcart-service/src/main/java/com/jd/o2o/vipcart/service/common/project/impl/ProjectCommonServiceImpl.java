@@ -4,7 +4,7 @@ import com.jd.o2o.vipcart.common.domain.SoftHashMap;
 import com.jd.o2o.vipcart.common.plugins.cache.aspect.JCache;
 import com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackFactory;
 import com.jd.o2o.vipcart.common.service.id.IDGeneratorService;
-import com.jd.o2o.vipcart.service.common.busi.depend.BasicDataDependService;
+import com.jd.o2o.vipcart.service.busi.common.depend.BasicDataDependService;
 import com.jd.o2o.vipcart.service.common.project.ProjectCommonService;
 import com.jd.o2o.vipcart.dao.BaseDateTimeDAO;
 import com.jd.o2o.vipcart.domain.constant.DictTypeCodeEnum;

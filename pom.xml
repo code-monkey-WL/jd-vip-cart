@@ -461,7 +461,7 @@
                 <!-- maxWaitTime -->
                 <mvn.vipcart.thread.maxWaitTime>500000</mvn.vipcart.thread.maxWaitTime>
 
-                <mvn.o2o.vipcart.es.alias>o2o-vipcart-es-test</mvn.o2o.vipcart.es.alias>
+                <mvn.o2o.vipcart.alias>o2o-vipcart-test</mvn.o2o.vipcart.alias>
 
                 <!-- jdbc -->
                 <mvn.jdbc.driver>com.mysql.jdbc.ReplicationDriver</mvn.jdbc.driver>
@@ -480,13 +480,13 @@
                 <!-- maxWaitTime -->
                 <mvn.vipcart.thread.maxWaitTime>500000</mvn.vipcart.thread.maxWaitTime>
 
-                <mvn.o2o.vipcart.es.alias>o2o-vipcart-es-test</mvn.o2o.vipcart.es.alias>
+                <mvn.o2o.vipcart.alias>o2o-vipcart-test</mvn.o2o.vipcart.alias>
 
                 <!-- jdbc -->
                 <mvn.jdbc.driver>com.mysql.jdbc.ReplicationDriver</mvn.jdbc.driver>
-                <mvn.jdbc.url>jdbc:mysql:replication://192.168.194.108:3306,192.168.194.108:3306/o2o_vipcart?allowMultiQueries=true</mvn.jdbc.url>
+                <mvn.jdbc.url>jdbc:mysql:replication://192.168.202.97:3306,192.168.202.97:3306/o2o_vipcart?allowMultiQueries=true</mvn.jdbc.url>
                 <mvn.jdbc.username>root</mvn.jdbc.username>
-                <mvn.jdbc.password>newpassword</mvn.jdbc.password>
+                <mvn.jdbc.password>123456</mvn.jdbc.password>
 
             </properties>
         </profile>
@@ -500,11 +500,11 @@
                 <!-- maxWaitTime -->
                 <mvn.vipcart.thread.maxWaitTime>2000</mvn.vipcart.thread.maxWaitTime>
 
-                <mvn.o2o.vipcart.es.alias>o2o-vipcart-es</mvn.o2o.vipcart.es.alias>
+                <mvn.o2o.vipcart.alias>o2o-vipcart</mvn.o2o.vipcart.alias>
 
                 <!-- jdbc -->
                 <mvn.jdbc.driver>com.mysql.jdbc.ReplicationDriver</mvn.jdbc.driver>
-                <mvn.jdbc.url>jdbc:mysql:replication://my14362m.mysql.jddb.com:3358,my14362sa.mysql.jddb.com:3358/o2o_vipcart?allowMultiQueries=true</mvn.jdbc.url>
+                <mvn.jdbc.url>jdbc:mysql:replication://127.0.0.1:3306/o2o_vipcart?allowMultiQueries=true</mvn.jdbc.url>
                 <mvn.jdbc.username></mvn.jdbc.username>
                 <mvn.jdbc.password></mvn.jdbc.password>
             </properties>

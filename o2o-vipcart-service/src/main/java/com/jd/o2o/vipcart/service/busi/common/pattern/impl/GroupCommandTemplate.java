@@ -1,10 +1,10 @@
-package com.jd.o2o.vipcart.service.common.busi.pattern.impl;
+package com.jd.o2o.vipcart.service.busi.common.pattern.impl;
 
 import com.jd.o2o.vipcart.common.domain.exception.BaseMsgException;
 import com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackFactory;
 import com.jd.o2o.vipcart.common.utils.json.JsonUtils;
-import com.jd.o2o.vipcart.service.common.busi.pattern.Command;
-import com.jd.o2o.vipcart.service.common.busi.pattern.GroupCommand;
+import com.jd.o2o.vipcart.service.busi.common.pattern.Command;
+import com.jd.o2o.vipcart.service.busi.common.pattern.GroupCommand;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 
