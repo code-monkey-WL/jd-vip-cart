@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jsf="http://jsf.jd.com/schema/jsf"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://jsf.jd.com/schema/jsf
+        http://jsf.jd.com/schema/jsf/jsf.xsd">
+    <!-- registry center-->
+    <jsf:registry id="jsfRegistry" protocol="jsfRegistry" index="i.jsf.jd.com"/>
+    <!-- server -->
+    <jsf:server id="jsf" protocol="jsf"/>
+    <!-- inner DML service for ocs-->
+    <jsf:provider id="openCouponOperateService" interface="com.jd.o2o.vipcart.api.OpenCouponOperateService"
+        ref="openCouponOperateServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+    <jsf:provider id="openCouponQueryService" interface="com.jd.o2ovipcart..api.OpenCouponQueryService"
+                  ref="openCouponQueryServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+    <jsf:provider id="openCouponShowService" interface="com.jd.o2vipcart.n.api.OpenCouponShowService"
+                  ref="openCouponShowServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+
+    <jsf:provider id="openActivityQueryService" interface="com.jd.ovipcart.on.api.OpenActivityQueryService"
+                  ref="openActivityQueryServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+    <jsf:provider id="openActivityOrderReturnService" interface="com.jd.vipcart.pon.api.OpenActivityOrderReturnService"
+                  ref="openActivityOrderReturnServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+    <jsf:provider id="openCodeService" interface="com.jdvipcart.upon.api.OpenCodeService"
+                  ref="openCodeServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+    <jsf:provider id="openCouponUseService" interface="com.jvipcart.oupon.api.OpenCouponUseService"
+                  ref="openCouponUseServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+    <jsf:provider id="openCreateCouponService" interface="com.vipcart.coupon.api.OpenCreateCouponService"
+                  ref="openCreateCouponServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+    <jsf:provider id="openSettlementService" interface="comvipcart..coupon.api.OpenSettlementService"
+                  ref="openSettlementServiceImpl" server="jsf" alias="${mvn.jsf.service.alias}">
+    </jsf:provider>
+</beans>

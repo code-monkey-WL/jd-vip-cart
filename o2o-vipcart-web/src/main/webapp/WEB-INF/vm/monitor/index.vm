@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <link rel="stylesheet" type="text/css" href="#springUrl('')/static/plugins/bootstrap/css/bootstrap-combined.min.css" charset="utf-8"/>
+    <title>派单系统订单监控</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#orderQueryButton").unbind( "click" ).click(function () {
+                var deliveryOrderNo = $("#deliveryOrderNo").val();
+                if (deliveryOrderNo) {
+                    tabs.add({id: deliveryOrderNo, title: deliveryOrderNo, url: "/monitor/order/" + deliveryOrderNo, close: true});
+                }
+            });
+            $("#deliveryManQueryButton").unbind( "click" ).click(function () {
+                var deliveryManNo = $("#deliveryManNo").val();
+                if (deliveryManNo) {
+                    tabs.add({id: deliveryManNo, title: deliveryManNo, url: "/monitor/man/" + deliveryManNo, close: true});
+                }
+            });
+            $("#deliveryOrderNo").on('keypress', function (event) {
+                if (event.keyCode == "13") {
+                    $("#orderQueryButton").click();
+                }
+            });
+            $("#deliveryManNo").on('keypress', function (event) {
+                if (event.keyCode == "13") {
+                    $("#deliveryManQueryButton").click();
+                }
+            });
+            // 定时刷新监控数据
+            timer = setInterval("countDown()",1000);
+        });
+        function refreshMonitor() {
+            var hours = $("#hours").val();
+            var assignStatus = $("#curr_swatch").val();
+            hours =hours?hours:"";
+            assignStatus =assignStatus?assignStatus:"";
+            $.ajax({
+                url: "/monitor/echo",
+                type: 'POST',
+                data: {
+                    hours: hours,
+                    assignStatus: assignStatus
+                },
+                success: function (responseText) {
+                    $("#monitorDiv").html(responseText);
+                }
+            });
+        }
+        var refreshInterval = 10; // 刷新间隔
+        var timeCountDown = refreshInterval;
+        function countDown(isNow){
+            if(isNow){
+                timeCountDown = 0;
+            }
+            timeCountDown = timeCountDown < 0?refreshInterval:timeCountDown;
+            timeCountDown = timeCountDown<10?"0"+timeCountDown:timeCountDown;
+            document.all["countDownMonitor"].innerHTML="<span style='color: white'>-"+timeCountDown+"秒后自动刷新</span>";
+            if(timeCountDown==0){
+                refreshMonitor();
+            }
+            --timeCountDown;
+        }
+    </script>
+</head>
+<body>
+<div class="container-fluid" style="height: 768px">
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title" contenteditable="true">
+                        <strong>查询</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>订单查询</th>
+                            <th>配送员查询</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info">
+                            <td>
+                                <input id="deliveryOrderNo" class="input-large search-query" type="text"
+                                       placeholder="输入运单号"/>
+                                <button id="orderQueryButton" class="btn btn-info" type="button">查 找</button>
+                            </td>
+                            <td>
+                                <input id="deliveryManNo" class="input-large search-query" type="text"
+                                       placeholder="输入配送员编号"/>
+                                <button id="deliveryManQueryButton" class="btn btn-info" type="button">查 找</button>
+                            </td>
+                        </tr>
+                        <tr class="info">
+                            <td colspan="2">
+                                <strong>时效定制：</strong><input id="hours" name="hours" class="input-large search-query" type="text"
+                                       placeholder="以英文逗号隔开（小时）"/>
+                                <button class="btn btn-danger" onclick="javascript:$('#hours').val('')">清空</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+##                <div class="panel-footer">
+##                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title" contenteditable="true">
+                        <strong><button class="btn btn-danger" onclick="countDown(true)">派单系统订单监控 </button><small id="countDownMonitor"></small></strong>
+                    </h3>
+                </div>
+                <input type="hidden" id="curr_swatch" value="$!{assignStatus}"/>
+                <input type="hidden" id="monitor_more" value="0"/>
+                <div id="monitorDiv" class="panel-body">
+                    #parse("/monitor/monitor.vm" )
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row-fluid">
+        #parse("/monitor/spy-sql.vm" )
+    </div>
+    <div class="tabbable" id="tabs-order-monitor">
+        <ul class="nav nav-tabs">
+        </ul>
+        <div class="tab-content">
+        </div>
+    </div>
+</div>
+</body>
+</html>

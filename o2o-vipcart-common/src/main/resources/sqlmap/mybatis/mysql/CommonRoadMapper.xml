@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="commonRoadMapper">
+	<select id="selectCurrentDateTime" resultType="java.util.Date">
+		select CURRENT_TIMESTAMP()
+	</select>
+
+    <select id="selectCurrentSequence" parameterType="java.util.Map" resultType="java.lang.Long">
+        select max(id) AS id from ${tableName}
+    </select>
+
+    <insert id="insertSequence" parameterType="com.jd.o2o.vipcart.common.domain.id.SqlID" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ${tableName} (
+        <if test="id != null">
+            id
+        </if>
+        ) VALUES (
+        <if test="id != null">
+            #{id,jdbcType=BIGINT}
+        </if>
+        )
+    </insert>
+
+    <delete id="deleteSequence" parameterType="com.jd.o2o.vipcart.common.domain.id.SqlID">
+        DELETE FROM ${tableName}
+        WHERE
+        id &lt; #{id,jdbcType=BIGINT}
+    </delete>
+
+    <sql id="pagingLimit">
+        <if test="extFields != null and extFields.start != null">
+            limit ${extFields.start},
+            <choose>
+                <when test="extFields.limit != null">
+                    ${extFields.limit}
+                </when>
+                <otherwise>
+                    ${pageSize}
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="sortSql">
+        <if test="sortItemMap != null">
+            ORDER BY
+            <foreach item="item" collection="sortItemMap.entrySet()" open="" separator="," close="">
+              ${item.key}
+              <choose>
+                    <when test="item.value == 'ASC'">
+                        ASC
+                    </when>
+                    <otherwise>
+                        DESC
+                    </otherwise>
+              </choose>
+            </foreach>
+        </if>
+    </sql>
+</mapper>

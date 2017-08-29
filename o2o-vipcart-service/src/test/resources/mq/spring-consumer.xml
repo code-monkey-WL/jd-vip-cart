@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://code.jd.com/schema/jmq
+ http://code.jd.com/schema/jmq/jmq-1.0.xsd"
+       xmlns:jmq="http://code.jd.com/schema/jmq"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans">
+
+    <jmq:transport address="192.168.179.66:50088" user="mq" password="mq"
+                   app="o2ovipcart" connectionTimeout="1000"
+                   epoll="false"/>
+
+    <jmq:consumer id="consumer" transport="jmq.transport">
+        <!--<jmq:listener topic="${mvn.jmq.topic.task_not_passed}" listener="taskNotPassedMessageHandler"/>-->
+        <!--<jmq:listener topic="${mvn.jmq.topic.task_time_out}" listener="taskTimeOutMessageHandler"/>-->
+    </jmq:consumer>
+
+
+</beans>

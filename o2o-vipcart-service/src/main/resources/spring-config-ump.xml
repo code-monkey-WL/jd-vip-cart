@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <bean class="com.jd.ump.annotation.JAnnotation">
+        <property name="systemKey" value="o2o-coupon-open-api.core.alive"></property>
+        <property name="jvmKey" value="o2o-coupon-open-api.jvm"></property>
+    </bean>
+    <bean class="com.jd.o2o.commons.monitor.ApiMonitorProcess"></bean>
+
+    <!-- 切面实现类 -->
+    <bean id="exceptionAlarmAdvice" class="com.jd.o2o.vipcart.service.advise.ExceptionAlarmAdvice"/>
+    <bean id="accessAuthorityAdvice" class="com.jd.o2o.road.common.plugins.monitor.impl.AccessAuthorityAdvice"/>
+    <!--<bean id="accessCountAdvice" class="com.jd.o2o.road.common.plugins.monitor.impl.AccessCountAdvice"/>-->
+    <bean id="trackingAdvice" class="com.jd.o2ovipcart..service.common.project.advice.TrackingAdvice">
+        <property name="appName" value="o2o-coupon-open-api"/>
+    </bean>
+    <bean id="umpAdvice" class="com.jd.o2vipcart.n.advise.UMPAdvice">
+        <!--<property name="key" value="ovipcart.on.service.app"/>-->
+        <property name="appName" value="o2o-coupon-open-api"/>
+        <property name="enableHeartbeat" value="false"/>
+        <property name="enableTP" value="true"/>
+    </bean>
+    <!-- 声明类 ，此类作为切面类使用 -->
+    <bean id="adviceInterceptor" class="com.jd.vipcart.pon.advise.ApiAuthorityAdviceImpl">
+        <property name="adviceList">
+            <list>
+                <ref bean="accessAuthorityAdvice"/>
+                <!--<ref bean="umpAdvice"></ref>-->
+                <!--<ref bean="accessCountAdvice"/>-->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="trackingAdviceInterceptor" class="com.jdvipcart.upon.advise.TrackingAdviceImpl">
+        <property name="adviceList">
+            <list>
+                <ref bean="trackingAdvice"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="rpcAdvice" class="com.jvipcart.oupon.service.advise.RPCAdviceImpl">
+        <property name="adviceList">
+            <list>
+                <ref bean="exceptionAlarmAdvice"/>
+                <ref bean="umpAdvice"/>
+            </list>
+        </property>
+    </bean>
+</beans>

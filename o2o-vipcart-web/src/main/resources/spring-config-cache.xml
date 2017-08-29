@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <!--<bean id="configClient" class="${mvn.jim.cli.cfs.class}">-->
+        <!--<property name="${mvn.jim.cli.cfs.param.name}" value="${mvn.jim.cli.cfs.param.value}"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="jimClient" class="com.jd.jim.cli.ReloadableJimClientFactoryBean">-->
+        <!--<property name="configClient" ref="configClient"/>-->
+        <!--<property name="${mvn.jim.cli.param.name1}" value="${mvn.jim.cli.param.value1}" />-->
+        <!--<property name="${mvn.jim.cli.param.name2}" value="${mvn.jim.cli.param.value2}" />-->
+    <!--</bean>-->
+    <bean id="jimClient" class="com.jd.jim.cli.ReloadableJimClientFactoryBean">
+        <property name="jimUrl" value="${mvn.jim.cli.param.jimUrl}" />
+    </bean>
+
+    <!-- 本地缓存 -->
+    <bean id="localCachedAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.LocalCachedAspect"></bean>
+    <!-- redis缓存 -->
+    <bean id="jedisCache" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.JimDBCache">
+        <property name="name" value="vipcart-web"/>
+        <property name="client" ref="jimClient"></property>
+        <property name="maskException" value="true"></property>
+    </bean>
+    <!-- redis缓存 -->
+    <bean id="redisCache" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.JsonCache">
+        <property name="client" ref="jimClient"></property>
+        <property name="maskException" value="true"></property>
+    </bean>
+    <!-- 缓存切面 -->
+    <bean id="cachedAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.SPELCachedAspect">
+        <constructor-arg index="0" value="true"></constructor-arg>
+        <constructor-arg index="1" ref="jedisCache"></constructor-arg>
+    </bean>
+    <!-- 缓存备份切面 -->
+    <bean id="backupAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.BackupAspect">
+        <constructor-arg index="0" value="true"></constructor-arg>
+        <constructor-arg index="1" ref="jedisCache"></constructor-arg>
+    </bean>
+    <!-- 基于redis的分布式锁 -->
+    <bean id="lockHandler" class="com.jd.o2o.vipcart.common.plugins.lock.impl.JimDBLockHandler">
+        <property name="client" ref="jimClient"></property>
+    </bean>
+
+    <!-- 老系统的JIM集群 -->
+    <bean id="jimUsedClient" class="com.jd.jim.cli.ReloadableJimClientFactoryBean">
+        <property name="jimUrl" value="${mvn.used.jimdb.url}" />
+    </bean>
+
+</beans>

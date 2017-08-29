@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>创建优惠券</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/edit_change_activity.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <h5>创建优惠券</h5>
+      </div>
+      <form class="content">
+        <div class="part">
+          <h5>活动信息</h5>
+          <ul class="ui form">
+            <li>
+              <label class="empty">活动名称：</label>
+              <div v-if="type == 1">
+                <div class="ui input inline field">
+                  <input name="activityName" type="text" maxlength="40">
+                </div>
+                <span>字符长度不超过40个</span>
+              </div>
+              <div v-else>
+                {{info.activityName}}
+              </div>
+            </li>
+            <li>
+              <label class="empty">活动时间：</label>
+              <div v-if="type == 1" class="pfield inline field">
+                <div class="ui input icon time field">
+                  <i class="calendar icon"></i>
+                  <input name="beginTime" type="text">
+                </div>
+                -
+                <div class="ui input icon time field">
+                  <i class="calendar icon"></i>
+                  <input name="endTime" type="text">
+                </div>
+              </div>
+              <div v-else>
+                {{info.beginTime}} 至 {{info.endTime}}
+              </div>
+            </li>
+            <li>
+              <label class="empty">领取次数：</label>
+              <div v-if="type == 1 || type == 2" class="inline field">
+                活动期限内
+                <div class="ui input short"><input name="limitMaxTimes" maxlength="3"></div>
+                次
+              </div>
+              <div v-else>
+                活动期限内 {{info.limitMaxTimes}} 次
+              </div>
+            </li>
+            <li>
+              <label class="empty">订单金额门槛：</label>
+              <div v-if="type == 1" class="pfield inline field">
+                <div class="ui input short field">
+                  <input name="orderMoneyMin" type="text">
+                </div>
+                元
+                -
+                <div class="ui input short field">
+                  <input name="orderMoneyMax" type="text">
+                </div>
+                元
+                <span>订单金额满足条件才可分享，0表示不限制</span>
+              </div>
+              <div v-else>
+                {{info.orderMoneyMin}} 元 - {{info.orderMoneyMax}} 元
+              </div>
+            </li>
+            <li v-show="getPlances">
+              <label class="empty">可分享时间：</label>
+              <div v-if="type == 1" class="inline field">
+                支付/妥投成功后
+                <div class="ui input short"><input name="shareTime" maxlength="3"></div>
+                天内
+              </div>
+              <div v-else>
+                支付/妥投成功后 {{info.shareTime}} 天内
+              </div>
+            </li>
+            <li>
+              <label class="empty">红包领取时间：</label>
+              <div v-if="type == 1" class="field">
+                <div class="ui radio checkbox">
+                  <input name="redBagPullTime" type="radio" value="0" checked>
+                  <label>直至活动结束</label>
+                </div>
+                <div class="spacing"></div>
+                <div class="ui radio checkbox">
+                  <input name="redBagPullTime" type="radio" value="1">
+                </div><span class="radio-label inline field" @click="onCheck($event)">
+                  红包分享后
+                  <div class="ui input short">
+                    <input name="redBagTime" type="text">
+                  </div>
+                  天内
+                </span>
+                <span></span>
+              </div>
+              <div v-else>
+                {{info.redBagPullTime}}
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="part">
+          <h5>分享设置</h5>
+          <ul class="ui form">
+            <li>
+              <label class="empty">微信分享标题：</label>
+              <div v-if="type == 1 || type == 2">
+                <div class="ui input">
+                  <input name="shareTitle" v-model="info.shareTitle" type="text" placeholder="京东到家 - 1小时达！" maxlength="40">
+                </div>
+                <a href="javascript:void(0);" @click="onShow('share')">预览样式</a>
+                <span>字符长度不超过40个</span>
+              </div>
+              <div v-else>
+                {{info.shareTitle}}
+              </div>
+            </li>
+            <li>
+              <label class="empty">微信分享详情：</label>
+              <div v-if="type == 1 || type == 2">
+                <div class="ui input textarea">
+                  <textarea name="shareDetail" v-model="info.shareDetail" rows="5" placeholder="超市、生鲜、外卖、医药，数万款附近商品，足不出户，1小时送上门！" maxlength="100"></textarea>
+                </div>
+                <a href="javascript:void(0);" @click="onShow('share')">预览样式</a>
+                <span>每条规则请字符长度不超过100个以英文分号结束</span>
+              </div>
+              <div v-else>
+                {{info.shareDetail}}
+              </div>
+            </li>
+            <li>
+              <label>微信分享图片：</label>
+              <div v-if="type == 1 || type == 2">
+                <input id="shareImg" type="file" class="hide" @change="onUpload()"/>
+                <input name='shareImg' type="hidden"/>
+                <a class="ui secondary button" @click="onSelect()">浏览</a>
+                <span v-if="!info.imgUrl">未选择文件</span>
+                <img v-else :src="info.imgUrl"/>
+                <a href="javascript:void(0);" @click="onShow('share')">预览样式</a>
+                <span>图片尺寸为100*100</span>
+              </div>
+              <div v-else>
+                <img :src="info.shareImg"/>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </form>
+      <div  v-if="type == 1" class="button-panel">
+        <a class="ui secondary button" @click="onSubmit()">保存活动，继续添加优惠券</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" @click="onClear()">重置</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" @click="onReview()">预览</a>
+      </div>
+      <div  v-if="type == 2" class="button-panel">
+        <a class="ui secondary button" @click="onUpdate()">保存</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" @click="onBack()">取消</a>
+      </div>
+      <div  v-if="type == 3" class="button-panel">
+        <a class="ui secondary button" @click="onBack()">返回</a>
+      </div>
+      <page-footer></page-footer>
+      <div class="review_share_panel">
+        <div class="title">{{getShareTitle}}</div>
+        <div class="info">
+          <div class="text">{{getShareDetail}}</div>
+          <div class="img">
+            <img v-if="!info.imgUrl" src="../app/images/dj_logo.jpg" />
+            <img v-else :src="info.imgUrl" />
+          </div>
+        </div>
+        <div class="bottom"><img src="../app/images/dj_logo.jpg" />京东到家</div>
+        <div class="close" @click="onHide('share')"><i class="remove circle outline icon"></i></div>
+      </div>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui.js"></script>
+    <script src="../libs/jquery-ui/datepicker-zh-CN.js"></script>
+    <script src="../libs/jquery-ui/jquery.datetimepicker.full.min.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../dist/js/edit_change_activity.bundle.js"></script>
+</html>

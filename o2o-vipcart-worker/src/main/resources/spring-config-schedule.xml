@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd" default-autowire="byName">
+
+    <bean id="scheduleManagerFactory" class="com.taobao.pamirs.schedule.strategy.TBScheduleManagerFactory"
+          init-method="init">
+        <property name="ip" value="${mvn.vipcart.worker}"/>
+        <property name="zkConfig">
+            <map>
+                <entry key="zkConnectString" value="${mvn.tbSchedule.zkConnectString}"/>
+                <entry key="rootPath" value="${mvn.tbSchedule.rootPath}"/>
+                <entry key="zkSessionTimeout" value="${mvn.tbSchedule.zkSessionTimeout}"/>
+                <entry key="userName" value="${mvn.tbSchedule.userName}"/>
+                <entry key="password" value="${mvn.tbSchedule.password}"/>
+                <entry key="isCheckParentPath" value="${mvn.thSchedule.isCheckParentPath}"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="vipcartGrabFinishRemainSchedule" class="com.jd.o2o.vipcart.worker.vipcart.vipcartGrabFinishRemainSchedule"/>
+    <bean id="vipcartRemainNumSyncSchedule" class="com.jd.o2o.vipcart.worker.vipcart.vipcartRemainNumSyncSchedule"/>
+    <bean id="uservipcartExpiredReminderSchedule" class="com.jd.o2o.vipcart.worker.vipcart.UservipcartExpiredReminderSchedule"/>
+    <bean id="messagePushSchedule" class="com.jd.o2o.vipcart.worker.messagepush.MessagePushSchedule"/>
+    <bean id="directionalvipcartPushSchedule" class="com.jd.o2o.vipcart.worker.pushvipcart.DirectionalvipcartPushSchedule"/>
+    <bean id="shareRewardSuccessSchedule" class="com.jd.o2o.vipcart.worker.pushvipcart.ShareRewardSuccessSchedule"/>
+    <bean id="moveTableToHistorySchedule" class="com.jd.o2o.vipcart.worker.datamove.MoveTableToHistorySchedule"/>
+    <bean id="moveESToHistorySchedule" class="com.jd.o2o.vipcart.worker.datamove.MoveESToHistorySchedule"/>
+    <bean id="recoverNewUserSchedule" class="com.jd.o2o.vipcart.worker.recoverNewUser.RecoverNewUserSchedule"/>
+    <bean id="checkPushRiskSchedule" class="com.jd.o2o.vipcart.worker.pushvipcart.CheckPushRiskSchedule"/>
+    <bean id="syncActivityStateSchedule" class="com.jd.o2o.vipcart.worker.state.SyncActivityStateSchedule"/>
+    <bean id="syncvipcartStateSchedule" class="com.jd.o2o.vipcart.worker.state.SyncvipcartStateSchedule"/>
+    <bean id="syncUservipcartStateSchedule" class="com.jd.o2o.vipcart.worker.state.SyncUservipcartStateSchedule"/>
+
+    <!--  导入数据的worker -->
+    <bean id="usedBatchJdPinSchedule" class="com.jd.o2o.vipcart.worker.used.UsedBatchJdPinSchedule"/>
+    <bean id="usedBatchDjPinSchedule" class="com.jd.o2o.vipcart.worker.used.UsedBatchDjPinSchedule"/>
+    <bean id="usedActivityvipcartSchedule" class="com.jd.o2o.vipcart.worker.used.UsedActivityvipcartSchedule"/>
+    <bean id="usedDtCodeSchedule" class="com.jd.o2o.vipcart.worker.used.UsedDtCodeSchedule"/>
+    <bean id="usedOrgStationSchedule" class="com.jd.o2o.vipcart.worker.used.UsedOrgStationSchedule"/>
+    <bean id="usedRedPackSchedule" class="com.jd.o2o.vipcart.worker.used.UsedRedPackSchedule"/>
+    <bean id="usedShareAccessSchedule" class="com.jd.o2o.vipcart.worker.used.UsedShareAccessSchedule"/>
+    <bean id="usedShareSubActivitySchedule" class="com.jd.o2o.vipcart.worker.used.UsedShareSubActivitySchedule"/>
+
+
+    <bean id="usedCodeUserRelSchedule" class="com.jd.o2o.vipcart.worker.used.UsedCodeUserRelSchedule"/>
+    <bean id="usedUservipcartRelSchedule" class="com.jd.o2o.vipcart.worker.used.UsedUservipcartRelSchedule"/>
+
+
+    <bean id="usedUservipcartSchedule" class="com.jd.o2o.vipcart.worker.used.uservipcart.UsedUservipcartSchedule"/>
+    <bean id="usedUservipcart201707Schedule" class="com.jd.o2o.vipcart.worker.used.uservipcart.UsedUservipcart201707Schedule"/>
+    <bean id="usedUservipcartHisSchedule" class="com.jd.o2o.vipcart.worker.used.uservipcart.UsedUservipcartHisSchedule"/>
+    <bean id="usedUservipcartRedisSchedule" class="com.jd.o2o.vipcart.worker.used.uservipcart.UsedUservipcartRedisSchedule"/>
+
+
+    <bean id="usedvipcartConsumeSchedule" class="com.jd.o2o.vipcart.worker.used.userConsume.UsedvipcartConsumeSchedule"/>
+    <bean id="usedvipcartConsumeRedisSchedule" class="com.jd.o2o.vipcart.worker.used.userConsume.UsedvipcartConsumeRedisSchedule"/>
+
+
+    <!--这两个是补救的-->
+    <bean id="usedvipcartRemainingNumSchedule" class="com.jd.o2o.vipcart.worker.used.UsedvipcartRemainingNumSchedule"/>
+    <bean id="usedUpdateShareActivitySchedule" class="com.jd.o2o.vipcart.worker.used.UsedUpdateShareActivitySchedule"/>
+
+
+    <bean id="usedEsSchedule" class="com.jd.o2o.vipcart.worker.used.UsedEsSchedule"/>
+    <bean id="usedUserConsumeToEsSchedule" class="com.jd.o2o.vipcart.worker.used.UsedUserConsumeToEsSchedule"/>
+    <bean id="uservipcartGroupSchedule" class="com.jd.o2o.vipcart.worker.used.uservipcart.UservipcartGroupSchedule"/>
+
+
+    <!--删除数据专用worker-->
+    <bean id="deleteActivityTableSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteActivityTableSchedule"/>
+    <bean id="deleteDtCodeSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteDtCodeSchedule"/>
+    <bean id="deletevipcartConsumeSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeletevipcartConsumeSchedule"/>
+    <bean id="deleteOrgStationUserNumSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteOrgStationUserNumSchedule"/>
+    <bean id="deleteRedFissionOrderSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteRedFissionOrderSchedule"/>
+    <bean id="deleteShareActivityAccessSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteShareActivityAccessSchedule"/>
+    <bean id="deleteShareRewardSuccessItemSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteShareRewardSuccessItemSchedule"/>
+    <bean id="deleteUserCodeRelSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteUserCodeRelSchedule"/>
+    <bean id="deleteUservipcartRelationSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteUservipcartRelationSchedule"/>
+    <bean id="deleteUservipcartSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteUservipcartSchedule"/>
+    <bean id="deleteJdBatchSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteJdBatchSchedule"/>
+    <bean id="deleteDjBatchSchedule" class="com.jd.o2o.vipcart.worker.used.deleteTable.DeleteDjBatchSchedule"/>
+
+</beans>

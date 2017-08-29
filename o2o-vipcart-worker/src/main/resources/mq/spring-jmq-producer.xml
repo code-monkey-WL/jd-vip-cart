@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jmq="http://code.jd.com/schema/jmq"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   http://code.jd.com/schema/jmq
+	   http://code.jd.com/schema/jmq/jmq-1.0.xsd
+	   ">
+
+    <!--连接通道配置： address:目录服务地址	jmq-cluster.jd.local:80,app:接入的应用（系统）代码，此属性必须填写-->
+    <jmq:transport id="jmq.transport" address="${jmq.address}" user="${jmq.userName}" password="${jmq.password}" app="${jmq.app}"
+                   epoll="${jmq.epoll}"/>
+
+    <!--  老数据导入 -->
+    <jmq:producer id="usedImportActivityMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="usedImportUservipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="usedImportUservipcart1MessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="usedImportUserConsumerMessageProducer" retryTimes="3" transport="jmq.transport"/>
+
+
+    <jmq:producer id="activityMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="vipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="vipcartStockMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="grabvipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="consumevipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="vipcartRollbackRiskMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="retryRollbackvipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="newvipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <!-- 风控 -->
+    <jmq:producer id="riskMqMessageProducer" retryTimes="3" transport="jmq.transport"/>
+
+
+
+    <!-- 初始化生产者实现类  -->
+    <bean id="activityChangeProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.ActivityChangeProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.activity_change}" />
+    </bean>
+    <bean id="vipcartChangeProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.vipcartChangeProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.vipcart_change}" />
+    </bean>
+    <bean id="consumevipcartProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.ConsumevipcartProducerImpl">
+        <property name="topic" value="jmq.producer.topic.consume_vipcart" />
+    </bean>
+    <bean id="vipcartStockChangeProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.vipcartStockChangeProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.vipcart_stock}" />
+    </bean>        
+    <bean id="grabvipcartProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.GrabvipcartProducerImpl">
+        <property name="topic"  value="${jmq.consumer.topic.push_grab_vipcart}" />
+    </bean>
+    <bean id="retryRollbackvipcartProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.RetryRollbackvipcartProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.retry_rollback_vipcart}" />
+    </bean>
+    <bean id="newvipcartProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.NewvipcartProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.new_vipcart}" />
+    </bean>
+
+    <!-- 风控 -->
+    <bean id="riskMqProducerImpl" class="com.jd.o2o.vipcart.service.mq.producer.impl.RiskMqProducerImpl">
+        <property name="createStatevipcartRiskMqTopic" value="${create_state_vipcart_risk_mq}" />
+        <property name="changeStatevipcartRiskMqTopic" value="${change_state_vipcart_risk_mq}" />
+        <property name="rollbackvipcartRiskMqTopic" value="${cancel_state_vipcart_risk_mq}" />
+    </bean>
+
+
+
+    <!-- 初始化生产者实现类  线上不配置  -->
+    <bean id="usedImportActivityProducer" class="com.jd.o2o.vipcart.used.mq.producer.impl.UsedImportActivityProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.used_import_activity}" />
+    </bean>
+    <bean id="usedImportUserConsumerProducerImpl" class="com.jd.o2o.vipcart.used.mq.producer.impl.UsedImportUserConsumerProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.used_import_user_consumer}" />
+    </bean>
+    <bean id="usedImportUservipcartProducerImpl" class="com.jd.o2o.vipcart.used.mq.producer.impl.UsedImportUservipcartProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.used_import_user_vipcart}" />
+    </bean>
+    <bean id="usedImportUservipcart1ProducerImpl" class="com.jd.o2o.vipcart.used.mq.producer.impl.UsedImportUservipcart1ProducerImpl">
+        <property name="topic" value="${jmq.producer.topic.used_import_user_vipcart1}" />
+    </bean>
+</beans>

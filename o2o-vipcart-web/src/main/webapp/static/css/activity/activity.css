@@ -1,0 +1,122 @@
+
+/*
+  create.vm 的样式
+*/
+.content {
+    padding: 20px;
+}
+
+.task-attr-result-ct {
+    margin-top: 10px;
+    width: 70%;
+}
+
+.task-attr-result-ct .table th {
+    text-align: center;
+}
+.task-attr-result-ct .table {
+    border: 1px solid #e1e1e1;
+    text-align: center;
+}
+
+.task-attr-result-ct .empty-tips {
+    font-size: 12px;
+    color: #999;
+}
+
+.task-attr-panel .attr-sort {
+    width: 80px;
+}
+
+/*
+audit-config.vm 的样式
+*/
+
+.audit-config .well {
+    background-color: #f8f8f8;
+    border: none;
+    box-shadow: none;
+    margin-top: 10px;
+}
+
+.audit-config  .header h4 {
+    padding: 10px;
+}
+
+.audit-config h4 {
+    border-bottom: 1px solid #DDD;
+    padding: 5px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.audit-config .table tbody tr td {
+    vertical-align: middle;
+}
+
+.audit-group-config .form-group {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.audit-group-config .add-group-form {
+    margin-bottom: 10px;
+}
+
+.audit-group-config th.name {
+    padding-left: 40px;
+}
+
+.audit-group-config .group-tr td.name {
+    position: relative;
+    padding-left: 40px;
+    width: 200px;
+}
+
+.audit-group-config .group-tr td.sort {
+    width: 50px;
+}
+
+.audit-group-config .group-tr td.operation {
+    width: 100px;
+}
+
+.audit-group-config .group-tr .new {
+    display: none;
+}
+
+.audit-group-config .group-tr:hover {
+    cursor: pointer;
+}
+
+.audit-group-config .group-tr.unsave .new {
+    display: inline;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 10px;
+    background-color: red;
+    color: white;
+}
+
+.audit-group-config td.placeholder {
+    max-width: 500px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.audit-attr-config .form-group select {
+    width: 180px;
+}
+.audit-attr-config .form-group {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.audit-attr-config .header {
+    margin-bottom: 20px;
+}
+
+.audit-group-config-message-box td {
+    vertical-align: middle;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+    <tool>
+        <key>stringEscapeUtils</key>
+        <class>org.apache.commons.lang.StringEscapeUtils</class>
+    </tool>
+    <tool>
+        <key>dateFormatUtils</key>
+        <scope>application</scope>
+        <class>com.jd.o2o.vipcart.common.utils.DateFormatUtils</class>
+    </tool>
+    <tool>
+        <key>memUtils</key>
+        <scope>application</scope>
+        <class>com.jd.o2o.vipcart.common.utils.PrettyMemoryUtils</class>
+    </tool>
+    <tool>
+        <key>privilegeTool</key>
+        <class>com.jd.josl.privilege.security.utils.ResourcePrivilegeTool</class>
+    </tool>
+</toolbox>

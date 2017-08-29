@@ -1,0 +1,131 @@
+@import "./common/global";
+@import "./common/header";
+@import "./common/form";
+
+.hide {
+  display: none;
+}
+
+
+.review_panel {
+  @imgWidth: 300px;
+  display: none;
+
+  position: fixed;
+  top: 50%;
+  right: 50px;
+  transform: translate(0%, -50%);
+
+  img {
+    width: @imgWidth;
+  }
+
+  .title {
+    position: absolute;
+    top: 95px;
+    left: 15px;
+    width: 170px;
+    height: 20px;
+    background-color: #0da01f;
+    color: #ffffff;
+    font-weight: bold;
+    padding-left: 20px;
+  }
+
+  .info {
+    position: absolute;
+    left: 2px;
+    bottom: 10px;
+    width: @imgWidth - 4px;
+    height: 105px;
+    background-color: #fb3141;
+    color: #ffffff;
+    padding-left: 15px;
+  }
+
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+.review_share_panel {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: 50px;
+  transform: translate(0%, -50%);
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+  width: 350px;
+  box-shadow: 3px 5px 5px rgba(0,0,0,0.5);
+
+  &::before {
+    position: absolute;
+    content: '';
+    width: .71428571em;
+    height: .71428571em;
+    background: #fff;
+    top: 20px;
+    left: -6px;
+    // -webkit-transform: rotate(45deg);
+    transform: rotate(135deg);
+    z-index: 2;
+
+    box-shadow: 2px 2px 0 0 #f5f5f5;
+  }
+
+  .title {
+    height: 25px;
+    font-weight: bold;
+    padding: 10px 20px;
+  }
+
+  .info {
+    height: 105px;
+    color: #999999;
+    padding: 10px 20px;
+    display: inline-flex;
+    width: 100%;
+
+    .text {
+      display: inline-block;
+      width: 240px;
+      padding-right: 10px;
+    }
+
+    .img {
+      display: inline-block;
+
+      img {
+        width: 60px;
+      }
+    }
+  }
+
+  .bottom {
+    padding: 10px 20px;
+    display: inline-flex;
+    line-height: 30px;
+    width: 100%;
+    border-top: 1px solid #f5f5f5;
+
+    img {
+      width: auto;
+      height: 30px;
+      margin-right: 10px;
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}

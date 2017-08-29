@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>活动优惠券</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui-timepicker-addon.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/edit_vipcart.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <h5>创建优惠券</h5>
+      </div>
+      <form class="content">
+        <ul id="form1" v-show="pageId == 1" class="ui form">
+          <li>
+            <label class="empty">优惠券类型：</label>
+            <div v-if="type == 1" class="field">
+              <div class="ui radio checkbox">
+                <input name=vipcartnType" v-model="infvipcartonType" type="radio" value="1" checked>
+                <label>满减</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui radio checkbox">
+                <input namvipcartponType" v-model="ivipcartuponType" type="radio" value="5">
+                <label>满折</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui radio checkbox">
+                <input nvipcartouponType" v-model=vipcartcouponType" type="radio" value="2">
+                <label>立减</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui radio checkbox">
+                <inputvipcart"couponType" v-modevipcarto.couponType" type="radio" value="3">
+                <label>免运费</label>
+              </div>
+            </div>
+            <div v-else>
+              <tvipcartfo.couponTypvipcartum 'couponType'}}</td>
+            </div>
+          </li>
+          <li>
+            <label class="empty">适用城市：</label>
+            <div v-if="type == 1" class="inline field">
+              <input name="limitCity" type="hidden">
+              <a class="ui secondary button field" @click="showCityPanel($event)">选择</a>
+              <list-item :list="selectCity" title="城市" count="5" isedit="true"></list-item>
+            </div>
+            <div v-else>
+              <list-item :list="info.limitCityShows" title="城市" count="5"></list-item>
+              <!-- {{info.limitAreaNames}} -->
+            </div>
+          </li>
+          <li>
+            <label class="empty">优惠券名称：</label>
+            <div v-if="type == 1">
+              <div class="ui input inline field">
+                <ivipcartame="couponName" type="text" maxlength="40">
+              </div>
+              <span>字符长度不超过40个</span>
+            </div>
+            <div v-else>
+         vipcart{info.couponName}}
+            </div>
+          </li>
+        </ul>
+
+
+        <ul v-show="pageId == 2 || type != 1" class="ui form">
+          <li>
+            <label class="empty">发券总量：</label>
+            <div v-if="type == 1" class="inline field">
+              <div class="ui input">
+                <input name="totalNum" type="text" maxlength="40">
+              </div>
+            </div>
+            <div v-else>
+              {{info.totalNum}}
+            </div>
+          </li>
+          <li>
+            <label class="empty">领券时间：</label>
+            <div v-if="type == 1" class="pfield inline field">
+              <div class="ui input icon time field">
+                <i class="calendar icon"></i>
+                <input name="grabBeginTime" type="text">
+              </div>
+              -
+              <div class="ui input icon time field">
+                <i class="calendar icon"></i>
+                <input name="grabEndTime" type="text">
+              </div>
+            </div>
+            <div v-else>
+              {{info.grabBeginTime}} 至 {{info.grabEndTime}}
+            </div>
+          </li>
+          <li>
+            <label class="empty">面值：</label>
+            <div v-if="type vipcart& info.couponType == 1" class="pfield field inline">
+              满
+              <div class="ui input short field"><input name="minOrderAmount"  maxlength="9"></div>
+              元-减
+              <div class="ui input short field"><input name="quota"  maxlength="9"></div>
+              元
+              <input name="maxOrderAmount" type="hidden" value="0">
+            </div>
+            <div v-if="typevipcart&& info.couponType == 5" class="pfield field inline">
+              满
+              <div class="ui input short field"><input name="minOrderAmount"  maxlength="9"></div>
+              元享
+              <div class="ui input short field"><input name="quota"  maxlength="3"></div>
+              折，最多抵扣
+              <div class="ui input short field"><input name="maxOrderAmount"  maxlength="9"></div>
+              元
+            </div>
+            <div v-if="typvipcart && info.couponType == 2" class="pfield field inline">
+              立减
+              <div class="ui input short field"><input name="quota"  maxlength="9"></div>
+              元
+              <input name="minOrderAmount" type="hidden" value="0">
+              <input name="maxOrderAmount" type="hidden" value="0">
+            </div>
+            <div v-if="tyvipcart1 && info.couponType == 3" class="pfield field inline">
+              满
+              <div class="ui input short field"><input name="minOrderAmount"  maxlength="9"></div>
+              元
+              <div class="spacing"></div>
+              <div class="ui radio checkbox">
+                <input name="my" type="radio" v-model="info.my" value="0" checked>
+                <label>全免</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui radio checkbox">
+                <input name="my" type="radio" v-model="info.my" value="1">
+              </div><span class="radio-label" @click="onCheck($event)">减
+                <div class="ui input short field"><input name="quota" :value="info.my == 0 ? '0' : info.quota" maxlength="3"></div>
+                元
+              </span>
+              <input name="maxOrderAmount" type="hidden" value="0">
+              <span></span>
+            </div>
+            <div v-if="type != 1">
+              <td>{{info | enum 'showName'}}</td>
+            </div>
+          </li>
+          <li>
+            <label class="empty">用券时间：</label>
+            <div v-if="type == 1 || type == 2">
+              <div class="ui radio checkbox">
+            vipcartnput name="couponExpiryType" type="radio" value="1"  v-model="info.expiry" checked>
+              </div><span class="radio-label inline field" @click="onCheck($event)">领券后即生效，有效期至
+                <div class="ui input short"><input name="expiryEndDays" :value="info.expiry == 1 ? '' : info.expiryEndDays" maxlength="3"></div>
+                天
+              </span>
+              <span>单个用户允许领取的次数，0为不限制</span>
+            </div>
+            <div v-else>
+            vipcart v-if="info.couponExpiryType == 1">
+                领券后即生效，有效期至 {{info.expiryEndDays}} 天
+              </div>
+              <div v-else>
+    vipcart      {{info.couponBvipcartme}} 至 {{info.couponEndTime}}
+              </div>
+            </div>
+          </li>
+          <li>
+            <label></label>
+            <div v-if="type == 1 || type == 2" class="field">
+              <div class="ui radio checkbox">
+        vipcart  <input name="couponExpiryType" type="radio" value="2" v-model="info.expiry">
+                <label>自定义</label>
+              </div><span class="radio-label pfield inline field" @click="onCheck($event)">
+                <div class="ui input icon time field">
+                  <i class="calendar icon"></i>
+         vipcart   <input name="couponBeginTime" type="text">
+                </div>
+                -
+                <div class="ui input icon time field">
+                  <i class="calendar icon"></i>
+        vipcart    <input name="couponEndTime" type="text">
+                </div>
+              </span>
+              <span></span>
+            </div>
+          </li>
+          <li>
+            <label class="empty">适用平台：</label>
+            <div v-if="type == 1" class="inline field">
+              <div class="ui checkbox">
+                <input name="limitChannel[]" type="checkbox" value="101" checked >
+                <label>APP</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui checkbox">
+                <input name="limitChannel[]" type="checkbox" value="201">
+                <label>H5</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui checkbox">
+                <input name="limitChannel[]" type="checkbox" value="301">
+                <label>微信小程序</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui checkbox">
+                <input name="limitChannel[]" type="checkbox" value="401">
+                <label>哥伦布</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui checkbox">
+                <input name="limitChannel[]" type="checkbox" value="501">
+                <label>好收成</label>
+              </div>
+            </div>
+            <div v-else>
+              {{info.limitChannelNames}}
+            </div>
+          </li>
+          <li>
+            <label class="empty">适用商家范围：</label>
+            <div v-if="type == 1" class="inline field">
+              <div class="ui radio checkbox" @click="clearOrgList(0)">
+                <input name="limitOrgType" v-model="info.limitOrgType" type="radio" value="0" checked>
+                <label>全场</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui radio checkbox" @click="clearOrgList(200)">
+                <input name="limitOrgType" v-model="info.limitOrgType" type="radio" value="200">
+                <label>限商家／门店</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui radio checkbox" @click="clearOrgList(220)">
+                <input name="limitOrgType" v-model="info.limitOrgType" type="radio" value="220">
+                <label>限行业</label>
+              </div>
+
+            </div>
+            <div v-else>
+              {{info.limitOrgType | enum 'limitTypeShow'}}
+            </div>
+          </li>
+          <li v-if="info.limitOrgType == 200">
+            <label class="empty">商家范围：</label>
+            <div v-if="type == 1" class="inline field">
+              <input name="limitOrgValue" type="hidden">
+              <input name="limitStation" type="hidden">
+              <a class="ui secondary button field" @click="selectPanel('vender')">添加商家</a>
+              <list-item :list="venderList" title="商家" count="5" isedit="true"></list-item>
+              <a v-if="venderList.length > 0" class="ui secondary button" @click="selectPanel('store')">添加门店</a>
+              <list-item v-if="venderList.length > 0" :list="storeList" title="门店" count="5" isedit="true"></list-item>
+            </div>
+            <div v-else>
+              商家：
+              <list-item :list="info.limitOrgShows" title="商家" count="5"></list-item>
+              <span v-if="info.limitStationShows.length > 0">
+                门店：<list-item :list="info.limitStationShows" title="门店" count="5"></list-item>
+              </span>
+              <span></span>
+            </div>
+          </li>
+          <li v-if="info.limitOrgType == 220">
+            <label class="empty">行业范围：</label>
+            <div v-if="type == 1" class="inline field">
+              <input name="limitOrgValue" type="hidden">
+              <a class="ui secondary button field" @click="selectPanel('industry')">添加行业</a>
+              <list-item :list="industryList" title="行业" count="5" isedit="true"></list-item>
+            </div>
+            <div v-else>
+              <list-item :list="info.limitOrgShows" title="行业" count="5"></list-item>
+            </div>
+          </li>
+          <!-- <li v-if="info.limitOrgType == 220 || info.limitSkuType == 270">
+            <label class="empty">设置白名单：</label>
+            <div v-if="type == 1" class="inline field">
+              <input name="blackOrder" type="hidden" value="0">
+              <input name="blackOrderValue" type="hidden">
+              <a class="ui secondary button" @click="selectPanel('white')">添加名单</a>
+              <list-item :list="whiteList" title="白名单" count="5"></list-item>
+              <span>黑名单最多添加100个</span>
+            </div>
+            <div v-else>
+              {{info.blackOrderValue}}
+            </div>
+          </li> -->
+          <li>
+            <label class="empty">承担比例：</label>
+            <div v-if="type == 1" class="inline field">
+              到家承担
+              <div class="ui input short"><input v-model="info.platShareProportion" name="platShareProportion"  maxlength="2"></div>
+              %，商家承担{{getReoportion}}%
+            </div>
+            <div v-else>
+              到家承担 {{info.platShareProportion}} %，商家承担{{getReoportion}}%
+            </div>
+          </li>
+          <li>
+            <label class="empty">适用商品范围：</label>
+            <div v-if="type == 1" class="inline field">
+              <div class="ui radio checkbox" @click="clearSkuList(0)">
+                <input name="limitSkuType" v-model="info.limitSkuType" type="radio" value="0" checked>
+                <label>不限制</label>
+              </div>
+              <div class="spacing"></div>
+              <div class="ui radio checkbox">
+                <input name="limitSkuType" v-model="info.limitSkuType" type="radio" value="270">
+                <label>限品牌</label>
+              </div>
+              <!--<div class="spacing"></div>-->
+              <!--<div class="ui radio checkbox">-->
+                <!--<input name="limitSkuType" v-model="info.limitSkuType" type="radio" value="240">-->
+                <!--<label>限品类</label>-->
+              <!--</div>-->
+              <!--<div class="spacing"></div>-->
+              <!--<div class="ui radio checkbox">-->
+                <!--<input name="limitSkuType" v-model="info.limitSkuType" type="radio" value="250">-->
+                <!--<label>限单品</label>-->
+              <!--</div>-->
+            </div>
+            <div v-else>
+              {{info.limitSkuType | enum 'limitTypeShow'}}
+            </div>
+          </li>
+          <li v-if="info.limitSkuType == 270">
+            <label class="empty">品牌范围：</label>
+            <div v-if="type == 1" class="inline field">
+              <input name="limitSkuValue" type="hidden">
+              <a class="ui secondary button field" @click="selectPanel('brand')">添加品牌</a>
+              <list-item :list="brandList" title="品牌" count="5" isedit="true"></list-item>
+            </div>
+            <div v-else>
+              <list-item :list="info.limitSkuShows" title="品牌" count="5"></list-item>
+            </div>
+          </li>
+          <li>
+            <label class="empty">优惠券标题：</label>
+            <div v-if="type == 1" class="inline field">
+              <div class="ui input">
+                <input name="showName" type="text" maxlength="40">
+              </div>
+            </div>
+            <div v-else>
+              {{info.showName}}
+            </div>
+          </li>
+          <li>
+            <label class="empty">优惠券说明：</label>
+            <div v-if="type == 1" class="inline field">
+              <div class="ui input">
+                <input name="showText" type="text" maxlength="40">
+              </div>
+            </div>
+            <div v-else>
+              {{info.showText}}
+            </div>
+          </li>
+          <li>
+            <label class="empty">负责人电话：</label>
+            <div v-if="type == 1" class="inline field">
+              <div class="ui input">
+                <input name="phoneNumbers" type="text" maxlength="40">
+              </div>
+            </div>
+            <div v-else>
+              {{info.phoneNumbers}}
+            </div>
+          </li>
+        </ul>
+      </form>
+      <div class="button-panel">
+        <div v-if="pageId == 1 && type == 1">
+          <a class="ui secondary button" @click="next()">下一步，填写详情</a>
+          <div class="spacing"></div>
+          <a href="javascript:history.go(-1);">取消</a>
+        </div>
+        <div v-if="pageId == 2 && type == 1">
+          <a class="ui secondary button" @click="onRiskCheck()">确定提交</a>
+          <div class="spacing"></div>
+          <a href="javascript:void(0);" @click="prev()">返回上一步</a>
+        </div>
+        <div v-if="type != 1">
+          <a class="ui secondary button" @click="onBack()">返回</a>
+        </div>
+      </div>
+      <page-footer></page-footer>
+      <!--<select-city v-ref:selectcity><</select-city>-->
+      <model-select v-ref:selectcity url="/rpc/queryCityInfoList" title="城市" selectcount="10" isall="false"></model-select>
+      <model-page-select v-ref:vender url="/rpc/queryVenderInfoPage" title="商家" selectcount="1" isall="false"></model-page-select>
+      <model-page-select v-ref:store :url="'/rpc/queryStationInfoPage?venderId=' + getVenderId" title="门店" selectcount="100" isall="false"></model-page-select>
+      <model-select v-ref:industry url="/rpc/queryIndustryTagInfoList" title="行业" selectcount="10" isall="false"></model-select>
+      <model-select v-ref:brand url="/rpc/queryBrandList" title="品牌" selectcount="1" isall="false"></model-select>
+      <!--<model-page-select v-ref:white url="/rpc/queryVenderInfoPage" title="白名单" selectcount="10" isall="false"></model-page-select>-->
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui.js"></script>
+    <script src="../libs/jquery-ui/datepicker-zh-CN.js"></script>
+    <script src="../libs/jquery-ui/jquery.datetimepicker.full.min.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui-timepicker-addon.js"></script>
+    <script src="../libs/jquery-ui/i18n/jquery-ui-timepicker-zh-CN.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <scrivipcart="../dist/js/edit_vipcart.bundle.js"></script>
+</html>

@@ -1,0 +1,37 @@
+#set($layout = "layout/null.vm")
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>登录认证管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="#springUrl('/static/css/layout/style.css')" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/layout/base.css')"/>
+    <script type="text/javascript" src="#springUrl('/static/plugins/jquery.js')"></script>
+    <script type="text/javascript" src="#springUrl('/static/js/layout/main.js')"></script>
+</head>
+<body style='overflow-x: hidden; overflow-y: auto;'>
+
+<div class="menu-container">
+    <div class="totalScrollOffset"></div>
+    <div id="menu">
+        <div class="menu-tit"><a href="javascript:void(0);">功能列表</a></div>
+        <ul class="menu_lev1">
+            #if($menuVOList)
+                #foreach($menu1 in $menuVOList)
+                    <li>
+                        <a href="#springUrl('')$!{menu1.href}" target="frame_main" class="tit_lev1">
+                            <span>$!{menu1.text}</span>
+                        </a>
+                        <ul class="menu_lev2"></ul>
+                    </li>
+                #end
+            #end
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
+

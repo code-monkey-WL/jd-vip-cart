@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <title>配送员详情</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+</head>
+<body>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title" contenteditable="true">
+                        <strong>配送员详情</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>deliveryManNo</th>
+                            <th>longitude</th>
+                            <th>latitude</th>
+                            <th>password</th>
+                            <th>deliveryManName</th>
+                            <th>deliveryManMobile</th>
+                            <th>deliveryManStatus</th>
+                            <th>identifyType</th>
+                            <th>identifyNo</th>
+                            <th>deliveryManAddress</th>
+                            <th>createTime</th>
+                            <th>lastModifyTime</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info">
+                            <td>$!{deliveryMan.deliveryManNo}</td>
+                            <td>$!{deliveryMan.longitude}</td>
+                            <td>$!{deliveryMan.latitude}</td>
+                            <td>$!{deliveryMan.password}</td>
+                            <td>$!{deliveryMan.deliveryManName}</td>
+                            <td>$!{deliveryMan.deliveryManMobile}</td>
+                            <td>$!dictUtils.getDeliverymanStatus(${deliveryMan.deliveryManStatus})</td>
+                            <td>$!{deliveryMan.identifyType}</td>
+                            <td>$!{deliveryMan.identifyNo}</td>
+                            <td>$!{deliveryMan.deliveryManAddress}</td>
+                            <td>$!dateFormatUtils.format($!{deliveryMan.createTime},"yyyy-MM-dd HH:mm:ss")</td>
+                            <td>$!dateFormatUtils.format($!{deliveryMan.lastModifyTime},"yyyy-MM-dd HH:mm:ss")</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>registerDate</th>
+                            <th>version</th>
+                            <th>registerPlatform</th>
+                            <th>registerChannel</th>
+                            <th>pushId</th>
+                            <th>selfInviteCode</th>
+                            <th>otherInviteCode</th>
+                            <th>acountType</th>
+                            <th>bankAcountId</th>
+                            <th>carriersId</th>
+                            <th>yn</th>
+                            <th>deposited</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info">
+                            <td>$!dateFormatUtils.format($!{deliveryMan.registerDate},"yyyy-MM-dd HH:mm:ss")</td>
+                            <td>$!{deliveryMan.version}</td>
+                            <td>$!{deliveryMan.registerPlatform}</td>
+                            <td>$!{deliveryMan.registerChannel}</td>
+                            <td>$!{deliveryMan.pushId}</td>
+                            <td>$!{deliveryMan.selfInviteCode}</td>
+                            <td>$!{deliveryMan.otherInviteCode}</td>
+                            <td>$!{deliveryMan.acountType}</td>
+                            <td>$!{deliveryMan.bankAcountId}</td>
+                            <td>$!{deliveryMan.carriersId}</td>
+                            <td>$!{deliveryMan.yn}</td>
+                            <td>$!{deliveryMan.deposited}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>rainedFlag</th>
+                            <th>lastPlatform</th>
+                            <th>levelStar</th>
+                            <th>realName</th>
+                            <th>cityId</th>
+                            <th>orderType</th>
+                            <th>deliverProp</th>
+                            <th>employeeType</th>
+                            <th>hourPercentType</th>
+                            <th>orderWeight</th>
+                            <th>equipMaterial</th>
+                            <th>managerNo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info">
+                            <td>$!{deliveryMan.rainedFlag}</td>
+                            <td>$!{deliveryMan.lastPlatform}</td>
+                            <td>$!{deliveryMan.levelStar}</td>
+                            <td>$!{deliveryMan.realName}</td>
+                            <td>$!{deliveryMan.cityId}</td>
+                            <td>$!{deliveryMan.orderType}</td>
+                            <td>$!{deliveryMan.deliverProp}</td>
+                            <td>$!{deliveryMan.employeeType}</td>
+                            <td>$!{deliveryMan.hourPercentType}</td>
+                            <td>$!{deliveryMan.orderWeight}</td>
+                            <td>$!{deliveryMan.equipMaterial}</td>
+                            <td>$!{deliveryMan.managerNo}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>orderSource</th>
+                            <th>orderThresholds</th>
+                            <th>state</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info">
+                            <td>$!{deliveryMan.orderSource}</td>
+                            <td>$!{deliveryMan.orderThresholds}</td>
+                            <td>$!{deliveryMan.state}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

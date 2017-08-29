@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>精准自助营销系统</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui-timepicker-addon.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/index.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <a v-if="query.activityType == 2" class="ui secondary button" href="edit_change_activity.html">创建活动</a>
+        <a v-else class="ui secondary button" href="edit_activity.html?purpose={{query.purpose}}">创建活动</a>
+        <a v-if="query.purpose == 1" href="import_activity.html">批量创建活动</a>
+      </div>
+      <div class="page-search">
+        <ul class="conditions">
+          <li>
+            <label>活动名称</label>
+            <div class="ui input">
+              <input type="text" v-model="query.activityName">
+            </div>
+            <div class="ui checkbox">
+              <input type="checkbox" v-model="query.isFilterTestActivity" value="1"><label>过滤测试数据</label>
+            </div>
+            <span class="spacing"></span><span class="spacing"></span>
+            <label>活动编码</label>
+            <div class="ui input">
+              <input type="text" v-model="query.activityCode">
+            </div>
+          </li>
+          <li>
+            <label>活动时间</label>
+            <div class="ui input icon datetime">
+              <i class="calendar icon"></i>
+              <input id="beginTime" type="text" v-model="query.beginTime">
+            </div>
+            -
+            <div class="ui input icon datetime">
+              <i class="calendar icon"></i>
+              <input id="endTime" type="text" v-model="query.endTime">
+            </div>
+            <!--<div class="ui checkbox">-->
+              <!--<input type="checkbox" v-model="query.isAccurateActivityTime"><label>仅显示开始与结束时间均在指定范围内的活动</label>-->
+            <!--</div>-->
+          </li>
+          <li>
+            <label>创建时间</label>
+            <div class="ui input icon datetime">
+              <i class="calendar icon"></i>
+              <input id="createTimeStart" type="text" v-model="query.createTimeStart">
+            </div>
+            -
+            <div class="ui input icon datetime">
+              <i class="calendar icon"></i>
+              <input id="createTimeEnd" type="text" v-model="query.createTimeEnd">
+            </div>
+            <!--<span class="spacing"></span><span class="spacing"></span>-->
+            <!--<label>创建人</label>-->
+            <!--<div class="ui input">-->
+              <!--<input type="text" v-model="query.createPin">-->
+            <!--</div>-->
+            <span class="spacing"></span><span class="spacing"></span>
+            <label>状态</label>
+            <div class="ui input">
+              <select class="ui dropdown" v-model="query.activityState">
+                <option value="-1">全部</option>
+                <option value="1">新建</option>
+                <option value="2">待确认</option>
+                <option value="9">未开始</option>
+                <option value="8">进行中</option>
+                <option value="7">已结束</option>
+                <!--<option value="5">已取消</option>-->
+              </select>
+            </div>
+          </li>
+        </ul>
+        <a class="search-button" @click="onQuery()"><i class="inverted circular search link icon"></i></a>
+      </div>
+      <index-table v-ref:table></index-table>
+      <show-location v-ref:showlocation></show-location>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui.js"></script>
+    <script src="../libs/jquery-ui/datepicker-zh-CN.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui-timepicker-addon.js"></script>
+    <script src="../libs/jquery-ui/i18n/jquery-ui-timepicker-zh-CN.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../dist/js/index.bundle.js"></script>
+</html>

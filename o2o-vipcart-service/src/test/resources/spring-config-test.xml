@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
+	default-autowire="byName">
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config-test.properties</value>
+                <value>classpath:mq/mq.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--<bean class="com.jd.o2o.vipcart.common.utils.spring.SpringContextHolder"></bean>-->
+
+	<!--app privilege -->
+	<bean id="context" class="com.jd.josl.privilege.domain.context.Context">
+		<property name="appCode" value="o2o-zeus" />
+		<property name="appToken" value="123456" />
+	</bean>
+	<!--finance url -->
+	<!--<bean id="refendSearchUrl" class="com.jd.o2o.ocs.rpc.bank.RefendSearchUrl">
+		<property name="url">
+			<value>${refundsearch.url}</value>
+		</property>
+	</bean>-->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:component-scan base-package="com.jd.o2o.vipcart" />
+
+    <import resource="spring-config-datasource-dbcp-test.xml" />
+    <import resource="classpath:rpc/spring-config-jsf-client.xml" />
+    <import resource="spring-config-cache-test.xml" />
+    <import resource="spring-config-bean-test.xml" />
+    <import resource="mq/spring-consumer.xml" />
+    <import resource="mq/spring-producer.xml" />
+</beans>

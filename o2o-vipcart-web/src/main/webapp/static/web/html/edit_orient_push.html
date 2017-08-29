@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>定向推送活动-新增</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui-timepicker-addon.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/edit_orient_push.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <h5>创建定向推送活动</h5>
+      </div>
+      <form class="content">
+        <div class="part">
+          <ul class="ui form">
+            <li>
+              <label class="empty">活动名称：</label>
+              <div v-if="type == 1">
+                <div class="ui input inline field">
+                  <input name="activityName" type="text" maxlength="40">
+                </div>
+                <span>字符长度不超过40个</span>
+              </div>
+              <div v-else>
+                {{info.activityName}}
+              </div>
+            </li>
+            <li>
+              <label class="empty">用户批次：</label>
+              <div v-if="type == 1" class="inline field">
+                <input name="bpiId" type="hidden">
+                <input name="batchsNo" type="hidden">
+                <a class="ui secondary button field" @click="showUserPanel($event)">选择用户</a>
+                <list-item :list="userPinList" title="用户" count="5"></list-item>
+              </div>
+              <div v-else>
+                {{info.userPinNames}}
+              </div>
+            </li>
+            <li>
+              <label class="empty">推送渠道：</label>
+              <div v-if="type == 1">
+                <div class="ui checkbox field">
+                  <input name="pushChanel[]" v-model="pushChanel" type="checkbox" value="1">
+                  <label>短信</label>
+                </div>
+                <div class="spacing"></div>
+                <div class="spacing"></div>
+                <div class="ui input inline field">
+                  <input name="smsInfo" type="text" maxlength="64">
+                </div>
+                <span>推送成本：¥{{cost}}</span>
+                <span>字符长度不超过64</span>
+              </div>
+              <div v-else>
+                短信 {{info.content1}}
+              </div>
+            </li>
+            <li>
+              <label></label>
+              <div v-if="type == 1">
+                <div class="ui checkbox field">
+                  <input name="pushChanel[]" v-model="pushChanel" type="checkbox" value="2">
+                  <label>APP提醒</label>
+                </div>
+                <div class="spacing"></div>
+                <div class="ui input inline field">
+                  <input name="appInfo" type="text" maxlength="51">
+                </div>
+                <span>字符长度不超过51</span>
+              </div>
+              <div v-else>
+                APP提醒 {{info.content2}}
+              </div>
+            </li>
+            <li>
+              <label class="empty">推送时间：</label>
+              <div v-if="type == 1" class="inline field">
+                <div class="ui radio checkbox">
+                  <input name="pushTimeType" v-model="pushTimeType" type="radio" value="1" checked>
+                  <label>立即（审批完成即会推送）</label>
+                </div>
+                <div class="spacing"></div>
+                <div class="ui radio checkbox">
+                  <input name="pushTimeType" v-model="pushTimeType" type="radio" value="2">
+                  <label>定时</label>
+                </div><span class="radio-label" @click="onCheck($event)">
+                  <div class="ui input icon inline field">
+                    <i class="calendar icon"></i>
+                    <input name="pushTime" class="time" type="text">
+                  </div>
+                </span>
+              </div>
+              <div v-else>
+                {{info.pushTimeType}}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </form>
+      <div class="button-panel">
+        <a class="ui secondary button" @click="onSave()">保存活动，继续添加优惠券</a>
+        <div class="spacing"></div>
+        <a href="javascript:history.go(-1);">返回</a>
+      </div>
+      <page-footer></page-footer>
+      <select-user-pin v-ref:selectuserpin ></select-user-pin>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui.js"></script>
+    <script src="../libs/jquery-ui/datepicker-zh-CN.js"></script>
+    <script src="../libs/jquery-ui/jquery.datetimepicker.full.min.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui-timepicker-addon.min.js"></script>
+    <script src="../libs/jquery-ui/i18n/jquery-ui-timepicker-zh-CN.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../dist/js/edit_orient_push.bundle.js"></script>
+</html>

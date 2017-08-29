@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+    <bean class="com.jd.ump.annotation.JAnnotation">
+        <property name="systemKey" value="o2o-vipcart-web.core.alive"></property>
+        <property name="jvmKey" value="o2o-vipcart-web.core.jvm"></property>
+    </bean>
+    <bean class="com.jd.o2o.vipcart.common.monitor.ApiMonitorProcess"></bean>
+
+    <!-- 切面实现类 -->
+    <bean id="exceptionAlarmAdvice"  class="com.jd.o2o.vipcart.service.advise.ExceptionAlarmAdvice"/>
+    <bean id="accessAuthorityAdvice"  class="com.jd.o2o.vipcart.common.plugins.monitor.impl.AccessAuthorityAdvice"/>
+    <bean id="accessCountAdvice" class="com.jd.o2o.vipcart.common.plugins.monitor.impl.AccessCountAdvice"/>
+    <bean id="umpAdvice" class="com.jd.o2o.vipcart.advise.UMPAdvice">
+        <!--<property name="key" value="o2o.zeus.service.app"/>-->
+        <property name="appName" value="o2o-vipcart-manage-web"/>
+        <property name="enableHeartbeat" value="false"/>
+        <property name="enableTP" value="true"/>
+    </bean>
+    <!-- 声明类 ，此类作为切面类使用 -->
+    <!--<bean id="adviceInterceptor" class="com.jd.o2o.vipcart.advise.ApiAuthorityAdviceImpl">-->
+        <!--<property name="adviceList">-->
+            <!--<list>-->
+                <!--<ref bean="accessAuthorityAdvice"/>-->
+                <!--<ref bean="accessCountAdvice"/>-->
+                <!--<ref bean="umpAdvice"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean id="rpcAdvice" class="com.jd.o2o.vipcart.service.advise.RPCAdviceImpl">
+        <property name="adviceList">
+            <list>
+                <ref bean="exceptionAlarmAdvice"/>
+                <ref bean="umpAdvice"/>
+            </list>
+        </property>
+    </bean>
+</beans>

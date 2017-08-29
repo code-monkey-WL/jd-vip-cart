@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+    <bean id="jConfig" class="com.jd.o2o.vipcart.common.plugins.jgoups.JConfig">
+        <property name="clusterName" value="vipcart-worker-jgroup-cluster"></property>
+        <property name="discardOwnMessages" value="false"></property>
+        <property name="jGroupsInitHosts" value="${open.jgroup.hosts}"></property>
+    </bean>
+    <bean id="idGenerator" class="com.jd.o2o.vipcart.common.service.id.IDGeneratorServiceImpl">
+        <property name="idGeneratorDaoImpl" ref="idGeneratorDaoImpl"></property>
+    </bean>
+    <bean id="registerGenerator" class="com.jd.o2o.vipcart.common.service.id.IDGeneratorRegisterServiceImpl">
+        <property name="idGeneratorRegisterDaoImpl" ref="idGeneratorRegisterDaoImpl"></property>
+    </bean>
+    <!-- 活动管理服务 -->
+    <bean id="activityManageServiceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="1">
+                    <ref local="ordinaryActivityManageServiceImpl"/>
+                </entry>
+                <entry key="2">
+                    <ref local="redFissionActivityManageServiceImpl"/>
+                </entry>
+                <entry key="3">
+                    <ref local="offlineCodeActivityManageServiceImpl"/>
+                </entry>
+                <entry key="5">
+                    <ref local="offlineCodeActivityManageServiceImpl"/>
+                </entry>
+                <entry key="6">
+                    <ref local="orderReturnActivityManageServiceImpl"/>
+                </entry>
+                <entry key="8">
+                    <ref local="directionalPushActivityManageServiceImpl"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 优惠券管理服务 -->
+    <bean id="vipcartManageServiceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="1">
+                    <ref local="fullMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="2">
+                    <ref local="immedMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="3">
+                    <ref local="freightMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="4">
+                    <ref local="freightMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="5">
+                    <ref local="discountMinusvipcartManageImpl"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 优惠券领取预占管理服务 -->
+    <bean id="lockvipcartServiceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="6">
+                    <ref local="lockOrderReturnActivityServiceImpl"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 优惠券领取持久化实体服务 -->
+    <bean id="grabvipcartBuilderServiceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="1">
+                    <ref local="commonGrabvipcartBuilderServiceImpl"/>
+                </entry>
+                <entry key="2">
+                    <ref local="redFissionGrabvipcartBuilderServiceImpl"/>
+                </entry>
+                <entry key="3">
+                    <ref local="exchangeGrabvipcartBuilderServiceImpl"/>
+                </entry>
+                <entry key="5">
+                    <ref local="diTuiGrabvipcartBuilderServiceImpl"/>
+                </entry>
+                <entry key="6">
+                    <ref local="orderReturnGrabvipcartBuilderServiceImpl"/>
+                </entry>
+                <entry key="8">
+                    <ref local="directionalPushGrabvipcartBuilderServiceImpl"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>

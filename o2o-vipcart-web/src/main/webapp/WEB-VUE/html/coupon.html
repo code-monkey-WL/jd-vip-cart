@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>活动优惠券-列表</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/vipcart.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="main-height">
+        <h5>活动优惠券</h5>
+        <div class="spacing"></div>
+        <span>活动名称：{{activityName}}</span>
+      </div>
+      <div class="button-panel">
+        <a v-if="activityState != 5 && activityState != 7" class="ui secondary button" @click="toAddvipcart()">添加优惠券</a>
+        <div class="spacing"></div>
+        <a :href="pageType + '.html'">返回活动列表</a>
+      </div>
+      <div class="tabs">
+        <ul>
+          <li class="active">有效优惠券({{effectivevipcart}})</li>
+          <li>无效优惠券({{notEffectivevipcart}}) </li>
+        </ul>
+        <div><effective-table v-ref:effectivetable></effective-table></div>
+        <div><not-effective-table v-ref:noteffectivetable></not-effective-table></div>
+      </div>
+      <page-footer></page-footer>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../dist/js/vipcart.bundle.js"></script>
+</html>

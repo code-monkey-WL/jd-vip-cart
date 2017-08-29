@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/tx
+	       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+
+
+    <bean id="parentDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="connectionProperties" value="useUnicode=true;characterEncoding=UTF8;initialTimeout=3;connectionTimeout=3000;rewriteBatchedStatements=true;socketTimeout=160000;autoReconnectForPools=true;autoReconnect=true;maxReconnects=1;failOverReadOnly=false;roundRobinLoadBalance=true" />
+        <property name="initialSize" value="${db.promotion.dbcp.initialSize}"/>
+        <property name="maxActive" value="${db.promotion.dbcp.maxActive}" />
+        <property name="minIdle" value="${db.promotion.dbcp.minIdle}"/>
+        <property name="maxIdle" value="${db.promotion.dbcp.maxIdle}"/>
+
+        <!--事务相关的属性-->
+        <property value="false" name="defaultAutoCommit"/>
+        <!--连接健康情况-->
+        <property value="/* ping */ select 1" name="validationQuery"/>
+        <property value="true" name="testWhileIdle"/>
+        <property value="false" name="testOnReturn"/>
+        <property value="false" name="testOnBorrow"/>
+        <property value="30000" name="timeBetweenEvictionRunsMillis"/>
+        <!--回收Idle连接的时间间隔：30秒-->
+        <property value="1800000" name="minEvictableIdleTimeMillis"/>
+        <!--Idle时间，超时后回收，1800秒-->
+        <property value="200" name="numTestsPerEvictionRun"/>
+        <!--和maxActive数值一致-->
+        <!--连接泄露回收参数-->
+        <property value="true" name="logAbandoned"/>
+        <property value="true" name="removeAbandoned"/>
+        <property value="180" name="removeAbandonedTimeout"/>
+
+    </bean>
+
+
+    <bean id="usedDataSource" parent="parentDataSource">
+        <property name="driverClassName" value="${imp.promotion.jdbc.driver}"/>
+        <property name="url" value="${imp.promotion.jdbc.url}"/>
+        <property name="username" value="${imp.promotion.jdbc.username}"/>
+        <property name="password" value="${imp.promotion.jdbc.password}"/>
+    </bean>
+
+    <!-- sql Session factory -->
+    <bean id="usedSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="usedDataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:sqlmap/mybatis/used/**Mapper.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="usedSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="usedSqlSessionFactory"></constructor-arg>
+    </bean>
+
+
+
+
+</beans>

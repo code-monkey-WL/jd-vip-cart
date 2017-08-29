@@ -1,0 +1,96 @@
+a {
+    color: #666;
+    text-decoration: none;
+}
+a:link{
+    text-decoration:none;
+}
+a:visited{
+    text-decoration:none;
+}
+a:hover{
+    text-decoration:none;
+}
+a:active{
+    text-decoration:none;
+}
+
+.img-size{
+    width: 223px;
+    height: 223px;
+}
+.mask {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.70);
+}
+
+.mask img {
+    position: absolute;
+    width: auto;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.tagName{
+    width: 223px;
+    font-weight: 900;
+    text-align: center;
+    font-size: 16px;
+}
+
+.m-tagbox {
+    font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+    margin-bottom: -10px;
+    float: left;
+}
+
+.m-tagbox .tag-item {
+    position: relative;
+    width: 92px;
+    padding: 0 5px;
+}
+
+.tag-checked {
+    border-color: #e4393c;
+}
+
+ .m-tagbox .tag-item {
+    float: left;
+    width: 102px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #e0e0e0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+}
+
+.m-tagbox .t-check {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 16px;
+    height: 16px;
+    background-position: -40px 0;
+    background-image: url(//misc.360buyimg.com/user/myjd/comment/1.0.0/css/i/sprite-operate.png);
+    background-repeat: no-repeat;
+}
+
+
+.tag-checked .t-check {
+    display: block;
+}

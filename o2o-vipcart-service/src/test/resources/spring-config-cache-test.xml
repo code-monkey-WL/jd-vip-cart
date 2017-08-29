@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <!--<bean id="jimClient" class="com.jd.jim.cli.ReloadableJimClientFactoryBean">-->
+        <!--<property name="jimUrl" value="jim://1803528818953446384/1" />-->
+    <!--</bean>-->
+
+    <!-- 本地缓存 -->
+    <bean id="localCachedAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.LocalCachedAspect"></bean>
+    <!-- redis缓存 -->
+    <!--<bean id="redisCache" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.JimDBCache">-->
+        <!--<property name="client" ref="jimClient"></property>-->
+        <!--<property name="maskException" value="true"></property>-->
+    <!--</bean>-->
+    <!-- 缓存切面 -->
+    <!--<bean id="cachedAspect" class="com.jd.o2o.vipcart.common.plugins.cache.aspect.impl.SPELCachedAspect">-->
+        <!--<constructor-arg index="0" value="true"></constructor-arg>-->
+        <!--<constructor-arg index="1" ref="redisCache"></constructor-arg>-->
+    <!--</bean>-->
+    <!-- 线程池工厂 -->
+    <!--<bean id="threadPoolFactory" class="com.jd.o2o.road.common.plugins.thread.ThreadPoolFactory"></bean>-->
+    <!-- 重要日志存库切面 -->
+    <bean id="loggableAspect" class="com.jd.o2o.vipcart.common.plugins.log.impl.LoggableAspect"></bean>
+    <!-- 基于redis的分布式锁 -->
+    <!--<bean id="lockHandler" class="com.jd.o2o.road.common.plugins.lock.impl.JimDBLockHandler">-->
+        <!--<property name="client" ref="jimClient"></property>-->
+    <!--</bean>-->
+</beans>

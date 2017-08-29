@@ -1,0 +1,52 @@
+
+@borderColor: #e5e5e5;
+@borderWidth: 1px;
+.tabs {
+  position: relative;
+
+  > ul {
+    border-bottom: @borderWidth solid @borderColor;
+    padding: 0px;
+    user-select:none;
+
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    > li {
+      height: 50px;
+      margin: 0px;
+      line-height: 50px;
+      padding: 0px 20px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      float: left;
+      border-top: @borderWidth solid @borderColor;
+      border-left: @borderWidth solid @borderColor;
+      background-color: #FFFFFF;
+
+      &:last-child {
+        border-right: @borderWidth solid @borderColor;
+      }
+    }
+
+    .active {
+      height: 51px;
+      margin-bottom: -1px;
+      font-weight: bold;
+    }
+  }
+
+  > .right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: inline-block;
+    height: 50px;
+    margin: 0px;
+    line-height: 50px;
+  }
+}

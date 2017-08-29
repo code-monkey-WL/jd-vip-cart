@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+##    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title>订单详情</title>
+    <style>
+        .gray {
+            background-color: #999999;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("button[name^='deliveryManNo']").unbind( "click" ).click(function(){
+                var deliveryManNo = $(this).attr("data");
+                $("#deliveryManNo",parent.document).val(deliveryManNo);
+                $("#deliveryManQueryButton",parent.document).click();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title" contenteditable="true">
+                        <strong>订单详情#if($!isHistory) <span class="label label-default">(转历史订单)</span> #end</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    #if($!{orderPushPool} && $!{orderPushPool.aoOrderTaskEntity})
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>taskNo</th>
+                                <th>deliveryOrderNo</th>
+                                <th>deliveryManNo</th>
+                                <th>areaId</th>
+                                <th>assignAgingType</th>
+                                <th>promiseTime</th>
+                                <th>buyerAddress</th>
+                                <th>buyerLongitude</th>
+                                <th>buyerLatitude</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="#if($!isHistory) gray #else info #end">
+                                <td>$!{orderPushPool.aoOrderTaskEntity.id}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.taskNo}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.deliveryOrderNo}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.deliveryManNo}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.areaId}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.assignAgingType}</td>
+                                <td>$!dateFormatUtils.format($!{orderPushPool.aoOrderTaskEntity.promiseTime},"yyyy-MM-dd HH:mm:ss")</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.buyerAddress}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.buyerLongitude}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.buyerLatitude}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>shipperAddress</th>
+                                <th>shipperLongitude</th>
+                                <th>shipperLatitude</th>
+                                <th>roundNum</th>
+                                <th>orderTotalMoney</th>
+                                <th>distributionCosts</th>
+                                <th>premiumAmount</th>
+                                <th>orderType</th>
+                                <th>orderWeight</th>
+                                <th>orderVolume</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="#if($!isHistory) gray #else info #end">
+                                <td>$!{orderPushPool.aoOrderTaskEntity.shipperAddress}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.shipperLongitude}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.shipperLatitude}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.roundNum}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.orderTotalMoney}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.distributionCosts}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.premiumAmount}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.orderType}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.orderWeight}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.orderVolume}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>assignStatus</th>
+                                <th>assignEndTime</th>
+                                <th>lastSplitTime</th>
+                                <th>pushingNum</th>
+                                <th>数据版本号</th>
+                                <th>创建时间</th>
+                                <th>修改时间</th>
+                                <th>修改人</th>
+                                <th>时间戳</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="#if($!isHistory) gray #else info #end">
+                                <td>$!dictUtils.getTaskStatus(${orderPushPool.aoOrderTaskEntity.assignStatus})</td>
+                                <td>$!dateFormatUtils.format($!{orderPushPool.aoOrderTaskEntity.assignEndTime},"yyyy-MM-dd HH:mm:ss")</td>
+                                <td>$!dateFormatUtils.format($!{orderPushPool.aoOrderTaskEntity.lastSplitTime},"yyyy-MM-dd HH:mm:ss")</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.pushingNum}</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.sysVersion}</td>
+                                <td>$!dateFormatUtils.format($!{orderPushPool.aoOrderTaskEntity.createTime},"yyyy-MM-dd HH:mm:ss")</td>
+                                <td>$!dateFormatUtils.format($!{orderPushPool.aoOrderTaskEntity.updateTime},"yyyy-MM-dd HH:mm:ss")</td>
+                                <td>$!{orderPushPool.aoOrderTaskEntity.updatePin}</td>
+                                <td>$!dateFormatUtils.format($!{orderPushPool.aoOrderTaskEntity.ts},"yyyy-MM-dd HH:mm:ss")</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    #end
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title" contenteditable="true">
+                        <strong>附近配送员</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>deliveryManNo</th>
+                            <!--
+                            <th>longitude</th>
+                            <th>latitude</th>
+                            <th>createTime</th>
+                            -->
+                            <th>deliveryManName</th>
+                            <th>deliveryManMobile</th>
+                            <th>deliveryManStatus</th>
+                            <th>deliveryManAddress</th>
+                            <th>levelStar</th>
+                            <th>realName</th>
+                            <th>cityId</th>
+                            <th>orderType</th>
+                            <th>lastModifyTime</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #if($nearManList && $nearManList.size()>0)
+                                #foreach($deliveryMan in $nearManList)
+                                <tr class="info">
+                                    <td>
+                                        <button class="btn btn-link" name="deliveryManNo$!{deliveryMan.deliveryManNo}" data="$!{deliveryMan.deliveryManNo}">
+                                            $!{deliveryMan.deliveryManNo}
+                                        </button>
+                                    </td>
+                                    <!--
+                                <td>$!{deliveryMan.longitude}</td>
+                                <td>$!{deliveryMan.latitude}</td>
+                                <td>$!dateFormatUtils.format($!{deliveryMan.createTime},"yyyy-MM-dd HH:mm:ss")</td>
+                                -->
+                                    <td>$!{deliveryMan.deliveryManName}</td>
+                                    <td>$!{deliveryMan.deliveryManMobile}</td>
+                                    <td>$!dictUtils.getDeliverymanStatus(${deliveryMan.deliveryManStatus})</td>
+                                    <td>$!{deliveryMan.deliveryManAddress}</td>
+                                    <td>$!{deliveryMan.levelStar}</td>
+                                    <td>$!{deliveryMan.realName}</td>
+                                    <td>$!{deliveryMan.cityId}</td>
+                                    <td>$!{deliveryMan.orderType}</td>
+                                    <td>$!dateFormatUtils.format($!{deliveryMan.lastModifyTime},"yyyy-MM-dd HH:mm:ss")</td>
+                                </tr>
+                                #end
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

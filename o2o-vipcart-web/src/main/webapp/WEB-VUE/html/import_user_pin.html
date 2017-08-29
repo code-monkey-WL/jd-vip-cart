@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>上传用户批次</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/import_user_pin.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <h5>上传用户批次</h5>
+      </div>
+      <div class="tabs">
+        <ul>
+          <li class="active">上传京东pin</li>
+          <li>上传到家pin</li>
+        </ul>
+        <div>
+          <div class="page-content">
+            <div class="part">
+              <ul class="ui form">
+                <li>
+                  <label>文件：</label>
+                  <div>
+                    <input id="file2" type="file" class="hide" @change="onChange()" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                    <a class="ui secondary button" @click="onSelect(2)">浏览</a>
+                    <span>{{getFileName2}}</span>
+                  </div>
+                  <br>
+                  <label></label><div><span class="info">仅支持excel文件格式，文件名为批次号，当出现批次名称被占用时，请重命名再次导入。</span></div>
+                </li>
+                <li>
+                  <label>说明：</label>
+                  <div class="ui input">
+                    <input id="msg2" name="remark" type="text" />
+                  </div>
+                </li>
+              </ul>
+              <br><br><br><br><br>
+              <hr class="dotted">
+            </div>
+          </div>
+          <div class="button-panel">
+            <a class="ui button" @click="onSubmit(2)" :class="{'secondary': fileName2,'gray': !fileName2}">提交</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="javascript:void(0);" @click="onBack()">返回</a>
+          </div>
+        </div>
+        <div>
+
+            <div class="page-content">
+              <div class="part">
+                <ul class="ui form">
+                  <li>
+                    <label>文件：</label>
+                    <div>
+                      <input id="file1" type="file" class="hide" @change="onChange()" accept="text/plain"/>
+                      <a class="ui secondary button" @click="onSelect(1)">浏览</a>
+                      <span>{{getFileName1}}</span>
+                    </div>
+                    <br>
+                    <label></label><div><span class="info">仅支持txt文件格式，文件名为批次号，当出现批次名称被占用时，请重命名再次导入。</span></div>
+                  </li>
+                  <li>
+                    <label>说明：</label>
+                    <div class="ui input">
+                      <input id="msg1" name="remark" type="text" />
+                    </div>
+                  </li>
+                </ul>
+                <br><br><br><br><br>
+                <hr class="dotted">
+              </div>
+            </div>
+            <div class="button-panel">
+              <a class="ui button" @click="onSubmit(1)" :class="{'secondary': fileName1,'gray': !fileName1}">提交</a>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="javascript:void(0);" @click="onBack()">返回</a>
+            </div>
+        </div>
+      </div>
+      <page-footer></page-footer>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../dist/js/import_user_pin.bundle.js"></script>
+</html>

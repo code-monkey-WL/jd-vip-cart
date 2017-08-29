@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jmq="http://code.jd.com/schema/jmq"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.jd.com/schema/jmq
+	    http://code.jd.com/schema/jmq/jmq-1.0.xsd">
+
+    <!--连接通道配置： address:目录服务地址	jmq-cluster.jd.local:80,app:接入的应用（系统）代码，此属性必须填写-->
+    <jmq:transport id="jmq.transport" address="192.168.179.66:50088" user="mq" password="mq" app="o2ovipcart"
+                   epoll="false"/>
+
+    <jmq:producer id="activityMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="vipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="vipcartStockMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="grabvipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="consumevipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="impelvipcartProducer" retryTimes="3" transport="jmq.transport"/>
+
+    <!--  老数据导入 -->
+    <jmq:producer id="usedImportActivityMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="usedImportUservipcartMessageProducer" retryTimes="3" transport="jmq.transport"/>
+    <jmq:producer id="usedImportUserConsumerMessageProducer" retryTimes="3" transport="jmq.transport"/>
+</beans>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>发券日志</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/vipcart_log.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="main-height">
+        <h5>沃尔玛超市全场满减</h5>
+        <br>
+        <span>生券总量：{{counts.count}}</span>
+        <div class="spacing"></div>
+        <span>领券总量：{{counts.received}}<span class="info">(其中已注册用户领取数{{counts.userReceived}})</span></span>
+        <div class="spacing"></div>
+        <span>用券量：{{counts.useCount}}</span>
+        <div class="spacing"></div>
+      </div>
+      <div class="page-search">
+        <ul class="conditions">
+          <li>
+            <label>用户ID</label>
+            <div class="ui input">
+              <input type="text" v-model="query.userPin">
+            </div>
+            <span class="spacing"></span><span class="spacing"></span>
+            <label>手机号</label>
+            <div class="ui input">
+              <input type="text" v-model="query.phone">
+            </div>
+            <span class="spacing"></span><span class="spacing"></span>
+            <label>用券订单</label>
+            <div class="ui input">
+              <input type="text" v-model="query.orderNo">
+            </div>
+          </li>
+          <li>
+            <label>用券门店</label>
+            <div class="ui input">
+              <input type="text" v-model="query.stationNo">
+            </div>
+            <span class="spacing"></span><span class="spacing"></span>
+            <label>状态</label>
+            <div class="ui input">
+              <select class="ui dropdown" v-model="query.state">
+                <option value="-1">全部</option>
+                <option value="1">有效</option>
+                <option value="2">已使用</option>
+                <option value="3">已作废</option>
+              </select>
+            </div>
+          </li>
+        </ul>
+        <a class="search-button" @click="onQuery()"><i class="inverted circular search link icon"></i></a>
+      </div>
+      <log-table v-ref:table></log-table>
+      <page-footer></page-footer>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../dist/jsvipcartn_log.bundle.js"></script>
+</html>

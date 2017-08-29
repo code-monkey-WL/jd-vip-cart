@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>创建活动</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/import_activity.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <h5>批量创建普通活动</h5>
+      </div>
+      <div class="page-content">
+        <div class="part">
+          <ul class="ui form">
+            <li>
+              <label>下载模板：</label>
+              <div>
+                <a href="/activity/downloadvipcartsTemplate">下载</a>
+                <span>注意：请不要改动Excel单元格文本格式及单元格顺序，红色单元格必填，绿色与蓝色对应的二选一。</span>
+              </div>
+            </li>
+            <li>
+              <label>上传文件：</label>
+              <div>
+                <input id="file" type="file" class="hide" @change="onChange()" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                <a class="ui secondary button" @click="onSelect()">浏览</a>
+                <span>{{getFileName}}</span>
+              </div>
+            </li>
+          </ul>
+          <br><br><br><br><br>
+          <hr class="dotted">
+        </div>
+      </div>
+      <div class="button-panel">
+        <a class="ui button" @click="onSubmit()" :class="{'secondary': fileName,'gray': !fileName}">提交</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" @click="onBack()">返回</a>
+      </div>
+      <page-footer></page-footer>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../dist/js/import_activity.bundle.js"></script>
+</html>

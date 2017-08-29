@@ -1,0 +1,195 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#orderEditSubmit").unbind( "click" ).click(function(){
+            $.ajax({
+                url: "/monitor/saveOrder",
+                type: 'POST',
+                data: $("#orderForm").serialize(),
+                success: function (responseText) {
+                    if(responseText == "0"){
+                        bootbox.alert("操作失败！");
+                    }else{
+                        bootbox.alert("操作成功！",function(){
+                            // 刷新tab页面
+                            var activeTab = $(".active:first",parent.document);
+                            if(activeTab.length > 0){
+                                var id = activeTab.attr("data-id");
+                                $(".taskStatus",parent.document).each(function(){
+                                    var assignStatus = $(this).attr("assignStatus");
+                                    if(assignStatus == id){
+                                        $(this).click();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" contenteditable="true">
+                    <strong>配送单修改</strong>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <form id="orderForm" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="taskNo">taskNo</label>
+                        <div class="controls">
+                            <input id="id" name="id" type="hidden" value="$!{aoOrderTaskEntity.id}" />
+                            <input id="taskNo" name="taskNo" type="text" value="$!{aoOrderTaskEntity.taskNo}" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="deliveryOrderNo">运单号</label>
+                        <div class="controls">
+                            <input id="deliveryOrderNo" name="deliveryOrderNo" type="text" value="$!{aoOrderTaskEntity.deliveryOrderNo}" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="deliveryManNo">配送员编号</label>
+                        <div class="controls">
+                            <input id="deliveryManNo" name="deliveryManNo" type="text" value="$!{aoOrderTaskEntity.deliveryManNo}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="areaId">城市编号</label>
+                        <div class="controls">
+                            <input id="areaId" name="areaId" type="text" value="$!{aoOrderTaskEntity.areaId}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="assignAgingType">assignAgingType（时效）</label>
+                        <div class="controls">
+                            <input id="assignAgingType" name="assignAgingType" type="text" value="$!{aoOrderTaskEntity.assignAgingType}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="promiseTime">送达时间</label>
+                        <div class="controls">
+                            <input id="promiseTime" name="promiseTime" type="text" value="$!dateFormatUtils.format($!{aoOrderTaskEntity.promiseTime},"yyyy-MM-dd HH:mm:ss")"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="buyerAddress">送货地址</label>
+                        <div class="controls">
+                            <input id="buyerAddress" name="buyerAddress" type="text" value="$!{aoOrderTaskEntity.buyerAddress}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="buyerLongitude">buyerLongitude</label>
+                        <div class="controls">
+                            <input id="buyerLongitude" name="buyerLongitude" type="text" value="$!{aoOrderTaskEntity.buyerLongitude}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="buyerLatitude">buyerLatitude</label>
+                        <div class="controls">
+                            <input id="buyerLatitude" name="buyerLatitude" type="text" value="$!{aoOrderTaskEntity.buyerLatitude}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="shipperAddress">取货地址</label>
+                        <div class="controls">
+                            <input id="shipperAddress" name="shipperAddress" type="text" value="$!{aoOrderTaskEntity.shipperAddress}"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="shipperLongitude">shipperLongitude</label>
+                        <div class="controls">
+                            <input id="shipperLongitude" name="shipperLongitude" type="text" value="$!{aoOrderTaskEntity.shipperLongitude}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="orderTotalMoney">orderTotalMoney</label>
+                        <div class="controls">
+                            <input id="orderTotalMoney" name="orderTotalMoney" type="text" value="$!{aoOrderTaskEntity.orderTotalMoney}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="distributionCosts">distributionCosts</label>
+                        <div class="controls">
+                            <input id="distributionCosts" name="distributionCosts" type="text" value="$!{aoOrderTaskEntity.distributionCosts}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="premiumAmount">premiumAmount</label>
+                        <div class="controls">
+                            <input id="premiumAmount" name="premiumAmount" type="text" value="$!{aoOrderTaskEntity.premiumAmount}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="orderType">orderType</label>
+                        <div class="controls">
+                            <input id="orderType" name="orderType" type="text" value="$!{aoOrderTaskEntity.orderType}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="orderWeight">orderWeight</label>
+                        <div class="controls">
+                            <input id="orderWeight" name="orderWeight" type="text" value="$!{aoOrderTaskEntity.orderWeight}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="orderVolume">orderVolume</label>
+                        <div class="controls">
+                            <input id="orderVolume" name="orderVolume" type="text" value="$!{aoOrderTaskEntity.orderVolume}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="assignStatus">派单状态</label>
+                        <div class="controls">
+                            <input id="assignStatus" name="assignStatus" type="text" value="$!{aoOrderTaskEntity.assignStatus}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="assignEndTime">派单结束时间</label>
+                        <div class="controls">
+                            <input id="assignEndTime" name="assignEndTime" type="text" value="$!dateFormatUtils.format($!{aoOrderTaskEntity.assignEndTime},"yyyy-MM-dd HH:mm:ss")"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="lastSplitTime">lastSplitTime</label>
+                        <div class="controls">
+                            <input id="lastSplitTime" name="lastSplitTime" type="text" value="$!dateFormatUtils.format($!{aoOrderTaskEntity.lastSplitTime},"yyyy-MM-dd HH:mm:ss")"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="pushingNum">pushingNum</label>
+                        <div class="controls">
+                            <input id="pushingNum" name="pushingNum" type="text" value="$!{aoOrderTaskEntity.pushingNum}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="updatePin">修改人</label>
+                        <div class="controls">
+                            <input id="updatePin" name="updatePin" type="text" value="$!{aoOrderTaskEntity.updatePin}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="yn">状态</label>
+                        <div class="controls">
+                            <input id="yn" name="yn" type="text" value="$!{aoOrderTaskEntity.yn}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="button" class="btn btn-primary"
+                                    data-dismiss="modal">关闭
+                            </button>
+                            <button id="orderEditSubmit" type="button" class="btn btn-primary">提 交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

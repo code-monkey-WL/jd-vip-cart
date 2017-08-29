@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="ID_generator_registerMapper">
+	<resultMap id="IDGeneratorRegisterMap" type="com.jd.o2o.vipcart.common.domain.id.IDGeneratorRegisterEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="primary_key" property="primaryKey" jdbcType="VARCHAR" javaType="String"/>
+		<result column="register_key" property="registerKey" jdbcType="VARCHAR" javaType="String"/>
+		<result column="worker_no" property="workerNo" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_pin" property="updatePin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="yn" property="yn" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ts" property="ts" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			primary_key AS primaryKey,
+			register_key AS registerKey,
+			worker_no AS workerNo,
+			create_time AS createTime,
+			create_pin AS createPin,
+			update_time AS updateTime,
+			update_pin AS updatePin,
+			sys_version AS sysVersion,
+			yn AS yn,
+			ts AS ts
+		FROM ID_generator_register
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="primaryKey != null and primaryKey != ''">
+			and primary_key = #{primaryKey,jdbcType=VARCHAR}
+		</if>
+		<if test="registerKey != null and registerKey != ''">
+			and register_key = #{registerKey,jdbcType=VARCHAR}
+		</if>
+		<if test="workerNo != null">
+			and worker_no = #{workerNo,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createPin != null and createPin != ''">
+			and create_pin = #{createPin,jdbcType=VARCHAR}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatePin != null and updatePin != ''">
+			and update_pin = #{updatePin,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=TINYINT}
+		</if>
+		<if test="ts != null">
+			and ts = #{ts,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectIDGeneratorRegister" parameterType="com.jd.o2o.vipcart.common.domain.id.IDGeneratorRegisterEntity" resultMap="IDGeneratorRegisterMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneIDGeneratorRegister" parameterType="java.lang.Long" resultMap="IDGeneratorRegisterMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countIDGeneratorRegister" parameterType="com.jd.o2o.vipcart.common.domain.id.IDGeneratorRegisterEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ID_generator_register
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertIDGeneratorRegister" parameterType="com.jd.o2o.vipcart.common.domain.id.IDGeneratorRegisterEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO ID_generator_register (
+	<if test="primaryKey != null">
+		primary_key,
+	</if>
+	<if test="registerKey != null">
+		register_key,
+	</if>
+	<if test="workerNo != null">
+		worker_no,
+	</if>
+	<if test="createPin != null">
+		create_pin,
+	</if>
+	<if test="updatePin != null">
+		update_pin,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="primaryKey != null">
+    	#{primaryKey,jdbcType=VARCHAR},
+    </if>
+    <if test="registerKey != null">
+    	#{registerKey,jdbcType=VARCHAR},
+    </if>
+    <if test="workerNo != null">
+    	#{workerNo,jdbcType=INTEGER},
+    </if>
+    <if test="createPin != null">
+    	#{createPin,jdbcType=VARCHAR},
+    </if>
+    <if test="updatePin != null">
+    	#{updatePin,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=TINYINT},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertIDGeneratorRegisterBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO ID_generator_register (
+		primary_key,
+		register_key,
+		worker_no,
+		create_pin,
+		update_pin,
+		yn,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.primaryKey,jdbcType=VARCHAR},
+		#{item.registerKey,jdbcType=VARCHAR},
+		#{item.workerNo,jdbcType=INTEGER},
+		#{item.createPin,jdbcType=VARCHAR},
+		#{item.updatePin,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=TINYINT},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateIDGeneratorRegister" parameterType="java.util.Map">
+		UPDATE ID_generator_register
+		<set>
+    	<if test="primaryKey != null">
+            primary_key = #{primaryKey,jdbcType=VARCHAR},
+    	</if>
+    	<if test="registerKey != null">
+            register_key = #{registerKey,jdbcType=VARCHAR},
+    	</if>
+    	<if test="workerNo != null">
+            worker_no = #{workerNo,jdbcType=INTEGER},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="createPin != null">
+            create_pin = #{createPin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updatePin != null">
+            update_pin = #{updatePin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=TINYINT},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateIDGeneratorRegisterBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update ID_generator_register 
+		<set>
+		<if test="item.primaryKey != null">
+			primary_key = #{item.primaryKey,jdbcType=VARCHAR},
+		</if>
+		<if test="item.registerKey != null">
+			register_key = #{item.registerKey,jdbcType=VARCHAR},
+		</if>
+		<if test="item.workerNo != null">
+			worker_no = #{item.workerNo,jdbcType=INTEGER},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.createPin != null">
+			create_pin = #{item.createPin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.updatePin != null">
+			update_pin = #{item.updatePin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=TINYINT},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteIDGeneratorRegister" parameterType="com.jd.o2o.vipcart.common.domain.id.IDGeneratorRegisterEntity">
+		DELETE FROM ID_generator_register
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneIDGeneratorRegister" parameterType="java.lang.Long">
+		DELETE FROM ID_generator_register
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

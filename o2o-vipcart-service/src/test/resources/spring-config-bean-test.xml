@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+    <!--<bean id="jConfig" class="com.jd.o2o.vipcart.common.plugins.jgoups.JConfig">-->
+    <!--<property name="clusterName" value="test-cluster"></property>-->
+    <!--<property name="discardOwnMessages" value="true"></property>-->
+    <!--<property name="jGroupsInitHosts" value="10.13.162.63[7800]"></property>-->
+    <!--</bean>-->
+
+    <bean id="idGenerator" class="com.jd.o2o.vipcart.common.service.id.IDGeneratorServiceImpl">
+        <property name="idGeneratorDaoImpl" ref="idGeneratorDaoImpl"></property>
+    </bean>
+    <bean id="registerGenerator" class="com.jd.o2o.vipcart.common.service.id.IDGeneratorRegisterServiceImpl">
+        <property name="idGeneratorRegisterDaoImpl" ref="idGeneratorRegisterDaoImpl"></property>
+    </bean>
+    <!-- 活动管理服务 -->
+    <bean id="activityManageServiceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="1">
+                    <ref local="ordinaryActivityManageServiceImpl"/>
+                </entry>
+                <entry key="2">
+                    <ref local="redFissionActivityManageServiceImpl"/>
+                </entry>
+                <entry key="3">
+                    <ref local="ordinaryActivityManageServiceImpl"/>
+                </entry>
+                <entry key="6">
+                    <ref local="orderReturnActivityManageServiceImpl"/>
+                </entry>
+                <entry key="8">
+                    <ref local="directionalPushActivityManageServiceImpl"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 优惠券管理服务 -->
+    <bean id="vipcartManageServiceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="1">
+                    <ref local="fullMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="2">
+                    <ref local="immedMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="3">
+                    <ref local="freightMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="4">
+                    <ref local="freightMinusvipcartManageImpl"/>
+                </entry>
+                <entry key="5">
+                    <ref local="discountMinusvipcartManageImpl"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 优惠券领取预占管理服务 -->
+    <bean id="lockvipcartServiceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="6">
+                    <ref local="lockOrderReturnActivityServiceImpl"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 优惠券限领规则校验 -->
+    <util:list id="grabvipcartFilterList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.grabvipcart.pattern.filter.GrabvipcartFilter">
+        <ref local="limitFirstOrderGrabvipcartFilter"/>
+        <ref local="limitNewUserGrabvipcartFilter"/>
+        <ref local="limitFansGrabvipcartFilter"/>
+        <ref local="limitOrgsGrabvipcartFilter"/>
+        <ref local="limitStationGrabvipcartFilter"/>
+        <ref local="limitAreaIdGrabvipcartFilter"/>
+        <ref local="limitChannelGrabvipcartFilter"/>
+    </util:list>
+
+    <!-- 优惠券限用规则校验 -->
+    <util:list id="applyvipcartFilterList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.applyvipcart.pattern.filter.ApplyvipcartFilter">
+        <ref local="limitBrandApplyvipcartFilter"/>
+        <ref local="limitStationApplyvipcartFilter"/>
+        <ref local="limitOrgApplyvipcartFilter"/>
+        <ref local="limitChannelApplyvipcartFilter"/>
+        <ref local="limitIndustryApplyvipcartFilter"/>
+        <ref local="limitAreaApplyvipcartFilter"/>
+        <ref local="limitFreightApplyvipcartFilter"/>
+        <!--<ref local="limitOrderAmountApplyvipcartFilter"/>-->
+    </util:list>
+
+    <!-- 优惠券活动变更业务操作 -->
+    <util:list id="activityChangeCommandList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.activity.pattern.command.ActivityChangeCommand">
+        <ref local="activityChangeESCommandImpl"/>
+        <ref local="activityChangeCacheCommandImpl"/>
+        <ref local="activityChangevipcartCodeCommandImpl"/>
+        <ref local="activityChangeDituiCodeCommandImpl"/>
+    </util:list>
+
+    <!-- 优惠券变更业务操作 -->
+    <util:list id="vipcartChangeCommandList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.vipcart.pattern.command.vipcartChangeCommand">
+        <ref local="vipcartChangeESCommandImpl"/>
+        <ref local="vipcartChangeCacheCommandImpl"/>
+        <ref local="vipcartStockChangeCacheCommandImpl"/>
+    </util:list>
+
+    <!-- 用户优惠券状态变更业务操作 -->
+    <util:list id="uservipcartCommandList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.grabvipcart.pattern.command.UservipcartCommand">
+        <ref local="uservipcartESCommandImpl"/>
+        <ref local="uservipcartCacheCommandImpl"/>
+    </util:list>
+
+    <!-- 用户消费优惠券状态变更业务操作 -->
+    <util:list id="consumevipcartCommandList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.applyvipcart.pattern.command.ConsumevipcartCommand">
+        <ref local="consumevipcartESCommandImpl"/>
+        <!--<ref local="consumevipcartCacheCommandImpl"/>-->
+    </util:list>
+
+    <!-- 新人注册业务操作 -->
+    <util:list id="newUserRegisterCommandList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.grabvipcart.pattern.command.NewUserRegisterCommand">
+        <ref local="bindTempvipcartToUserImpl"/>
+        <ref local="defaultBindNewUservipcartImpl"/>
+        <ref local="recoverNewUserImpl"/>
+    </util:list>
+
+    <!-- 优惠券回滚业务操作 -->
+    <util:list id="vipcartRollbackCommandList" list-class="java.util.ArrayList"
+               value-type="com.jd.o2o.vipcart.service.busi.applyvipcart.pattern.command.vipcartRollbackCommand">
+        <ref local="vipcartRollbackCacheCommandImpl" />
+        <ref local="vipcartRollbackESCommandImpl" />
+    </util:list>
+</beans>

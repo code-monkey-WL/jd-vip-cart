@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <title>配送单列表</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button[name^='deliveryOrderNo']").unbind( "click" ).click(function(){
+                var deliveryOrderNo = $(this).attr("data");
+                $("#deliveryOrderNo",parent.document).val(deliveryOrderNo);
+                $("#orderQueryButton",parent.document).click();
+            });
+            $("button[name^='deliveryManNo']").unbind( "click" ).click(function(){
+                var deliveryManNo = $(this).attr("data");
+                $("#deliveryManNo",parent.document).val(deliveryManNo);
+                $("#deliveryManQueryButton",parent.document).click();
+            });
+            $(".order-edit").unbind("click").click(function(){
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "/monitor/orderEdit/"+id,
+                    type: 'POST',
+                    data:null,
+                    success: function (responseText) {
+                        bootbox.dialog({
+                            title: "配送单修改",
+                            message: responseText
+                        });
+                    }
+                });
+            });
+            $(".task-id").unbind("click").click(function(){
+                var taskId = $(this).attr("data-id");
+                if(!taskId){
+                    return;
+                }
+                bootbox.confirm("您确定要将订单状态修改为待抢单？", function(result) {
+                    if(result){
+                        $.ajax({
+                            url: "/monitor/toGrab/"+taskId,
+                            type: 'POST',
+                            data:null,
+                            success: function (responseText) {
+                                if(responseText.code==0 && responseText.result){
+                                    bootbox.alert(responseText.msg,function(){
+                                        // 刷新tab页面
+                                        var activeTab = $(".active:first",parent.document);
+                                        if(activeTab.length > 0){
+                                            var id = activeTab.attr("data-id");
+                                            $(".taskStatus",parent.document).each(function(){
+                                                var assignStatus = $(this).attr("assignStatus");
+                                                if(assignStatus == id){
+                                                    $(this).click();
+                                                }
+                                            });
+                                        }
+                                    });
+                                }else{
+                                    bootbox.alert(responseText.code==0?"修改为待抢单状态失败":"【系统错误】修改为待抢单状态失败"+responseText.msg);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title" contenteditable="true">
+                        <strong>配送单列表</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>deliveryOrderNo</th>
+                            <!-- <th>deliveryManNo</th> -->
+                            <th>promiseTime</th>
+                            <th>buyerAddress</th>
+                            <th>shipperAddress</th>
+                            <th>assignStatus</th>
+                            <th>premiumAmount</th>
+                            <th>assignEndTime</th>
+                            <th>状 态</th>
+                            <!-- <th>创建时间</th> -->
+                            <th>时间戳</th>
+                            <th>操 作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        #foreach($data in $aoOrderTaskEntityList)
+                        <tr class="info">
+                            <td>$!{data.id}</td>
+                            <td>
+                                <button class="btn btn-link" name="deliveryOrderNo$!{data.deliveryOrderNo}" data="$!{data.deliveryOrderNo}">
+                                    $!{data.deliveryOrderNo}
+                                </button>
+                            </td>
+                            <!-- <td>
+                                <button class="btn btn-link" name="deliveryManNo$!{data.deliveryManNo}" data="$!{data.deliveryManNo}">
+                                    $!{data.deliveryManNo}
+                                </button>
+                            </td> -->
+                            <td>$!dateFormatUtils.format($!{data.promiseTime},"yyyy-MM-dd HH:mm:ss")</td>
+                            <td>$!{data.buyerAddress}</td>
+                            <td>$!{data.shipperAddress}</td>
+                            <td>$!dictUtils.getTaskStatus(${data.assignStatus})</td>
+                            <td>$!{data.premiumAmount}</td>
+                            <td>$!dateFormatUtils.format($!{data.assignEndTime},"yyyy-MM-dd HH:mm:ss")</td>
+                            <td>
+                                #if(${data.yn}==0)
+                                    正常
+                                #else
+                                    暂停
+                                #end
+                            </td>
+                            <!-- <td>$!dateFormatUtils.format($!{data.createTime},"yyyy-MM-dd HH:mm:ss")</td> -->
+                            <td>$!dateFormatUtils.format($!{data.ts},"yyyy-MM-dd HH:mm:ss")</td>
+                            <td width="100px">
+                                <div class="btn-group">
+                                    <button class="btn btn-mini">任务管理</button> <button data-toggle="dropdown" class="btn btn-mini btn-info dropdown-toggle"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu textL pull-right">
+                                        <li>
+                                            <a class="order-edit" data-id="$!{data.id}">修改</a>
+                                        </li>
+                                        <li>
+                                            <a class="task-id" data-id="$!{data.id}">改抢单</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        #end
+                        </tbody>
+                    </table>
+                </div>
+                <!--分页-->
+                <div class="msdn">
+                    #pageTag("/monitor", "orderList/$!{assignStatus}",$page,$params)
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

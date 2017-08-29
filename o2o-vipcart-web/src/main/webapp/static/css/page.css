@@ -1,0 +1,9 @@
+legend {
+    font-size: 16px;
+    padding: 10px;
+    color: #444;
+}
+
+.btn.glyphicon:before {
+    vertical-align: middle;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>管理地推码</title>
+    <link rel="stylesheet" type="text/css" href="../libs/semantic/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui/jquery-ui-timepicker-addon.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/css/manage_city_push.bundle.css">
+  </head>
+  <body>
+    <div class="page">
+      <div class="main-height">
+        <h5>地推码管理</h5>
+        <div class="spacing"></div>
+        <span>活动名称：{{activityName}}</span>
+      </div>
+
+      <div class="page-search">
+        <ul class="conditions">
+          <li><a class="ui secondary button" @click="showAdditional()">追加地推码</a></li>
+          <li>
+            <label>源码</label>
+            <div class="ui input">
+              <input type="text" v-model="query.vipcartCode">
+            </div>
+            <span class="spacing"></span><span class="spacing"></span>
+            <label>映射码</label>
+            <div class="ui input">
+              <input type="text" v-model="query.reflectionCode">
+            </div>
+            <!--<span class="spacing"></span><span class="spacing"></span>-->
+            <!--<label>渠道</label>-->
+            <!--<div class="ui input">-->
+              <!--<select class="ui dropdown" v-model="query.channelSource">-->
+                <!--<option value="-1">全部</option>-->
+                <!--<option value="1">到家</option>-->
+                <!--<option value="2">达达</option>-->
+              <!--</select>-->
+            </div>
+          </li>
+        </ul>
+        <a class="search-button" @click="onQuery()"><i class="inverted circular search link icon"></i></a>
+      </div>
+      <div class="tabs">
+        <ul>
+          <li class="active">有效地推码({{effectiveCityPush}})</li>
+          <li>无效地推码({{notEffectiveCityPush}}) </li>
+        </ul>
+        <div><effective-table v-ref:effectivetable></effective-table></div>
+        <div><not-effective-table v-ref:noteffectivetable></not-effective-table></div>
+      </div>
+      <additional-panel v-ref:additional></additional-panel>
+      <page-footer></page-footer>
+    </div>
+  </body>
+    <script src="../libs/jquery/jquery.js"></script>
+    <script src="../libs/semantic/semantic.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui.js"></script>
+    <script src="../libs/jquery-ui/jquery-ui-timepicker-addon.js"></script>
+    <script src="../libs/jquery-ui/i18n/jquery-ui-timepicker-zh-CN.js"></script>
+    <script src="../dist/js/manage_city_push.bundle.js"></script>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <title>派单系统订单监控</title>
+    <style>
+        .color-swatches .color-swatch {
+            text-align: center;
+            cursor: pointer;
+        }
+        .color-swatches span {
+            color: red;
+            font-weight: bold
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".taskStatus").unbind( "click" ).click(function () {
+                var assignStatus = $(this).attr("assignStatus");
+                var title = $(this).attr("title");
+
+                $("#curr_swatch").val(assignStatus);
+                $(".taskStatus").removeClass("brand-warning");
+                $(this).addClass("brand-warning");
+
+                tabs.add({id: assignStatus, title: title, url: "/monitor/orderList/" + assignStatus, isNew:true, close: true});
+            });
+            var curr_swatch = $("#assign-status-swatch").val();
+            $("#curr_swatch").val(curr_swatch);
+            $(".taskStatus").each(function(){
+                if($(this).attr("assignStatus") == curr_swatch){
+                    $(this).addClass("brand-warning");
+                    return;
+                }
+            });
+            $("#assign-status-clear").click(function(){
+                $("#curr_swatch").val("");
+                $(".taskStatus").removeClass("brand-warning");
+            });
+            $("#monitor-more").click(function(){
+                var oldMonitorMore = $("#monitor_more");
+                toggleMonitorMore(oldMonitorMore.val() == "1"?"0":"1");
+            });
+
+            toggleMonitorMore($("#monitor_more").val());
+            function toggleMonitorMore(showValue){
+                var oldMonitorMore = $("#monitor_more");
+                oldMonitorMore.val(showValue);
+                var isShow =(showValue == "1");
+                if(isShow){
+                    $("#monitor-more").text("收缩");
+                    $("#monitorMoreDiv").removeClass("hidden").addClass("show");
+                }else{
+                    $("#monitor-more").text("更多");
+                    $("#monitorMoreDiv").removeClass("show").addClass("hidden");
+                }
+            }
+        });
+
+    </script>
+</head>
+<div class="color-swatches">
+    <input type="hidden" id="assign-status-swatch" value="$!{assignStatus}"/>
+    #foreach( $data in $taskList )
+        <strong>
+        #if($!{data.assignStatus})
+            <div class="color-swatch brand-info taskStatus" assignStatus="$!{data.assignStatus}" title="$!{data.assignStatusName}">
+                $!{data.assignStatusName}<br><span>$!{data.num}</span>
+            </div>
+        #else
+            <div class="color-swatch brand-warning" style="cursor:auto">
+                $!{data.assignStatusName}<br><span>$!{data.num}</span>
+            </div>
+        #end
+        </strong>
+    #end
+    <button class="btn btn-danger" id="assign-status-clear">清空</button>
+    <button class="btn btn-danger"  id="monitor-more">更多</button>
+    <br><hr/>
+    <div id="monitorMoreDiv" class="hidden">
+        <div class="color-swatch brand-warning" style="cursor:auto;font-weight: bold">
+            城市<br><span></span>
+        </div>
+        #foreach($param in ${areaMap.keySet()})
+            <strong>
+                <div class="color-swatch brand-info" style="cursor:auto">
+                    $!{param}<br><span>$!{areaMap.get($param)}</span>
+                </div>
+            </strong>
+        #end
+        <br><hr/>
+        <div class="color-swatch brand-warning" style="cursor:auto;font-weight: bold">
+            时效<br><span>小时</span>
+        </div>
+        #foreach($param in ${timeMap.keySet()})
+            <strong>
+                <div class="color-swatch brand-info" style="cursor:auto">
+                    $!{param}<br><span>$!{timeMap.get($param)}</span>
+                </div>
+            </strong>
+        #end
+        <br><hr/>
+    </div>
+</div>

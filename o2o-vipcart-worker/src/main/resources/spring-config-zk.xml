@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+       default-autowire="byName">
+
+
+    <!-- 注入zkClient bean -->
+    <bean id="zkClient" class="com.jd.o2o.zk.cache.core.ZooKeeperCacheClient"
+          init-method="init">
+        <property name="index" value="${zookeeper.index}"/>
+        <property name="paths" value="/userCoupoon"/>
+        <property name="sync" value="false"/>
+    </bean>
+    <!-- 注入配置bean -->
+    <bean id="zkOperation" class="com.jd.o2o.zk.cache.core.ZooKeeperCacheOperations">
+        <property name="zooKeeperCacheClient" ref="zkClient"/>
+    </bean>
+    <!-- 降级开关bean -->
+    <bean id="zkSwitchOperation" class="com.jd.o2o.zk.cache.core.ZooKeeperSwitchCacheOperations">
+        <property name="zooKeeperCacheClient" ref="zkClient" />
+    </bean>
+</beans>

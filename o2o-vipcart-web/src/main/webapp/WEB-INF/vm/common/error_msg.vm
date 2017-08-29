@@ -1,0 +1,20 @@
+#if(${exception})
+<div class="not-found-text">
+    <h3 class="not-found-text">对不起,$!exception.message</h3>
+</div>
+#end
+
+##异步访问异常结果ServiceResponse处理
+#if(${result} &&  ${result.code}!=0)
+<div class="not-found-text">
+    <h3 class="not-found-text">对不起$!{result.msg}</h3>
+</div>
+#end
+##springmvc hibernate validate异常信息处理
+#if(${errors})
+<div class="not-found-text">
+    #foreach( $error in $errors )
+    <p>$!{error.defaultMessage}</p>
+    #end
+</div>
+#end

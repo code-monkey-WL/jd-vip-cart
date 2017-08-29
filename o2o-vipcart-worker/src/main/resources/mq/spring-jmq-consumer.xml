@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:saf="http://code.360buy.com/schema/saf"
+       xmlns:jmq="http://code.jd.com/schema/jmq"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://code.jd.com/schema/jmq
+	http://code.jd.com/schema/jmq/jmq-1.0.xsd
+	">
+    <jmq:transport id="jmq.transport" address="${jmq.address}" user="${jmq.userName}" password="${jmq.password}" app="${jmq.app}"
+                   epoll="${jmq.epoll}"/>
+
+    <jmq:consumer id="consumer" transport="jmq.transport">
+        <!-- 老数据导入的MQ -->
+        <jmq:listener topic="${jmq.consumer.topic.used_import_activity}" listener="usedImportActivityListener"/>
+        <jmq:listener topic="${jmq.consumer.topic.used_import_user_vipcart}" listener="usedImportUservipcartListener"/>
+        <jmq:listener topic="${jmq.consumer.topic.used_import_user_vipcart1}" listener="usedImportUservipcart1Listener"/>
+        <jmq:listener topic="${jmq.consumer.topic.used_import_user_consumer}" listener="usedImportUserConsumerListener"/>
+        <jmq:listener topic="${jmq.consumer.topic.red_order_num_update_vipcart}" listener="redOrderReceivedNumUpdateMessageHandler"/>
+        <jmq:listener topic="${jmq.consumer.topic.user_vipcart_update_state}" listener="uservipcartUpdateStatusMessageHandler"/>
+        <jmq:listener topic="${jmq.consumer.topic.push_grab_vipcart}" listener="grabvipcartMessageHandler"/>
+    </jmq:consumer>
+
+
+    <bean id="usedImportActivityListener" class="com.jd.o2o.vipcart.used.mq.consumer.UsedImportActivityListener"/>
+    <bean id="usedImportUservipcartListener" class="com.jd.o2o.vipcart.used.mq.consumer.UsedImportUservipcartListener"/>
+    <bean id="usedImportUservipcart1Listener" class="com.jd.o2o.vipcart.used.mq.consumer.UsedImportUservipcart1Listener"/>
+    <bean id="usedImportUserConsumerListener" class="com.jd.o2o.vipcart.used.mq.consumer.UsedImportUserConsumerListener"/>
+    <bean id="redOrderReceivedNumUpdateMessageHandler" class="com.jd.o2o.vipcart.service.mq.consumer.impl.RedOrderReceivedNumUpdateMessageHandler" />
+    <bean id="uservipcartUpdateStatusMessageHandler" class="com.jd.o2o.vipcart.service.mq.consumer.impl.UservipcartUpdateStatusMessageHandler" />
+    <bean id="grabvipcartMessageHandler" class="com.jd.o2o.vipcart.service.mq.consumer.impl.GrabvipcartMessageHandler" />
+
+</beans>
