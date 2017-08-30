@@ -179,11 +179,11 @@
                 <version>${commons-io.version}</version>
             </dependency>
 			<!--json,xml-->
-			<dependency>
-				<groupId>jackson-all</groupId>
-				<artifactId>jackson-all</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>jackson-all</groupId>-->
+				<!--<artifactId>jackson-all</artifactId>-->
+				<!--<version>${jackson.version}</version>-->
+			<!--</dependency>-->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
@@ -465,7 +465,7 @@
 
                 <!-- jdbc -->
                 <mvn.jdbc.driver>com.mysql.jdbc.ReplicationDriver</mvn.jdbc.driver>
-                <mvn.jdbc.url>jdbc:mysql:replication://192.168.202.97:3306,192.168.202.97:3306/o2o_vipcart?allowMultiQueries=true</mvn.jdbc.url>
+                <mvn.jdbc.url>jdbc:mysql:replication://127.0.0.1:3306,127.0.0.1:3306/o2o_vipcart?allowMultiQueries=true</mvn.jdbc.url>
                 <mvn.jdbc.username>root</mvn.jdbc.username>
                 <mvn.jdbc.password>123456</mvn.jdbc.password>
 

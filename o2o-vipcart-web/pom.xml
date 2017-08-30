@@ -36,10 +36,10 @@
             <artifactId>jsp-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>jackson-all</groupId>
-            <artifactId>jackson-all</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>jackson-all</groupId>-->
+            <!--<artifactId>jackson-all</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
