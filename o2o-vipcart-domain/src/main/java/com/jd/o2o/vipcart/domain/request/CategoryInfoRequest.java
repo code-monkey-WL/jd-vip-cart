@@ -21,6 +21,11 @@ public class CategoryInfoRequest extends RequestBean {
 	private String categoryDesc;
 
 	/**
+	 * 目录图标
+	 */
+	private String brandImg;
+
+	/**
 	 * 目录状态 0:有效 2:无效
 	 */
 	private Integer categoryStatus;
@@ -31,7 +36,7 @@ public class CategoryInfoRequest extends RequestBean {
 	private Integer fullPath;
 
 	/**
-	 * 排序
+	 * 目录级别
 	 */
 	private Integer categoryLevel;
 
@@ -99,6 +104,12 @@ public class CategoryInfoRequest extends RequestBean {
 	}
 	public void setCategoryDesc(String categoryDesc){
 		this.categoryDesc = categoryDesc;
+	}
+	public String getBrandImg(){
+		return brandImg;
+	}
+	public void setBrandImg(String brandImg){
+		this.brandImg = brandImg;
 	}
 	public Integer getCategoryStatus(){
 		return categoryStatus;

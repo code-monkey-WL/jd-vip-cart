@@ -7,7 +7,7 @@ public class DictEntryResponse extends ResponseBean {
 	 */
 	private Long id;
 	/**
-	 * 字典类型编号
+	 * 字典类型编码
 	 */
 	private Long dictTypeId;
 	/**

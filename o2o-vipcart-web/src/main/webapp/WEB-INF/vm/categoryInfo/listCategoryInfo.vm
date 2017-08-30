@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title></title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initList("categoryInfoListDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="categoryInfoListDiv" v="categoryInfo">
+		<div id="operation_table">
+			<div class="toolbar">
+    			<input type="buttion" class="b_text add" value="新 增">
+    			<input type="buttion" class="b_text deleteAll" value="删 除">
+			</div>
+			<div class="title">
+				<div class="text quickSearch">
+					<select class="quickSearchKey">
+						<option value="categoryCode">类目编码</option>
+						<option value="categoryName">类目名称</option>
+						<option value="categoryDesc">类目说明</option>
+						<option value="brandImg">目录图标</option>
+						<option value="categoryStatus">目录状态 0:有效 2:无效</option>
+						<option value="fullPath">目录全路径用逗号隔开</option>
+						<option value="categoryLevel">目录级别</option>
+						<option value="sort">排序</option>
+						<option value="createTime">创建时间</option>
+						<option value="createPin">创建人</option>
+						<option value="updateTime">更新时间</option>
+						<option value="updatePin">更新人</option>
+						<option value="sysVersion">版本号</option>
+						<option value="yn">删除标识 0:有效 1:无效</option>
+						<option value="ts">时间戳</option>
+					</select>
+					<input type="text" quickSearchKey="categoryCode" class="quickSearchValue" title="按下回车进行快速查询，按下Esc进行表单查询"/>
+					<input type="button" class="b_text quickSearchButton" value="搜 索"/>
+				</div>
+			</div>
+			<div class="list">
+				<table>
+					<tr>
+						<th><input type="checkbox" name="categoryInfoAllCheckbox"></th>
+						<th>id</th>
+						<th>类目编码</th>
+						<th>类目名称</th>
+						<th>类目说明</th>
+						<th>目录图标</th>
+						<th>目录状态 0:有效 2:无效</th>
+						<th>目录全路径用逗号隔开</th>
+						<th>目录级别</th>
+						<th>排序</th>
+						<th>创建时间</th>
+						<th>创建人</th>
+						<th>更新时间</th>
+						<th>更新人</th>
+						<th>版本号</th>
+						<th>删除标识 0:有效 1:无效</th>
+						<th>时间戳</th>
+						<th>操 作</th>
+					</tr>
+            #if(${result} && ${result.result})
+    			#set ($list=${result.result})
+    			#if($list && ${result.result.resultList})
+    				#set ($list=${result.result.resultList})
+    			#end
+    			#foreach( $data in $list )
+					<tr>
+						<td><input type="checkbox" name="categoryInfoCheckbox" value="${data.id}"></td>
+						<td>$!{data.id}</td>
+						<td>$!{data.categoryCode}</td>
+						<td>$!{data.categoryName}</td>
+						<td>$!{data.categoryDesc}</td>
+						<td>$!{data.brandImg}</td>
+						<td>$!{data.categoryStatus}</td>
+						<td>$!{data.fullPath}</td>
+						<td>$!{data.categoryLevel}</td>
+						<td>$!{data.sort}</td>
+						<td>$!dateFormatUtils.format($!{data.createTime},"yyyy-MM-dd HH:mm:ss")</td>
+						<td>$!{data.createPin}</td>
+						<td>$!dateFormatUtils.format($!{data.updateTime},"yyyy-MM-dd HH:mm:ss")</td>
+						<td>$!{data.updatePin}</td>
+						<td>$!{data.sysVersion}</td>
+						<td>$!{data.yn}</td>
+						<td>$!dateFormatUtils.format($!{data.ts},"yyyy-MM-dd HH:mm:ss")</td>
+						<td class="manage">
+							<input type="button" class="b_text edit" v="${data.id}" value="修 改">
+							<input type="button" class="b_text delete" v="${data.id}" value="删 除">
+						</td>
+					</tr>
+			#end
+		#end
+				</table>
+			</div>
+##			#parse("/common/error.vm")
+        	<!--分页-->
+        	<div class="msdn">
+        		#pageTag("/categoryInfo", "plist",$page,$params)
+        	</div>
+		</div>
+	</div>
+</body>
+</html>

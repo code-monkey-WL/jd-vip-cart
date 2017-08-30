@@ -15,7 +15,7 @@ public class DictTypeResponse extends ResponseBean {
 	 */
 	private String appCode;
 	/**
-	 * 类型编号
+	 * 类型编码
 	 */
 	private String dictTypeCode;
 	/**

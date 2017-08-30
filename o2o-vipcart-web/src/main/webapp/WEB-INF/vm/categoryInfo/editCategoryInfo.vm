@@ -1,0 +1,39 @@
+###parse("/common/error.vm")
+#set($result=${result.result})
+<div id="categoryInfoInputDiv" v="categoryInfo">
+    <div id="operation">
+    	<form method="post" id="categoryInfoInputForm" name="categoryInfoInputForm" action="">
+    		<div id="operation_table">
+    			<div class="title"><div class="text">输入区域</div></div>
+    			<div class="input">
+    				<table>
+    					<tr>
+	    				    <th>id</th>
+	    				    <td><input id="id" name="id" type="text" value="$!{result.id}"  readonly="readonly" class="input_disabled"   maxLength=19 /></td>
+	    				    <th>类目编码</th>
+	    				    <td><input id="categoryCode" name="categoryCode" type="text" value="$!{result.categoryCode}"  class="required"   maxLength=64 /></td>
+	    				    <th>类目名称</th>
+	    				    <td><input id="categoryName" name="categoryName" type="text" value="$!{result.categoryName}"  class="required"   maxLength=256 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>类目说明</th>
+	    				    <td><input id="categoryDesc" name="categoryDesc" type="text" value="$!{result.categoryDesc}"  class="required"   maxLength=256 /></td>
+	    				    <th>目录图标</th>
+	    				    <td><input id="brandImg" name="brandImg" type="text" value="$!{result.brandImg}"  class="required"   maxLength=256 /></td>
+	    				    <th>目录状态 0:有效 2:无效</th>
+	    				    <td><input id="categoryStatus" name="categoryStatus" type="text" value="$!{result.categoryStatus}"  class="required"   maxLength=3 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>目录全路径用逗号隔开</th>
+	    				    <td><input id="fullPath" name="fullPath" type="text" value="$!{result.fullPath}"  class="required"   maxLength=10 /></td>
+	    				    <th>目录级别</th>
+	    				    <td><input id="categoryLevel" name="categoryLevel" type="text" value="$!{result.categoryLevel}"  class="required"   maxLength=10 /></td>
+	    				    <th>排序</th>
+	    				    <td><input id="sort" name="sort" type="text" value="$!{result.sort}"  class="required"   maxLength=10 /></td>
+    					</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

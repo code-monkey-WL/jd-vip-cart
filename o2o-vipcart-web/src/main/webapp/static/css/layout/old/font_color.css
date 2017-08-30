@@ -1,0 +1,155 @@
+﻿.orange {
+    color: #ff7800;
+}
+
+.orange a:link {
+    color: #ff7800;
+    text-decoration: none;
+}
+
+.orange a:visited {
+    color: #ff7800;
+    text-decoration: none;
+}
+
+.orange a:hover {
+    COLOR: #ff6600;
+    text-decoration: underline;
+}
+
+.orange a:active {
+    COLOR: #ff6600;
+    text-decoration: underline;
+}
+
+.blue {
+    color: #159ee4;
+}
+
+.blue a:link {
+    color: #159ee4;
+    text-decoration: none;
+}
+
+.blue a:hover {
+    color: #003399;
+    text-decoration: none;
+}
+
+.blue a:visited {
+    color: #159ee4;
+    text-decoration: underline;
+}
+
+.blue a:active {
+    color: #159ee4;
+    text-decoration: underline;
+}
+
+.green {
+    color: #49d15a;
+}
+
+.green a:link {
+    color: #49d15a;
+    text-decoration: none;
+}
+
+.green a:hover {
+    color: #49d15a;
+    text-decoration: none;
+}
+
+.green a:visited {
+    color: #003399;
+    text-decoration: underline;
+}
+
+.green a:active {
+    color: #003399;
+    text-decoration: underline;
+}
+
+.white {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.white a:link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.white a:visited {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.white a:hover {
+    COLOR: #FFCC66;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.white a:active {
+    COLOR: #FFCC66;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.red {
+    color: #CC0000;
+}
+
+.red a:link {
+    color: #CC0000;
+    text-decoration: none;
+}
+
+.red a:hover {
+    color: #CC0000;
+    text-decoration: none;
+}
+
+.red a:visited {
+    color: #CC0000;
+    text-decoration: underline;
+}
+
+.red a:active {
+    color: #CC0000;
+    text-decoration: underline;
+}
+
+.yellow {
+    color: #FDCB02;
+}
+
+.yellow a:link {
+    color: #FDCB02;
+    text-decoration: none;
+}
+
+.yellow a:hover {
+    color: #CC0000;
+    text-decoration: none;
+}
+
+.yellow a:visited {
+    color: #CC0000;
+    text-decoration: underline;
+}
+
+.yellow a:active {
+    color: #FDCB02;
+    text-decoration: underline;
+}
+
+.black {
+    color: #000;
+}

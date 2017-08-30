@@ -16,7 +16,7 @@ public class DictTypeEntity extends BaseEntityBean {
 	 */
 	private String appCode ;
 	/**
-	 * 类型编号
+	 * 类型编码
 	 */
 	private String dictTypeCode ;
 	/**

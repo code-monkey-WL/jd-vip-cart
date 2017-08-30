@@ -71,7 +71,7 @@ public class GoodInfoController extends BaseController {
         }
         GoodInfoEntity goodInfoEntity = BeanHelper.copyTo(goodInfoRequest, GoodInfoEntity.class);
         buildBaseEntityBean(goodInfoEntity, goodInfoRequest.getId() == null ? OperEnum.ADD : OperEnum.EDIT);
-        int r = goodInfoServiceImpl.save(goodInfoEntity);
+        int r = goodInfoServiceImpl.saveOrUpdate(goodInfoEntity);
         view.addObject("result", new ServiceResponse<>(r));
         return view;
     }
@@ -98,9 +98,12 @@ public class GoodInfoController extends BaseController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public ModelAndView deletes(HttpServletRequest request, @PathVariable("id") Long id) {
+    public ModelAndView deletes(HttpServletRequest request, @PathVariable("id") Long[] ids) {
         ModelAndView view = new ModelAndView("/goodInfo/plist");
-        int r = goodInfoServiceImpl.delete(id);
+        int r = 0;
+        for(Long id:ids){
+            r = r + goodInfoServiceImpl.delete(id);
+        }
         view.addObject("result", new ServiceResponse<>(r));
         return view;
     }

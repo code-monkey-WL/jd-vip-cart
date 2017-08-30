@@ -2,24 +2,32 @@ package com.jd.o2o.vipcart.domain.entity;
 
 import com.jd.o2o.vipcart.common.domain.BaseEntityBean;
 
-public class DictEntryEntity extends BaseEntityBean {
-	/**
-	 * 自增ID
-	 */
+public class BrandInfoEntity extends BaseEntityBean {
 	private Long id ;
 	/**
-	 * 字典类型编码
+	 * 品牌编码
 	 */
-	private Long dictTypeId ;
+	private String brandCode ;
 	/**
-	 * 字典编号
+	 * 品牌名称
 	 */
-	private String dictCode ;
-	private String dictName ;
+	private String brandName ;
 	/**
-	 * 备注
+	 * 品牌说明
 	 */
-	private String remark ;
+	private String brandDesc ;
+	/**
+	 * 品牌图标
+	 */
+	private String brandImg ;
+	/**
+	 * 品牌状态 0:有效 2:无效
+	 */
+	private Integer brandStatus ;
+	/**
+	 * 品牌级别
+	 */
+	private Integer brandLevel ;
 	/**
 	 * 排序
 	 */
@@ -59,29 +67,41 @@ public class DictEntryEntity extends BaseEntityBean {
 	public void setId(Long id){
 		this.id = id;
 	}
-	public Long getDictTypeId(){
-		return dictTypeId;
+	public String getBrandCode(){
+		return brandCode;
 	}
-	public void setDictTypeId(Long dictTypeId){
-		this.dictTypeId = dictTypeId;
+	public void setBrandCode(String brandCode){
+		this.brandCode = brandCode;
 	}
-	public String getDictCode(){
-		return dictCode;
+	public String getBrandName(){
+		return brandName;
 	}
-	public void setDictCode(String dictCode){
-		this.dictCode = dictCode;
+	public void setBrandName(String brandName){
+		this.brandName = brandName;
 	}
-	public String getDictName(){
-		return dictName;
+	public String getBrandDesc(){
+		return brandDesc;
 	}
-	public void setDictName(String dictName){
-		this.dictName = dictName;
+	public void setBrandDesc(String brandDesc){
+		this.brandDesc = brandDesc;
 	}
-	public String getRemark(){
-		return remark;
+	public String getBrandImg(){
+		return brandImg;
 	}
-	public void setRemark(String remark){
-		this.remark = remark;
+	public void setBrandImg(String brandImg){
+		this.brandImg = brandImg;
+	}
+	public Integer getBrandStatus(){
+		return brandStatus;
+	}
+	public void setBrandStatus(Integer brandStatus){
+		this.brandStatus = brandStatus;
+	}
+	public Integer getBrandLevel(){
+		return brandLevel;
+	}
+	public void setBrandLevel(Integer brandLevel){
+		this.brandLevel = brandLevel;
 	}
 	public Integer getSort(){
 		return sort;

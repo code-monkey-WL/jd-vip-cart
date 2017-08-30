@@ -1,4 +1,5 @@
 package com.jd.o2o.vipcart.domain.response;
+
 import com.jd.o2o.vipcart.common.domain.api.ResponseBean;
 
 public class CategoryInfoResponse extends ResponseBean {
@@ -16,6 +17,10 @@ public class CategoryInfoResponse extends ResponseBean {
 	 */
 	private String categoryDesc;
 	/**
+	 * 目录图标
+	 */
+	private String brandImg;
+	/**
 	 * 目录状态 0:有效 2:无效
 	 */
 	private Integer categoryStatus;
@@ -24,7 +29,7 @@ public class CategoryInfoResponse extends ResponseBean {
 	 */
 	private Integer fullPath;
 	/**
-	 * 排序
+	 * 目录级别
 	 */
 	private Integer categoryLevel;
 	/**
@@ -82,6 +87,12 @@ public class CategoryInfoResponse extends ResponseBean {
 	}
 	public void setCategoryDesc(String categoryDesc){
 		this.categoryDesc = categoryDesc;
+	}
+	public String getBrandImg(){
+		return brandImg;
+	}
+	public void setBrandImg(String brandImg){
+		this.brandImg = brandImg;
 	}
 	public Integer getCategoryStatus(){
 		return categoryStatus;

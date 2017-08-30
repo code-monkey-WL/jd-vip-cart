@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="promotion_infoMapper">
+	<resultMap id="promotionInfoMap" type="com.jd.o2o.vipcart.domain.entity.PromotionInfoEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="promotion_code" property="promotionCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="promotion_type" property="promotionType" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="sku_id" property="skuId" jdbcType="VARCHAR" javaType="String"/>
+		<result column="promotion_desc" property="promotionDesc" jdbcType="VARCHAR" javaType="String"/>
+		<result column="promotion_img" property="promotionImg" jdbcType="VARCHAR" javaType="String"/>
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="promotion_status" property="promotionStatus" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="from_source" property="fromSource" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="sort" property="sort" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_pin" property="updatePin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="yn" property="yn" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ts" property="ts" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			promotion_code AS promotionCode,
+			promotion_type AS promotionType,
+			sku_id AS skuId,
+			promotion_desc AS promotionDesc,
+			promotion_img AS promotionImg,
+			start_time AS startTime,
+			end_time AS endTime,
+			promotion_status AS promotionStatus,
+			from_source AS fromSource,
+			sort AS sort,
+			create_time AS createTime,
+			create_pin AS createPin,
+			update_time AS updateTime,
+			update_pin AS updatePin,
+			sys_version AS sysVersion,
+			yn AS yn,
+			ts AS ts
+		FROM promotion_info
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="promotionCode != null and promotionCode != ''">
+			and promotion_code = #{promotionCode,jdbcType=VARCHAR}
+		</if>
+		<if test="promotionType != null">
+			and promotion_type = #{promotionType,jdbcType=INTEGER}
+		</if>
+		<if test="skuId != null and skuId != ''">
+			and sku_id = #{skuId,jdbcType=VARCHAR}
+		</if>
+		<if test="promotionDesc != null and promotionDesc != ''">
+			and promotion_desc = #{promotionDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="promotionImg != null and promotionImg != ''">
+			and promotion_img = #{promotionImg,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null">
+			and start_time = #{startTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and end_time = #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="promotionStatus != null">
+			and promotion_status = #{promotionStatus,jdbcType=TINYINT}
+		</if>
+		<if test="fromSource != null">
+			and from_source = #{fromSource,jdbcType=INTEGER}
+		</if>
+		<if test="sort != null">
+			and sort = #{sort,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createPin != null and createPin != ''">
+			and create_pin = #{createPin,jdbcType=VARCHAR}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatePin != null and updatePin != ''">
+			and update_pin = #{updatePin,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=TINYINT}
+		</if>
+		<if test="ts != null">
+			and ts = #{ts,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectPromotionInfo" parameterType="com.jd.o2o.vipcart.domain.entity.PromotionInfoEntity" resultMap="promotionInfoMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOnePromotionInfo" parameterType="java.lang.Long" resultMap="promotionInfoMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countPromotionInfo" parameterType="com.jd.o2o.vipcart.domain.entity.PromotionInfoEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM promotion_info
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertPromotionInfo" parameterType="com.jd.o2o.vipcart.domain.entity.PromotionInfoEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO promotion_info (
+	<if test="promotionCode != null">
+		promotion_code,
+	</if>
+	<if test="promotionType != null">
+		promotion_type,
+	</if>
+	<if test="skuId != null">
+		sku_id,
+	</if>
+	<if test="promotionDesc != null">
+		promotion_desc,
+	</if>
+	<if test="promotionImg != null">
+		promotion_img,
+	</if>
+	<if test="startTime != null">
+		start_time,
+	</if>
+	<if test="endTime != null">
+		end_time,
+	</if>
+	<if test="promotionStatus != null">
+		promotion_status,
+	</if>
+	<if test="fromSource != null">
+		from_source,
+	</if>
+	<if test="sort != null">
+		sort,
+	</if>
+	<if test="createPin != null">
+		create_pin,
+	</if>
+	<if test="updatePin != null">
+		update_pin,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="promotionCode != null">
+    	#{promotionCode,jdbcType=VARCHAR},
+    </if>
+    <if test="promotionType != null">
+    	#{promotionType,jdbcType=INTEGER},
+    </if>
+    <if test="skuId != null">
+    	#{skuId,jdbcType=VARCHAR},
+    </if>
+    <if test="promotionDesc != null">
+    	#{promotionDesc,jdbcType=VARCHAR},
+    </if>
+    <if test="promotionImg != null">
+    	#{promotionImg,jdbcType=VARCHAR},
+    </if>
+    <if test="startTime != null">
+    	#{startTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="endTime != null">
+    	#{endTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="promotionStatus != null">
+    	#{promotionStatus,jdbcType=TINYINT},
+    </if>
+    <if test="fromSource != null">
+    	#{fromSource,jdbcType=INTEGER},
+    </if>
+    <if test="sort != null">
+    	#{sort,jdbcType=INTEGER},
+    </if>
+    <if test="createPin != null">
+    	#{createPin,jdbcType=VARCHAR},
+    </if>
+    <if test="updatePin != null">
+    	#{updatePin,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=TINYINT},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertPromotionInfoBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO promotion_info (
+		promotion_code,
+		promotion_type,
+		sku_id,
+		promotion_desc,
+		promotion_img,
+		start_time,
+		end_time,
+		promotion_status,
+		from_source,
+		sort,
+		create_pin,
+		update_pin,
+		yn,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.promotionCode,jdbcType=VARCHAR},
+		#{item.promotionType,jdbcType=INTEGER},
+		#{item.skuId,jdbcType=VARCHAR},
+		#{item.promotionDesc,jdbcType=VARCHAR},
+		#{item.promotionImg,jdbcType=VARCHAR},
+		#{item.startTime,jdbcType=TIMESTAMP},
+		#{item.endTime,jdbcType=TIMESTAMP},
+		#{item.promotionStatus,jdbcType=TINYINT},
+		#{item.fromSource,jdbcType=INTEGER},
+		#{item.sort,jdbcType=INTEGER},
+		#{item.createPin,jdbcType=VARCHAR},
+		#{item.updatePin,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=TINYINT},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updatePromotionInfo" parameterType="java.util.Map">
+		UPDATE promotion_info
+		<set>
+    	<if test="promotionCode != null">
+            promotion_code = #{promotionCode,jdbcType=VARCHAR},
+    	</if>
+    	<if test="promotionType != null">
+            promotion_type = #{promotionType,jdbcType=INTEGER},
+    	</if>
+    	<if test="skuId != null">
+            sku_id = #{skuId,jdbcType=VARCHAR},
+    	</if>
+    	<if test="promotionDesc != null">
+            promotion_desc = #{promotionDesc,jdbcType=VARCHAR},
+    	</if>
+    	<if test="promotionImg != null">
+            promotion_img = #{promotionImg,jdbcType=VARCHAR},
+    	</if>
+    	<if test="startTime != null">
+            start_time = #{startTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="endTime != null">
+            end_time = #{endTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="promotionStatus != null">
+            promotion_status = #{promotionStatus,jdbcType=TINYINT},
+    	</if>
+    	<if test="fromSource != null">
+            from_source = #{fromSource,jdbcType=INTEGER},
+    	</if>
+    	<if test="sort != null">
+            sort = #{sort,jdbcType=INTEGER},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="createPin != null">
+            create_pin = #{createPin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updatePin != null">
+            update_pin = #{updatePin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=TINYINT},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updatePromotionInfoBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update promotion_info 
+		<set>
+		<if test="item.promotionCode != null">
+			promotion_code = #{item.promotionCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.promotionType != null">
+			promotion_type = #{item.promotionType,jdbcType=INTEGER},
+		</if>
+		<if test="item.skuId != null">
+			sku_id = #{item.skuId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.promotionDesc != null">
+			promotion_desc = #{item.promotionDesc,jdbcType=VARCHAR},
+		</if>
+		<if test="item.promotionImg != null">
+			promotion_img = #{item.promotionImg,jdbcType=VARCHAR},
+		</if>
+		<if test="item.startTime != null">
+			start_time = #{item.startTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.endTime != null">
+			end_time = #{item.endTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.promotionStatus != null">
+			promotion_status = #{item.promotionStatus,jdbcType=TINYINT},
+		</if>
+		<if test="item.fromSource != null">
+			from_source = #{item.fromSource,jdbcType=INTEGER},
+		</if>
+		<if test="item.sort != null">
+			sort = #{item.sort,jdbcType=INTEGER},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.createPin != null">
+			create_pin = #{item.createPin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.updatePin != null">
+			update_pin = #{item.updatePin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=TINYINT},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deletePromotionInfo" parameterType="com.jd.o2o.vipcart.domain.entity.PromotionInfoEntity">
+		DELETE FROM promotion_info
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOnePromotionInfo" parameterType="java.lang.Long">
+		DELETE FROM promotion_info
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

@@ -10,14 +10,14 @@ import java.util.List;
  */
 public interface BasicDataDependService {
     /**
-     * 根据字典类型编号获得所有字典项
+     * 根据字典类型编码获得所有字典项
      * @param dictTypeCode
      * @return
      */
     public List<DictEntryEntity> findDictByDictTypeCode(String dictTypeCode);
 
     /**
-     * 根据字典类型编号和字典项编号获得字典项
+     * 根据字典类型编码和字典项编号获得字典项
      * @param dictTypeCode
      * @param dictCode
      * @return

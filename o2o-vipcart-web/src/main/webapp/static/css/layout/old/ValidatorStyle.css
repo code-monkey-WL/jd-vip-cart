@@ -1,0 +1,88 @@
+.tip_top_l {
+    background-image: url(../images/ValidatorStyle/tip_top_l.gif);
+    width: 19px;
+    height: 5px;
+    background-repeat: no-repeat;
+}
+
+.tip_top_c {
+    background-image: url(../images/ValidatorStyle/tip_top_c.gif);
+    background-repeat: repeat-x;
+    height: 5px;
+}
+
+.tip_top_r {
+    background-image: url(../images/ValidatorStyle/tip_top_r.gif);
+    width: 5px;
+    height: 5px;
+    background-repeat: no-repeat;
+}
+
+.tip_center_l {
+    background-image: url(../images/ValidatorStyle/tip_center_l.gif);
+    background-repeat: repeat-y;
+    height: auto;
+    width: 10px;
+
+}
+
+.validateTable .tip_center_l {
+    padding-left: 5px;
+}
+
+.tip_center_c {
+    background-image: url(../images/ValidatorStyle/tip_center_c.gif);
+    color: #ff5500;
+    font-size: 10pt;
+    background-repeat: repeat-x;
+    padding-left: 3px;
+    background-color: #ffffff;
+}
+
+.tip_center_r {
+    background-image: url(../images/ValidatorStyle/tip_center_r.gif);
+    background-repeat: repeat-y;
+    height: auto;
+    width: 5px;
+}
+
+.tip_bottom_l {
+    background-image: url(../images/ValidatorStyle/tip_bottom_l.gif);
+    width: 19px;
+    height: 8px;
+    background-repeat: no-repeat;
+
+}
+
+.tip_bottom_c {
+    background-image: url(../images/ValidatorStyle/tip_bottom_c.gif);
+    background-repeat: repeat-x;
+}
+
+.tip_bottom_r {
+    background-image: url(../images/ValidatorStyle/tip_bottom_r.gif);
+    width: 5px;
+    height: 8px;
+    background-repeat: no-repeat;
+}
+
+.ErrorTip {
+    position: absolute;
+    margin-top: 0px;
+    margin-left: 0px;
+    overflow: auto;
+
+}
+
+#Operation_Table table .error {
+    border: 1px solid #FF5400;
+}
+
+.validateTable {
+    table-layout: auto;
+
+}
+
+.validateTable td {
+    padding: 0;
+}

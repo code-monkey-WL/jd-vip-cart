@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title>BrandInfo</title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initSearch("brandInfoSearchDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="brandInfoSearchDiv" v="brandInfo">
+		<div id="operation">
+		<form method="post" id="brandInfoSearchForm" name="brandInfoSearchForm" action="">
+			<div id="operation_table">
+				<div class="title"><div class="text">查询区</div></div>
+				<div class="search">
+					<table>
+						<tr>
+							<th>id</th>
+							<td><input id="id" name="id" type="text" value="$!{result.id}"/></td>
+							<th>品牌编码</th>
+							<td><input id="brandCode" name="brandCode" type="text" value="$!{result.brandCode}"/></td>
+							<th>品牌名称</th>
+							<td><input id="brandName" name="brandName" type="text" value="$!{result.brandName}"/></td>
+						</tr>
+						<tr>
+							<th>品牌说明</th>
+							<td><input id="brandDesc" name="brandDesc" type="text" value="$!{result.brandDesc}"/></td>
+							<th>品牌图标</th>
+							<td><input id="brandImg" name="brandImg" type="text" value="$!{result.brandImg}"/></td>
+							<th>品牌状态 0:有效 2:无效</th>
+							<td><input id="brandStatus" name="brandStatus" type="text" value="$!{result.brandStatus}"/></td>
+						</tr>
+						<tr>
+							<th>品牌级别</th>
+							<td><input id="brandLevel" name="brandLevel" type="text" value="$!{result.brandLevel}"/></td>
+							<th>排序</th>
+							<td><input id="sort" name="sort" type="text" value="$!{result.sort}"/></td>
+							<th>创建时间</th>
+							<td><input id="createTime" name="createTime" type="text" value="$!{result.createTime}"/></td>
+						</tr>
+						<tr>
+							<th>创建人</th>
+							<td><input id="createPin" name="createPin" type="text" value="$!{result.createPin}"/></td>
+							<th>更新时间</th>
+							<td><input id="updateTime" name="updateTime" type="text" value="$!{result.updateTime}"/></td>
+							<th>更新人</th>
+							<td><input id="updatePin" name="updatePin" type="text" value="$!{result.updatePin}"/></td>
+						</tr>
+						<tr>
+							<th>版本号</th>
+							<td><input id="sysVersion" name="sysVersion" type="text" value="$!{result.sysVersion}"/></td>
+							<th>删除标识 0:有效 1:无效</th>
+							<td><input id="yn" name="yn" type="text" value="$!{result.yn}"/></td>
+							<th>时间戳</th>
+							<td><input id="ts" name="ts" type="text" value="$!{result.ts}"/></td>
+						</tr>
+    					<tr>
+    						<th colspan="6" class="manage">
+    							<input class="b_foot_long find" type="button" onClick="checksubmit(brandInfoSearchForm)" value="查 询"/>
+    							<input class="b_foot_long" type="reset" value="清 空"/>
+    						</th>
+    					</tr>
+    				</table>
+    			</div>
+    		</div>
+    	</form>
+    </div>
+##	#parse("/common/error.vm")
+    <div id="searchList">
+		#parse("/brandInfo/listBrandInfo.vm" )
+	</div>
+</div>
+</body>
+</html>

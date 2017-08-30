@@ -1,0 +1,46 @@
+###parse("/common/error.vm")
+#set($result=${result.result})
+<div id="promotionInfoInputDiv" v="promotionInfo">
+    <div id="operation">
+    	<form method="post" id="promotionInfoInputForm" name="promotionInfoInputForm" action="">
+    		<div id="operation_table">
+    			<div class="title"><div class="text">输入区域</div></div>
+    			<div class="input">
+    				<table>
+    					<tr>
+	    				    <th>id</th>
+	    				    <td><input id="id" name="id" type="text" value="$!{result.id}"  readonly="readonly" class="input_disabled"   maxLength=19 /></td>
+	    				    <th>促销编码</th>
+	    				    <td><input id="promotionCode" name="promotionCode" type="text" value="$!{result.promotionCode}"  class="required"   maxLength=64 /></td>
+	    				    <th>促销类型</th>
+	    				    <td><input id="promotionType" name="promotionType" type="text" value="$!{result.promotionType}"  class="required"   maxLength=10 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>促销商品编号</th>
+	    				    <td><input id="skuId" name="skuId" type="text" value="$!{result.skuId}"  class="required"   maxLength=64 /></td>
+	    				    <th>促销说明</th>
+	    				    <td><input id="promotionDesc" name="promotionDesc" type="text" value="$!{result.promotionDesc}"  class="required"   maxLength=256 /></td>
+	    				    <th>促销图标</th>
+	    				    <td><input id="promotionImg" name="promotionImg" type="text" value="$!{result.promotionImg}"  class="required"   maxLength=256 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>促销开始时间</th>
+	    				    <td><input id="startTime" name="startTime" type="text" value="$!{result.startTime}"  class="required"   maxLength=19 /></td>
+	    				    <th>促销结束时间</th>
+	    				    <td><input id="endTime" name="endTime" type="text" value="$!{result.endTime}"  class="required"   maxLength=19 /></td>
+	    				    <th>促销状态 0:有效 2:无效</th>
+	    				    <td><input id="promotionStatus" name="promotionStatus" type="text" value="$!{result.promotionStatus}"  class="required"   maxLength=3 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>商品来源 1:jd 2:tmall</th>
+	    				    <td><input id="fromSource" name="fromSource" type="text" value="$!{result.fromSource}"  class="required"   maxLength=10 /></td>
+	    				    <th>排序</th>
+	    				    <td><input id="sort" name="sort" type="text" value="$!{result.sort}"  class="required"   maxLength=10 /></td>
+	    				    <td colspan="2"></td>
+    					</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

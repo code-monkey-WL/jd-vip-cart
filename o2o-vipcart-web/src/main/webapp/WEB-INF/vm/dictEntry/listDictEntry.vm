@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title></title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initList("dictEntryListDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="dictEntryListDiv" v="dictEntry">
+		<div id="operation_table">
+			<div class="toolbar">
+    			<input type="buttion" class="b_text add" value="新 增">
+    			<input type="buttion" class="b_text deleteAll" value="删 除">
+			</div>
+			<div class="title">
+				<div class="text quickSearch">
+					<select class="quickSearchKey">
+						<option value="dictTypeId">字典类型编码</option>
+						<option value="dictCode">字典编号</option>
+						<option value="dictName">dictName</option>
+						<option value="remark">备注</option>
+						<option value="sort">排序</option>
+						<option value="createTime">创建时间</option>
+						<option value="createPin">创建人</option>
+						<option value="updateTime">更新时间</option>
+						<option value="updatePin">更新人</option>
+						<option value="sysVersion">版本号</option>
+						<option value="yn">删除标识 0:有效 1:无效</option>
+						<option value="ts">时间戳</option>
+					</select>
+					<input type="text" quickSearchKey="dictTypeId" class="quickSearchValue" title="按下回车进行快速查询，按下Esc进行表单查询"/>
+					<input type="button" class="b_text quickSearchButton" value="搜 索"/>
+				</div>
+			</div>
+			<div class="list">
+				<table>
+					<tr>
+						<th><input type="checkbox" name="dictEntryAllCheckbox"></th>
+						<th>自增ID</th>
+						<th>字典类型编码</th>
+						<th>字典编号</th>
+						<th>dictName</th>
+						<th>备注</th>
+						<th>排序</th>
+						<th>创建时间</th>
+						<th>创建人</th>
+						<th>更新时间</th>
+						<th>更新人</th>
+						<th>版本号</th>
+						<th>删除标识 0:有效 1:无效</th>
+						<th>时间戳</th>
+						<th>操 作</th>
+					</tr>
+            #if(${result} && ${result.result})
+    			#set ($list=${result.result})
+    			#if($list && ${result.result.resultList})
+    				#set ($list=${result.result.resultList})
+    			#end
+    			#foreach( $data in $list )
+					<tr>
+						<td><input type="checkbox" name="dictEntryCheckbox" value="${data.id}"></td>
+						<td>$!{data.id}</td>
+						<td>$!{data.dictTypeId}</td>
+						<td>$!{data.dictCode}</td>
+						<td>$!{data.dictName}</td>
+						<td>$!{data.remark}</td>
+						<td>$!{data.sort}</td>
+						<td>$!dateFormatUtils.format($!{data.createTime},"yyyy-MM-dd HH:mm:ss")</td>
+						<td>$!{data.createPin}</td>
+						<td>$!dateFormatUtils.format($!{data.updateTime},"yyyy-MM-dd HH:mm:ss")</td>
+						<td>$!{data.updatePin}</td>
+						<td>$!{data.sysVersion}</td>
+						<td>$!{data.yn}</td>
+						<td>$!dateFormatUtils.format($!{data.ts},"yyyy-MM-dd HH:mm:ss")</td>
+						<td class="manage">
+							<input type="button" class="b_text edit" v="${data.id}" value="修 改">
+							<input type="button" class="b_text delete" v="${data.id}" value="删 除">
+						</td>
+					</tr>
+			#end
+		#end
+				</table>
+			</div>
+##			#parse("/common/error.vm")
+        	<!--分页-->
+        	<div class="msdn">
+        		#pageTag("/dictEntry", "plist",$page,$params)
+        	</div>
+		</div>
+	</div>
+</body>
+</html>

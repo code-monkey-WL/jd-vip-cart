@@ -1,0 +1,57 @@
+/* ========================title style===================*/
+.title_line {
+    background: #fff;
+}
+
+.tbody_list table {
+    table-layout: auto;
+    border: 1px solid #dcdcde;
+    border-bottom: 0;
+    border-right: 0;
+    margin-bottom: 3px;
+    text-align: left;
+}
+
+.tbody_list tbody:hover {
+    background: #ffffd2;
+}
+
+.tbody_list tbody.on {
+    background: #faf3ec;
+    color: #ea8a00;
+}
+
+.tr_head {
+    background: #e8e8e8;
+}
+
+.tr_body {
+    background: #fffbf3;
+}
+
+.tr_foot {
+    background: #e8eff5
+}
+
+.tbody_list th {
+    padding-left: 5px;
+    background-color: #e8eff5;
+    border: 1px solid #dcdcde;
+}
+
+.tbody_list td {
+    padding-left: 5px;
+    white-space: normal;
+    border: 1px solid #dcdcde;
+}
+
+.float_right {
+    float: right;
+    margin-right: 5px;
+}
+
+.float_left {
+    float: left;
+    margin-left: 5px;
+    padding-top: 4px;
+}

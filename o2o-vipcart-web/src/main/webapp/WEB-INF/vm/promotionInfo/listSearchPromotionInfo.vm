@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title>PromotionInfo</title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initSearch("promotionInfoSearchDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="promotionInfoSearchDiv" v="promotionInfo">
+		<div id="operation">
+		<form method="post" id="promotionInfoSearchForm" name="promotionInfoSearchForm" action="">
+			<div id="operation_table">
+				<div class="title"><div class="text">查询区</div></div>
+				<div class="search">
+					<table>
+						<tr>
+							<th>id</th>
+							<td><input id="id" name="id" type="text" value="$!{result.id}"/></td>
+							<th>促销编码</th>
+							<td><input id="promotionCode" name="promotionCode" type="text" value="$!{result.promotionCode}"/></td>
+							<th>促销类型</th>
+							<td><input id="promotionType" name="promotionType" type="text" value="$!{result.promotionType}"/></td>
+						</tr>
+						<tr>
+							<th>促销商品编号</th>
+							<td><input id="skuId" name="skuId" type="text" value="$!{result.skuId}"/></td>
+							<th>促销说明</th>
+							<td><input id="promotionDesc" name="promotionDesc" type="text" value="$!{result.promotionDesc}"/></td>
+							<th>促销图标</th>
+							<td><input id="promotionImg" name="promotionImg" type="text" value="$!{result.promotionImg}"/></td>
+						</tr>
+						<tr>
+							<th>促销开始时间</th>
+							<td><input id="startTime" name="startTime" type="text" value="$!{result.startTime}"/></td>
+							<th>促销结束时间</th>
+							<td><input id="endTime" name="endTime" type="text" value="$!{result.endTime}"/></td>
+							<th>促销状态 0:有效 2:无效</th>
+							<td><input id="promotionStatus" name="promotionStatus" type="text" value="$!{result.promotionStatus}"/></td>
+						</tr>
+						<tr>
+							<th>商品来源 1:jd 2:tmall</th>
+							<td><input id="fromSource" name="fromSource" type="text" value="$!{result.fromSource}"/></td>
+							<th>排序</th>
+							<td><input id="sort" name="sort" type="text" value="$!{result.sort}"/></td>
+							<th>创建时间</th>
+							<td><input id="createTime" name="createTime" type="text" value="$!{result.createTime}"/></td>
+						</tr>
+						<tr>
+							<th>创建人</th>
+							<td><input id="createPin" name="createPin" type="text" value="$!{result.createPin}"/></td>
+							<th>更新时间</th>
+							<td><input id="updateTime" name="updateTime" type="text" value="$!{result.updateTime}"/></td>
+							<th>更新人</th>
+							<td><input id="updatePin" name="updatePin" type="text" value="$!{result.updatePin}"/></td>
+						</tr>
+						<tr>
+							<th>版本号</th>
+							<td><input id="sysVersion" name="sysVersion" type="text" value="$!{result.sysVersion}"/></td>
+							<th>删除标识 0:有效 1:无效</th>
+							<td><input id="yn" name="yn" type="text" value="$!{result.yn}"/></td>
+							<th>时间戳</th>
+							<td><input id="ts" name="ts" type="text" value="$!{result.ts}"/></td>
+						</tr>
+    					<tr>
+    						<th colspan="6" class="manage">
+    							<input class="b_foot_long find" type="button" onClick="checksubmit(promotionInfoSearchForm)" value="查 询"/>
+    							<input class="b_foot_long" type="reset" value="清 空"/>
+    						</th>
+    					</tr>
+    				</table>
+    			</div>
+    		</div>
+    	</form>
+    </div>
+##	#parse("/common/error.vm")
+    <div id="searchList">
+		#parse("/promotionInfo/listPromotionInfo.vm" )
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+###parse("/common/error.vm")
+#set($result=${result.result})
+<div id="brandInfoInputDiv" v="brandInfo">
+    <div id="operation">
+    	<form method="post" id="brandInfoInputForm" name="brandInfoInputForm" action="">
+    		<div id="operation_table">
+    			<div class="title"><div class="text">输入区域</div></div>
+    			<div class="input">
+    				<table>
+    					<tr>
+	    				    <th>id</th>
+	    				    <td><input id="id" name="id" type="text" value="$!{result.id}"  readonly="readonly" class="input_disabled"   maxLength=19 /></td>
+	    				    <th>品牌编码</th>
+	    				    <td><input id="brandCode" name="brandCode" type="text" value="$!{result.brandCode}"  class="required"   maxLength=64 /></td>
+	    				    <th>品牌名称</th>
+	    				    <td><input id="brandName" name="brandName" type="text" value="$!{result.brandName}"  class="required"   maxLength=256 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>品牌说明</th>
+	    				    <td><input id="brandDesc" name="brandDesc" type="text" value="$!{result.brandDesc}"  class="required"   maxLength=256 /></td>
+	    				    <th>品牌图标</th>
+	    				    <td><input id="brandImg" name="brandImg" type="text" value="$!{result.brandImg}"  class="required"   maxLength=256 /></td>
+	    				    <th>品牌状态 0:有效 2:无效</th>
+	    				    <td><input id="brandStatus" name="brandStatus" type="text" value="$!{result.brandStatus}"  class="required"   maxLength=3 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>品牌级别</th>
+	    				    <td><input id="brandLevel" name="brandLevel" type="text" value="$!{result.brandLevel}"  class="required"   maxLength=10 /></td>
+	    				    <th>排序</th>
+	    				    <td><input id="sort" name="sort" type="text" value="$!{result.sort}"  class="required"   maxLength=10 /></td>
+	    				    <td colspan="2"></td>
+    					</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

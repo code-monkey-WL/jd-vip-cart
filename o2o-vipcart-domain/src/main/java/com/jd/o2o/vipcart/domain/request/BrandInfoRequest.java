@@ -1,36 +1,39 @@
 package com.jd.o2o.vipcart.domain.request;
+
 import com.jd.o2o.vipcart.common.domain.api.RequestBean;
 
-public class DictTypeRequest extends RequestBean {
-	/**
-	 * 自增ID
-	 */
+public class BrandInfoRequest extends RequestBean {
 	private Long id;
 
 	/**
-	 * 类型编号
+	 * 品牌编码
 	 */
-	private Long dictTypeId;
+	private String brandCode;
 
 	/**
-	 * 所属应用
+	 * 品牌名称
 	 */
-	private String appCode;
+	private String brandName;
 
 	/**
-	 * 类型编码
+	 * 品牌说明
 	 */
-	private String dictTypeCode;
+	private String brandDesc;
 
 	/**
-	 * 类型名称
+	 * 品牌图标
 	 */
-	private String dictTypeName;
+	private String brandImg;
 
 	/**
-	 * 备注
+	 * 品牌状态 0:有效 2:无效
 	 */
-	private String remark;
+	private Integer brandStatus;
+
+	/**
+	 * 品牌级别
+	 */
+	private Integer brandLevel;
 
 	/**
 	 * 排序
@@ -79,35 +82,41 @@ public class DictTypeRequest extends RequestBean {
 	public void setId(Long id){
 		this.id = id;
 	}
-	public Long getDictTypeId(){
-		return dictTypeId;
+	public String getBrandCode(){
+		return brandCode;
 	}
-	public void setDictTypeId(Long dictTypeId){
-		this.dictTypeId = dictTypeId;
+	public void setBrandCode(String brandCode){
+		this.brandCode = brandCode;
 	}
-	public String getAppCode(){
-		return appCode;
+	public String getBrandName(){
+		return brandName;
 	}
-	public void setAppCode(String appCode){
-		this.appCode = appCode;
+	public void setBrandName(String brandName){
+		this.brandName = brandName;
 	}
-	public String getDictTypeCode(){
-		return dictTypeCode;
+	public String getBrandDesc(){
+		return brandDesc;
 	}
-	public void setDictTypeCode(String dictTypeCode){
-		this.dictTypeCode = dictTypeCode;
+	public void setBrandDesc(String brandDesc){
+		this.brandDesc = brandDesc;
 	}
-	public String getDictTypeName(){
-		return dictTypeName;
+	public String getBrandImg(){
+		return brandImg;
 	}
-	public void setDictTypeName(String dictTypeName){
-		this.dictTypeName = dictTypeName;
+	public void setBrandImg(String brandImg){
+		this.brandImg = brandImg;
 	}
-	public String getRemark(){
-		return remark;
+	public Integer getBrandStatus(){
+		return brandStatus;
 	}
-	public void setRemark(String remark){
-		this.remark = remark;
+	public void setBrandStatus(Integer brandStatus){
+		this.brandStatus = brandStatus;
+	}
+	public Integer getBrandLevel(){
+		return brandLevel;
+	}
+	public void setBrandLevel(Integer brandLevel){
+		this.brandLevel = brandLevel;
 	}
 	public Integer getSort(){
 		return sort;

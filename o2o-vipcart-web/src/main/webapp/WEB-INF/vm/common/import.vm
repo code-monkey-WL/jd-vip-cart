@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="#springUrl('')/static/plugins/summernote/summernote.css?v=$!{iversion}" charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="#springUrl('')/static/css/fenye.css?v=$!{iversion}" charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="#springUrl('')/static/css/layout/block.css?v=$!{iversion}" charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="#springUrl('')/static/css/layout/old/FormText.css?v=$!{iversion}" charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="#springUrl('')/static/css/page.css?v=$!{iversion}" charset="utf-8"/>
 
 <script type="text/javascript" src="#springUrl('')/static/plugins/jquery.js?v=$!{iversion}"></script>

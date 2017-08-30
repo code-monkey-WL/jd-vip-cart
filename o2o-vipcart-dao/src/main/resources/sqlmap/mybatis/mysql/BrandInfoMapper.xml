@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
-<mapper namespace="category_infoMapper">
-	<resultMap id="categoryInfoMap" type="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity">
+<mapper namespace="brand_infoMapper">
+	<resultMap id="brandInfoMap" type="com.jd.o2o.vipcart.domain.entity.BrandInfoEntity">
 		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
-		<result column="category_code" property="categoryCode" jdbcType="VARCHAR" javaType="String"/>
-		<result column="category_name" property="categoryName" jdbcType="VARCHAR" javaType="String"/>
-		<result column="category_desc" property="categoryDesc" jdbcType="VARCHAR" javaType="String"/>
+		<result column="brand_code" property="brandCode" jdbcType="VARCHAR" javaType="String"/>
+		<result column="brand_name" property="brandName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="brand_desc" property="brandDesc" jdbcType="VARCHAR" javaType="String"/>
 		<result column="brand_img" property="brandImg" jdbcType="VARCHAR" javaType="String"/>
-		<result column="category_status" property="categoryStatus" jdbcType="TINYINT" javaType="Integer"/>
-		<result column="full_path" property="fullPath" jdbcType="INTEGER" javaType="Integer"/>
-		<result column="category_level" property="categoryLevel" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="brand_status" property="brandStatus" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="brand_level" property="brandLevel" jdbcType="INTEGER" javaType="Integer"/>
 		<result column="sort" property="sort" jdbcType="INTEGER" javaType="Integer"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
 		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
@@ -24,13 +23,12 @@
     <sql id="select-all-column">
 		SELECT
 			id AS id,
-			category_code AS categoryCode,
-			category_name AS categoryName,
-			category_desc AS categoryDesc,
+			brand_code AS brandCode,
+			brand_name AS brandName,
+			brand_desc AS brandDesc,
 			brand_img AS brandImg,
-			category_status AS categoryStatus,
-			full_path AS fullPath,
-			category_level AS categoryLevel,
+			brand_status AS brandStatus,
+			brand_level AS brandLevel,
 			sort AS sort,
 			create_time AS createTime,
 			create_pin AS createPin,
@@ -39,7 +37,7 @@
 			sys_version AS sysVersion,
 			yn AS yn,
 			ts AS ts
-		FROM category_info
+		FROM brand_info
 	</sql>
 	
 	<sql id="where-all-condition">
@@ -47,26 +45,23 @@
 		<if test="id != null">
 			and id = #{id,jdbcType=BIGINT}
 		</if>
-		<if test="categoryCode != null and categoryCode != ''">
-			and category_code = #{categoryCode,jdbcType=VARCHAR}
+		<if test="brandCode != null and brandCode != ''">
+			and brand_code = #{brandCode,jdbcType=VARCHAR}
 		</if>
-		<if test="categoryName != null and categoryName != ''">
-			and category_name = #{categoryName,jdbcType=VARCHAR}
+		<if test="brandName != null and brandName != ''">
+			and brand_name = #{brandName,jdbcType=VARCHAR}
 		</if>
-		<if test="categoryDesc != null and categoryDesc != ''">
-			and category_desc = #{categoryDesc,jdbcType=VARCHAR}
+		<if test="brandDesc != null and brandDesc != ''">
+			and brand_desc = #{brandDesc,jdbcType=VARCHAR}
 		</if>
 		<if test="brandImg != null and brandImg != ''">
 			and brand_img = #{brandImg,jdbcType=VARCHAR}
 		</if>
-		<if test="categoryStatus != null">
-			and category_status = #{categoryStatus,jdbcType=TINYINT}
+		<if test="brandStatus != null">
+			and brand_status = #{brandStatus,jdbcType=TINYINT}
 		</if>
-		<if test="fullPath != null">
-			and full_path = #{fullPath,jdbcType=INTEGER}
-		</if>
-		<if test="categoryLevel != null">
-			and category_level = #{categoryLevel,jdbcType=INTEGER}
+		<if test="brandLevel != null">
+			and brand_level = #{brandLevel,jdbcType=INTEGER}
 		</if>
 		<if test="sort != null">
 			and sort = #{sort,jdbcType=INTEGER}
@@ -94,7 +89,7 @@
 		</if>
 	</sql>
 	
-	<select id="selectCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity" resultMap="categoryInfoMap">
+	<select id="selectBrandInfo" parameterType="com.jd.o2o.vipcart.domain.entity.BrandInfoEntity" resultMap="brandInfoMap">
 		<include refid="select-all-column"/>
 		<where>
 		<include refid="where-all-condition"/>
@@ -103,41 +98,38 @@
 		</where>
 	</select>
 	
-	<select id="selectOneCategoryInfo" parameterType="java.lang.Long" resultMap="categoryInfoMap">
+	<select id="selectOneBrandInfo" parameterType="java.lang.Long" resultMap="brandInfoMap">
 		<include refid="select-all-column"/>
 		WHERE
 		id = #{id,jdbcType=BIGINT}
 	</select>
 	
-	<select id="countCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM category_info
+	<select id="countBrandInfo" parameterType="com.jd.o2o.vipcart.domain.entity.BrandInfoEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM brand_info
 		<where>
 		<include refid="where-all-condition"/>
 		</where>
 	</select>
 	
-	<insert id="insertCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO category_info (
-	<if test="categoryCode != null">
-		category_code,
+	<insert id="insertBrandInfo" parameterType="com.jd.o2o.vipcart.domain.entity.BrandInfoEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO brand_info (
+	<if test="brandCode != null">
+		brand_code,
 	</if>
-	<if test="categoryName != null">
-		category_name,
+	<if test="brandName != null">
+		brand_name,
 	</if>
-	<if test="categoryDesc != null">
-		category_desc,
+	<if test="brandDesc != null">
+		brand_desc,
 	</if>
 	<if test="brandImg != null">
 		brand_img,
 	</if>
-	<if test="categoryStatus != null">
-		category_status,
+	<if test="brandStatus != null">
+		brand_status,
 	</if>
-	<if test="fullPath != null">
-		full_path,
-	</if>
-	<if test="categoryLevel != null">
-		category_level,
+	<if test="brandLevel != null">
+		brand_level,
 	</if>
 	<if test="sort != null">
 		sort,
@@ -158,26 +150,23 @@
 		update_time,
 		ts
 	) VALUES (
-    <if test="categoryCode != null">
-    	#{categoryCode,jdbcType=VARCHAR},
+    <if test="brandCode != null">
+    	#{brandCode,jdbcType=VARCHAR},
     </if>
-    <if test="categoryName != null">
-    	#{categoryName,jdbcType=VARCHAR},
+    <if test="brandName != null">
+    	#{brandName,jdbcType=VARCHAR},
     </if>
-    <if test="categoryDesc != null">
-    	#{categoryDesc,jdbcType=VARCHAR},
+    <if test="brandDesc != null">
+    	#{brandDesc,jdbcType=VARCHAR},
     </if>
     <if test="brandImg != null">
     	#{brandImg,jdbcType=VARCHAR},
     </if>
-    <if test="categoryStatus != null">
-    	#{categoryStatus,jdbcType=TINYINT},
+    <if test="brandStatus != null">
+    	#{brandStatus,jdbcType=TINYINT},
     </if>
-    <if test="fullPath != null">
-    	#{fullPath,jdbcType=INTEGER},
-    </if>
-    <if test="categoryLevel != null">
-    	#{categoryLevel,jdbcType=INTEGER},
+    <if test="brandLevel != null">
+    	#{brandLevel,jdbcType=INTEGER},
     </if>
     <if test="sort != null">
     	#{sort,jdbcType=INTEGER},
@@ -200,19 +189,18 @@
 	)
 	</insert>
 	
-	<insert id="insertCategoryInfoBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertBrandInfoBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
 	<selectKey resultType="long" keyProperty="id" order="AFTER">
 		SELECT
 		LAST_INSERT_ID()
 	</selectKey>
-	INSERT INTO category_info (
-		category_code,
-		category_name,
-		category_desc,
+	INSERT INTO brand_info (
+		brand_code,
+		brand_name,
+		brand_desc,
 		brand_img,
-		category_status,
-		full_path,
-		category_level,
+		brand_status,
+		brand_level,
 		sort,
 		create_pin,
 		update_pin,
@@ -223,13 +211,12 @@
 	) VALUES
 	<foreach collection="list" item="item" index="index" separator=",">
     (
-		#{item.categoryCode,jdbcType=VARCHAR},
-		#{item.categoryName,jdbcType=VARCHAR},
-		#{item.categoryDesc,jdbcType=VARCHAR},
+		#{item.brandCode,jdbcType=VARCHAR},
+		#{item.brandName,jdbcType=VARCHAR},
+		#{item.brandDesc,jdbcType=VARCHAR},
 		#{item.brandImg,jdbcType=VARCHAR},
-		#{item.categoryStatus,jdbcType=TINYINT},
-		#{item.fullPath,jdbcType=INTEGER},
-		#{item.categoryLevel,jdbcType=INTEGER},
+		#{item.brandStatus,jdbcType=TINYINT},
+		#{item.brandLevel,jdbcType=INTEGER},
 		#{item.sort,jdbcType=INTEGER},
 		#{item.createPin,jdbcType=VARCHAR},
 		#{item.updatePin,jdbcType=VARCHAR},
@@ -241,29 +228,26 @@
 	</foreach>
 	</insert>
 	
-	<update id="updateCategoryInfo" parameterType="java.util.Map">
-		UPDATE category_info
+	<update id="updateBrandInfo" parameterType="java.util.Map">
+		UPDATE brand_info
 		<set>
-    	<if test="categoryCode != null">
-            category_code = #{categoryCode,jdbcType=VARCHAR},
+    	<if test="brandCode != null">
+            brand_code = #{brandCode,jdbcType=VARCHAR},
     	</if>
-    	<if test="categoryName != null">
-            category_name = #{categoryName,jdbcType=VARCHAR},
+    	<if test="brandName != null">
+            brand_name = #{brandName,jdbcType=VARCHAR},
     	</if>
-    	<if test="categoryDesc != null">
-            category_desc = #{categoryDesc,jdbcType=VARCHAR},
+    	<if test="brandDesc != null">
+            brand_desc = #{brandDesc,jdbcType=VARCHAR},
     	</if>
     	<if test="brandImg != null">
             brand_img = #{brandImg,jdbcType=VARCHAR},
     	</if>
-    	<if test="categoryStatus != null">
-            category_status = #{categoryStatus,jdbcType=TINYINT},
+    	<if test="brandStatus != null">
+            brand_status = #{brandStatus,jdbcType=TINYINT},
     	</if>
-    	<if test="fullPath != null">
-            full_path = #{fullPath,jdbcType=INTEGER},
-    	</if>
-    	<if test="categoryLevel != null">
-            category_level = #{categoryLevel,jdbcType=INTEGER},
+    	<if test="brandLevel != null">
+            brand_level = #{brandLevel,jdbcType=INTEGER},
     	</if>
     	<if test="sort != null">
             sort = #{sort,jdbcType=INTEGER},
@@ -288,30 +272,27 @@
 		id = #{id,jdbcType=BIGINT}
 	</update>
 	
-	<update id="updateCategoryInfoBatch"  parameterType="java.util.List">
+	<update id="updateBrandInfoBatch"  parameterType="java.util.List">
 	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
-		update category_info 
+		update brand_info 
 		<set>
-		<if test="item.categoryCode != null">
-			category_code = #{item.categoryCode,jdbcType=VARCHAR},
+		<if test="item.brandCode != null">
+			brand_code = #{item.brandCode,jdbcType=VARCHAR},
 		</if>
-		<if test="item.categoryName != null">
-			category_name = #{item.categoryName,jdbcType=VARCHAR},
+		<if test="item.brandName != null">
+			brand_name = #{item.brandName,jdbcType=VARCHAR},
 		</if>
-		<if test="item.categoryDesc != null">
-			category_desc = #{item.categoryDesc,jdbcType=VARCHAR},
+		<if test="item.brandDesc != null">
+			brand_desc = #{item.brandDesc,jdbcType=VARCHAR},
 		</if>
 		<if test="item.brandImg != null">
 			brand_img = #{item.brandImg,jdbcType=VARCHAR},
 		</if>
-		<if test="item.categoryStatus != null">
-			category_status = #{item.categoryStatus,jdbcType=TINYINT},
+		<if test="item.brandStatus != null">
+			brand_status = #{item.brandStatus,jdbcType=TINYINT},
 		</if>
-		<if test="item.fullPath != null">
-			full_path = #{item.fullPath,jdbcType=INTEGER},
-		</if>
-		<if test="item.categoryLevel != null">
-			category_level = #{item.categoryLevel,jdbcType=INTEGER},
+		<if test="item.brandLevel != null">
+			brand_level = #{item.brandLevel,jdbcType=INTEGER},
 		</if>
 		<if test="item.sort != null">
 			sort = #{item.sort,jdbcType=INTEGER},
@@ -338,14 +319,14 @@
 	</foreach>
 	</update>
 	
-	<delete id="deleteCategoryInfo" parameterType="com.jd.o2o.vipcart.domain.entity.CategoryInfoEntity">
-		DELETE FROM category_info
+	<delete id="deleteBrandInfo" parameterType="com.jd.o2o.vipcart.domain.entity.BrandInfoEntity">
+		DELETE FROM brand_info
 		WHERE 
 		<include refid="where-all-condition"/>
 	</delete>
 	
-	<delete id="deleteOneCategoryInfo" parameterType="java.lang.Long">
-		DELETE FROM category_info
+	<delete id="deleteOneBrandInfo" parameterType="java.lang.Long">
+		DELETE FROM brand_info
 		WHERE
 		id = #{id,jdbcType=BIGINT}
 	</delete>

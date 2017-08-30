@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title>CategoryInfo</title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initSearch("categoryInfoSearchDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="categoryInfoSearchDiv" v="categoryInfo">
+		<div id="operation">
+		<form method="post" id="categoryInfoSearchForm" name="categoryInfoSearchForm" action="">
+			<div id="operation_table">
+				<div class="title"><div class="text">查询区</div></div>
+				<div class="search">
+					<table>
+						<tr>
+							<th>id</th>
+							<td><input id="id" name="id" type="text" value="$!{result.id}"/></td>
+							<th>类目编码</th>
+							<td><input id="categoryCode" name="categoryCode" type="text" value="$!{result.categoryCode}"/></td>
+							<th>类目名称</th>
+							<td><input id="categoryName" name="categoryName" type="text" value="$!{result.categoryName}"/></td>
+						</tr>
+						<tr>
+							<th>类目说明</th>
+							<td><input id="categoryDesc" name="categoryDesc" type="text" value="$!{result.categoryDesc}"/></td>
+							<th>目录图标</th>
+							<td><input id="brandImg" name="brandImg" type="text" value="$!{result.brandImg}"/></td>
+							<th>目录状态 0:有效 2:无效</th>
+							<td><input id="categoryStatus" name="categoryStatus" type="text" value="$!{result.categoryStatus}"/></td>
+						</tr>
+						<tr>
+							<th>目录全路径用逗号隔开</th>
+							<td><input id="fullPath" name="fullPath" type="text" value="$!{result.fullPath}"/></td>
+							<th>目录级别</th>
+							<td><input id="categoryLevel" name="categoryLevel" type="text" value="$!{result.categoryLevel}"/></td>
+							<th>排序</th>
+							<td><input id="sort" name="sort" type="text" value="$!{result.sort}"/></td>
+						</tr>
+						<tr>
+							<th>创建时间</th>
+							<td><input id="createTime" name="createTime" type="text" value="$!{result.createTime}"/></td>
+							<th>创建人</th>
+							<td><input id="createPin" name="createPin" type="text" value="$!{result.createPin}"/></td>
+							<th>更新时间</th>
+							<td><input id="updateTime" name="updateTime" type="text" value="$!{result.updateTime}"/></td>
+						</tr>
+						<tr>
+							<th>更新人</th>
+							<td><input id="updatePin" name="updatePin" type="text" value="$!{result.updatePin}"/></td>
+							<th>版本号</th>
+							<td><input id="sysVersion" name="sysVersion" type="text" value="$!{result.sysVersion}"/></td>
+							<th>删除标识 0:有效 1:无效</th>
+							<td><input id="yn" name="yn" type="text" value="$!{result.yn}"/></td>
+						</tr>
+						<tr>
+							<th>时间戳</th>
+							<td><input id="ts" name="ts" type="text" value="$!{result.ts}"/></td>
+    						<th colspan="4" class="manage">
+    							<input class="b_foot_long find" type="button" onClick="checksubmit(categoryInfoSearchForm)" value="查 询"/>
+    							<input class="b_foot_long" type="reset" value="清 空"/>
+    						</th>
+    					</tr>
+    				</table>
+    			</div>
+    		</div>
+    	</form>
+    </div>
+##	#parse("/common/error.vm")
+    <div id="searchList">
+		#parse("/categoryInfo/listCategoryInfo.vm" )
+	</div>
+</div>
+</body>
+</html>

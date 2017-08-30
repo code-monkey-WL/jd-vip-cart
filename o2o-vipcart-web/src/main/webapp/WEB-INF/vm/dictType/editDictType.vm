@@ -1,0 +1,36 @@
+###parse("/common/error.vm")
+#set($result=${result.result})
+<div id="dictTypeInputDiv" v="dictType">
+    <div id="operation">
+    	<form method="post" id="dictTypeInputForm" name="dictTypeInputForm" action="">
+    		<div id="operation_table">
+    			<div class="title"><div class="text">输入区域</div></div>
+    			<div class="input">
+    				<table>
+    					<tr>
+	    				    <th>自增ID</th>
+	    				    <td><input id="id" name="id" type="text" value="$!{result.id}"  readonly="readonly" class="input_disabled"   maxLength=19 /></td>
+	    				    <th>类型编号</th>
+	    				    <td><input id="dictTypeId" name="dictTypeId" type="text" value="$!{result.dictTypeId}"  class="required"   maxLength=19 /></td>
+	    				    <th>所属应用</th>
+	    				    <td><input id="appCode" name="appCode" type="text" value="$!{result.appCode}"  class="required"   maxLength=64 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>类型编码</th>
+	    				    <td><input id="dictTypeCode" name="dictTypeCode" type="text" value="$!{result.dictTypeCode}"  class="required"   maxLength=128 /></td>
+	    				    <th>类型名称</th>
+	    				    <td><input id="dictTypeName" name="dictTypeName" type="text" value="$!{result.dictTypeName}"  class="required"   maxLength=128 /></td>
+	    				    <th>备注</th>
+	    				    <td><input id="remark" name="remark" type="text" value="$!{result.remark}"  class="required"   maxLength=512 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>排序</th>
+	    				    <td><input id="sort" name="sort" type="text" value="$!{result.sort}"  class="required"   maxLength=10 /></td>
+	    				    <td colspan="4"></td>
+    					</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
