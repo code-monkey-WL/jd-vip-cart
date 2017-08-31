@@ -58,6 +58,7 @@
         <commons.collections>3.2.2</commons.collections>
         <disruptor.version>3.3.4</disruptor.version>
         <jgroups.version>3.5.1.Final</jgroups.version>
+        <jsoup.version>1.10.3</jsoup.version>
 	</properties>
 
 	<distributionManagement>
@@ -391,6 +392,12 @@
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
                 <version>${commons-fileupload.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
             </dependency>
         </dependencies>
 	</dependencyManagement>

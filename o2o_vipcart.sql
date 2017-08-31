@@ -233,3 +233,38 @@ CREATE TABLE `promotion_info` (
   UNIQUE KEY `uni_idx_pro_cd` (`promotion_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20170401 DEFAULT CHARSET=utf8 COMMENT='促销表';
 
+DROP TABLE IF EXISTS `ID_generator`;
+CREATE TABLE `ID_generator` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `primary_key` varchar(64) NOT NULL COMMENT '业务主键标识',
+  `step` int(11) NOT NULL COMMENT '更新步长',
+  `sequence_no` bigint(20) NOT NULL COMMENT '主键编号',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_pin` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_pin` varchar(50) DEFAULT NULL COMMENT '更新人',
+  `sys_version` int(11) NOT NULL DEFAULT '1' COMMENT '版本号',
+  `yn` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标识 0:有效 1:无效',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_idx_key` (`primary_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=20170405 DEFAULT CHARSET=utf8 COMMENT='业务主键生成器';
+
+DROP TABLE IF EXISTS `ID_generator_register`;
+CREATE TABLE `ID_generator_register` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `primary_key` varchar(64) NOT NULL COMMENT '业务主键标识',
+  `register_key` varchar(64) NOT NULL COMMENT '注册主键标识',
+  `worker_no` int(11) NOT NULL COMMENT '注册机标识',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_pin` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_pin` varchar(50) DEFAULT NULL COMMENT '更新人',
+  `sys_version` int(11) NOT NULL DEFAULT '1' COMMENT '版本号',
+  `yn` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标识 0:有效 1:无效',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_idx_prikey_regkey` (`primary_key`,`register_key`),
+  UNIQUE KEY `uni_idx_prikey_workno` (`primary_key`,`worker_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=20170401 DEFAULT CHARSET=utf8 COMMENT='snowflake主键生成器注册表';
+
