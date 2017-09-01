@@ -29,7 +29,7 @@ public class PageBean<T> implements Serializable {
     /**
      * 当前页码，默认为1
      */
-    private long pageNo = 1;
+    private int pageNo = 1;
     /**
      * 每页的条数
      */
@@ -41,7 +41,7 @@ public class PageBean<T> implements Serializable {
     /**
      * 此次查询的总记录数（并不一定是当前页的记录条数）
      */
-    private long totalCount;
+    private int totalCount;
     /**
      * 存放查询的返回结果
      */
@@ -56,7 +56,7 @@ public class PageBean<T> implements Serializable {
      * @param pageNo    当前页号
      * @param pageSize  页大小
      */
-    public PageBean(long pageNo, int pageSize) {
+    public PageBean(int pageNo, int pageSize) {
         this.setPageNo(pageNo);
         this.setPageSize(pageSize);
     }
@@ -66,7 +66,7 @@ public class PageBean<T> implements Serializable {
      * @param totalCount    总记录数
      * @param resultList    分页查询结果列表
      */
-    public PageBean(long totalCount, Collection<T> resultList) {
+    public PageBean(int totalCount, Collection<T> resultList) {
         this.totalCount = totalCount;
         this.resultList = resultList;
     }
@@ -75,8 +75,8 @@ public class PageBean<T> implements Serializable {
      * 获取总页数
      * @return
      */
-    public long getTotalPage() {
-        long totalPage = 0;
+    public int getTotalPage() {
+        int totalPage = 0;
         if (totalCount > 0) {
             totalPage = ((totalCount % pageSize == 0) ? (totalCount / pageSize) : (totalCount / pageSize + 1));
         }
@@ -96,22 +96,22 @@ public class PageBean<T> implements Serializable {
     	this.pageSize = pageSize;
     }
 
-    public long getPageNo() {
+    public int getPageNo() {
         return pageNo;
     }
 
-    public void setPageNo(long pageNo) {
+    public void setPageNo(int pageNo) {
     	if(pageNo < 1){
     		pageNo = 1;
     	}
 		this.pageNo = pageNo;
     }
     
-    public long getTotalCount() {
+    public int getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(long totalCount) {
+    public void setTotalCount(int totalCount) {
     	if(totalCount < 0 ){
     		totalCount = 0;
     	}
@@ -130,7 +130,7 @@ public class PageBean<T> implements Serializable {
     /**
      * 设置当前页号
      * @deprecated
-     *  @see com.jd.o2o.vipcart.common.domain.PageBean#setPageNo(long)
+     *  @see com.jd.o2o.vipcart.common.domain.PageBean#setPageNo(int)
      * @param page
      */
     @Deprecated
@@ -145,7 +145,7 @@ public class PageBean<T> implements Serializable {
      * @return
      */
     @Deprecated
-    public long getPage() {
+    public int getPage() {
         return this.pageNo;
     }
 

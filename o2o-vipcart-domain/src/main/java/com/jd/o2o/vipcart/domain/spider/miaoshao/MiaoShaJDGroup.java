@@ -5,7 +5,7 @@ import com.jd.o2o.vipcart.common.domain.BaseBean;
 /**
  * Created by liuhuiqing on 2017/9/1.
  */
-public class JDMiaoShaGroup extends BaseBean {
+public class MiaoShaJDGroup extends BaseBean {
     private String gid; // 30,
     private String displayTime; // "20:00",
     private String name; // "20点场",

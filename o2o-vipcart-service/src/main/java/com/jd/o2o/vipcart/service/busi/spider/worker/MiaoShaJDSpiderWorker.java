@@ -1,5 +1,6 @@
-package com.jd.o2o.vipcart.service.busi.worker;
+package com.jd.o2o.vipcart.service.busi.spider.worker;
 
+import com.jd.o2o.vipcart.common.domain.PageBean;
 import com.jd.o2o.vipcart.common.domain.enums.YNEnum;
 import com.jd.o2o.vipcart.common.domain.response.ServiceResponse;
 import com.jd.o2o.vipcart.common.plugins.httpcliend.HttpClientExecutor;
@@ -14,10 +15,12 @@ import com.jd.o2o.vipcart.common.plugins.spider.parse.HtmlSpider;
 import com.jd.o2o.vipcart.common.utils.NumUtils;
 import com.jd.o2o.vipcart.common.utils.json.JsonUtils;
 import com.jd.o2o.vipcart.domain.entity.GoodInfoEntity;
-import com.jd.o2o.vipcart.domain.spider.miaoshao.JDMiaoSha;
-import com.jd.o2o.vipcart.domain.spider.miaoshao.JDMiaoShaGoodInfo;
+import com.jd.o2o.vipcart.domain.spider.miaoshao.MiaoJDSha;
+import com.jd.o2o.vipcart.domain.spider.miaoshao.MiaoShaJDGoodInfo;
 import com.jd.o2o.vipcart.service.base.GoodInfoService;
 import com.jd.o2o.vipcart.service.busi.common.id.IDGenerator;
+import com.jd.o2o.vipcart.service.busi.spider.SpiderService;
+import com.jd.o2o.vipcart.service.busi.spider.SpiderWorker;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -33,34 +36,59 @@ import java.util.List;
  * Created by liuhuiqing on 2017/9/1.
  */
 @Service
-public class MiaoShaSpiderWorker implements Work {
-    private static final Logger LOGGER = LoggerTrackFactory.getLogger(MiaoShaSpiderWorker.class);
+public class MiaoShaJDSpiderWorker implements SpiderWorker, SpiderService {
+    private static final Logger LOGGER = LoggerTrackFactory.getLogger(MiaoShaJDSpiderWorker.class);
     private static final String miaoshaUrl = "https://ai.jd.com/index_new?app=Seckill&action=pcMiaoShaAreaList&callback=pcMiaoShaAreaList&gid=30&_=1504258871484";
     @Resource
     private GoodInfoService goodInfoServiceImpl;
     private static HttpClientExecutor httpClientExecutor = HttpClientExecutor.newInstance();
 
     @Override
-    public void doWorker() {
+    public void spider() {
         LOGGER.info("MiaoShaSpiderWorker启动...");
-        ServiceResponse<String> response = httpClientExecutor.executeGet(miaoshaUrl);
-        String content = response.getResult();
-        content = content.substring(content.indexOf("{"), content.lastIndexOf("}") + 1);
-        JDMiaoSha jdMiaoSha = JsonUtils.fromJson(content, JDMiaoSha.class);
-        List<GoodInfoEntity> goodInfoEntityList = buildGoodInfoEntityList(jdMiaoSha.getMiaoShaList());
+        List<GoodInfoEntity> goodInfoEntityList = buildGoodInfoEntityList();
         int num = goodInfoServiceImpl.saveAll(goodInfoEntityList);
         LOGGER.info("MiaoShaSpiderWorker结束...导入[{}]条", num);
 
 
     }
 
-    private List<GoodInfoEntity> buildGoodInfoEntityList(List<JDMiaoShaGoodInfo> miaoShaList) {
+
+    @Override
+    public PageBean spider(PageBean pageBean) {
+        List<GoodInfoEntity> goodInfoEntityList = buildGoodInfoEntityList();
+        return buildPageBean(pageBean, goodInfoEntityList);
+    }
+
+    private PageBean buildPageBean(PageBean pageBean, List resultList) {
+        int startIndex = (pageBean.getPageNo() - 1) * pageBean.getPageSize();
+        int endIndex = pageBean.getPageNo() * pageBean.getPageSize();
+        int realSize = resultList.size();
+        pageBean.setTotalCount(realSize);
+        if (realSize < startIndex) {
+            return pageBean;
+        }
+        if (realSize < endIndex) {
+            pageBean.setResultList(new ArrayList(resultList.subList(startIndex, realSize)));
+            return pageBean;
+        }
+        pageBean.setResultList(new ArrayList(resultList.subList(startIndex, endIndex)));
+        return pageBean;
+    }
+
+
+    private List<GoodInfoEntity> buildGoodInfoEntityList() {
+        ServiceResponse<String> response = httpClientExecutor.executeGet(miaoshaUrl);
+        String content = response.getResult();
+        content = content.substring(content.indexOf("{"), content.lastIndexOf("}") + 1);
+        MiaoJDSha jdMiaoSha = JsonUtils.fromJson(content, MiaoJDSha.class);
+        List<MiaoShaJDGoodInfo> miaoShaList = jdMiaoSha.getMiaoShaList();
         List<GoodInfoEntity> goodInfoEntityList = new ArrayList<>();
         if (CollectionUtils.isEmpty(miaoShaList)) {
             return goodInfoEntityList;
         }
         Date date = new Date();
-        for (JDMiaoShaGoodInfo goodInfo : miaoShaList) {
+        for (MiaoShaJDGoodInfo goodInfo : miaoShaList) {
             GoodInfoEntity goodInfoEntity = new GoodInfoEntity();
             goodInfoEntity.setSkuId(IDGenerator.getSkuId());
             goodInfoEntity.setOutSkuCode(goodInfo.getWareId());
@@ -70,8 +98,8 @@ public class MiaoShaSpiderWorker implements Work {
             goodInfoEntity.setSkuSummary(goodInfo.getOperateWord());
             goodInfoEntity.setSkuPrice(Double.valueOf(NumUtils.mul(goodInfo.getMiaoShaPrice(), 100)).longValue());
             goodInfoEntity.setOriginPrice(Double.valueOf(NumUtils.mul(goodInfo.getJdPrice(), 100)).longValue());
-            goodInfoEntity.setPromotionSummary(StringUtils.isEmpty(goodInfo.getTagText())?goodInfo.getPromotionId():goodInfo.getTagText());
-            goodInfoEntity.setSkuLink(StringUtils.isEmpty(goodInfo.getPcJumpUrl())?"https://miaosha.jd.com/":goodInfo.getPcJumpUrl());
+            goodInfoEntity.setPromotionSummary(StringUtils.isEmpty(goodInfo.getTagText()) ? goodInfo.getPromotionId() : goodInfo.getTagText());
+            goodInfoEntity.setSkuLink(StringUtils.isEmpty(goodInfo.getPcJumpUrl()) ? "https://miaosha.jd.com/" : goodInfo.getPcJumpUrl());
             String img = goodInfo.getImageurl();
             if (!img.startsWith("http")) {
                 img = "https:" + img;
@@ -84,7 +112,7 @@ public class MiaoShaSpiderWorker implements Work {
             goodInfoEntity.setOrgCode("0");
             goodInfoEntity.setStockType(1);
             int stockNum = 0;
-            if(StringUtils.isNotEmpty(goodInfo.getSoldRate())){
+            if (StringUtils.isNotEmpty(goodInfo.getSoldRate())) {
                 stockNum = Integer.valueOf(goodInfo.getSoldRate());
             }
             goodInfoEntity.setStockNum(stockNum);

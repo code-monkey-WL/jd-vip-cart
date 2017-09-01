@@ -5,7 +5,7 @@ import com.jd.o2o.vipcart.common.domain.BaseBean;
 /**
  * Created by liuhuiqing on 2017/9/1.
  */
-public class JDMiaoShaGoodInfo extends BaseBean {
+public class MiaoShaJDGoodInfo extends BaseBean {
     private String wareId;//  3158135,
     private String wname;//  【京东超市】宁夏 索米亚 冷榨一级 脱蜡亚麻籽油胡麻油250ml,
     private String imageurl;//  //m.360buyimg.com/mobilecms/s290x290_jfs/t5968/3/1812667591/246570/d9f2d3c2/5936250fNb05c4753.jpg,
