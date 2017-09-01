@@ -9,5 +9,5 @@ import java.util.List;
  * Created by liuhuiqing on 2017/8/31.
  */
 public interface Spider {
-    public <T> List<T> analyse(SpiderInput<T> spiderInput);
+    public  List analyse(SpiderInput spiderInput);
 }

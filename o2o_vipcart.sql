@@ -143,7 +143,7 @@ CREATE TABLE `good_info` (
   `comment_num` int(11) NOT NULL COMMENT '评论数量',
   `grab_time` datetime NOT NULL COMMENT '抓取时间',
   `sku_status` tinyint(4) NOT NULL COMMENT '商品状态 0:上架 2:下架',
-  `ext` varchar(1024) DEFAULT NULL COMMENT '扩展字段',
+  `ext` varchar(8192) DEFAULT NULL COMMENT '扩展字段',
   `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_pin` varchar(50) DEFAULT NULL COMMENT '创建人',
@@ -267,4 +267,7 @@ CREATE TABLE `ID_generator_register` (
   UNIQUE KEY `uni_idx_prikey_regkey` (`primary_key`,`register_key`),
   UNIQUE KEY `uni_idx_prikey_workno` (`primary_key`,`worker_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20170401 DEFAULT CHARSET=utf8 COMMENT='snowflake主键生成器注册表';
+
+INSERT INTO `ID_generator`(primary_key,step,sequence_no,create_pin,sys_version,yn,create_time,ts) VALUES ('sku_id', 500, 20170901,  'liuhuiqing', '1', '0',now(),now());
+INSERT INTO `ID_generator`(primary_key,step,sequence_no,create_pin,sys_version,yn,create_time,ts) VALUES ('sku_code', 500, 20180901, 'liuhuiqing', '1', '0',now(),now());
 

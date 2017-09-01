@@ -1,20 +1,17 @@
-package com.jd.o2o.vipcart.common.plugins.spider.domain;
+package com.jd.o2o.vipcart.common.plugins.spider.domain.constant;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- *  取值来源
+ * 扫描规则类型
  * Created by liuhuiqing on 2017/8/31.
  */
-public enum ItemSourceEnum {
-    ATTR(1,"元素属性"),
-    TEXT(2,"文本"),
-    IN_HTML(3,"标签内HTML片段"),
-    OUT_HTML(3,"包含标签本身加内部HTML片段");
+public enum RuleEngineEnum {
+    JSOUP(1,"jsoup解析规则");
 
 
-    ItemSourceEnum(Integer code, String name) {
+    RuleEngineEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -30,15 +27,15 @@ public enum ItemSourceEnum {
         return name;
     }
 
-    private static final Map<Integer, ItemSourceEnum> map = new HashMap<Integer, ItemSourceEnum>();
+    private static final Map<Integer, RuleEngineEnum> map = new HashMap<Integer, RuleEngineEnum>();
 
     static {
-        for (ItemSourceEnum t : ItemSourceEnum.values()) {
+        for (RuleEngineEnum t : RuleEngineEnum.values()) {
             map.put(t.getCode(), t);
         }
     }
 
-    public static ItemSourceEnum idOf(Integer code) {
+    public static RuleEngineEnum idOf(Integer code) {
         return map.get(code);
     }
 

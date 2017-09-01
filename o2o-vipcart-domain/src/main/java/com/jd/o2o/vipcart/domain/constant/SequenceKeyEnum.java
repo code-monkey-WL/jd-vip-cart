@@ -8,11 +8,8 @@ import java.util.Map;
  * Created by liuhuiqing on 2017/4/25.
  */
 public enum SequenceKeyEnum {
-    COUPON_ID("coupon_id","优惠券编码"),
-    ACTIVITY_CODE("activity_code","活动编号"),
-    CONSUME_CODE("consume_code","用户领取优惠券的唯一标识"),
-    COUPON_CODE("coupon_code","优惠码"),
-    GROUP_ID("group_id","领券包打标");
+    SKU_ID("sku_id","商品编号"),
+    SKU_CODE("sku_code","商品编码");
 
     SequenceKeyEnum(String code, String name) {
         this.code = code;

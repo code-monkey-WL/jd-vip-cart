@@ -1,4 +1,4 @@
-package com.jd.o2o.vipcart.common.plugins.spider.domain;
+package com.jd.o2o.vipcart.common.plugins.spider.demo;
 
 import com.jd.o2o.vipcart.common.domain.BaseBean;
 

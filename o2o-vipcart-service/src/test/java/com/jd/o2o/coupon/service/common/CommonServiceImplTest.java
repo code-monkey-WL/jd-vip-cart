@@ -1,9 +1,7 @@
-package com.jd.o2o.vipcart.service.common;
+package com.jd.o2o.coupon.service.common;
 
-import com.jd.o2o.vipcart.domain.constant.SequenceKeyEnum;
 import com.jd.o2o.vipcart.service.base.busi.SpyBasicService;
 import com.jd.o2o.vipcart.service.common.project.ProjectCommonService;
-import com.jd.o2o.vipcart.service.common.project.ProjectContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,8 +34,8 @@ public class CommonServiceImplTest {
                 public Object call() throws Exception {
 //                    Thread.sleep(5000);
                     for (int j = 0; j < 1000; j++) {
-                        System.err.println(SequenceKeyEnum.ACTIVITY_CODE.getCode() + "=" +
-                                projectCommonServiceImpl.nextSequence(SequenceKeyEnum.ACTIVITY_CODE.getCode()));
+//                        System.err.println(SequenceKeyEnum.ACTIVITY_CODE.getCode() + "=" +
+//                                projectCommonServiceImpl.nextSequence(SequenceKeyEnum.ACTIVITY_CODE.getCode()));
 //                        Thread.sleep(10);
                     }
                     countDownLatch.countDown();
