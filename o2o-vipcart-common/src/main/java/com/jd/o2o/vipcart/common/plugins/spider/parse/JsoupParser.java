@@ -3,8 +3,6 @@ package com.jd.o2o.vipcart.common.plugins.spider.parse;
 import com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackFactory;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.ScanRuleInput;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.constant.ItemSourceEnum;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.AttrItemRule;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.BaseItemRule;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.ItemRule;
 import com.jd.o2o.vipcart.common.utils.json.JsonUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -31,9 +29,9 @@ public class JsoupParser implements Parser {
         List<Map<String,String>> resultList = new ArrayList<>();
         //获取html标签中的内容
         Document document = Jsoup.parse(scanRuleInput.getContent());
-        List<BaseItemRule> baseItemRuleList = scanRuleInput.getItemRuleList();
+        List<ItemRule> itemRuleList = scanRuleInput.getItemRuleList();
         String[] scanExpressions = scanRuleInput.getScanExpressions();
-        if (CollectionUtils.isEmpty(baseItemRuleList)) {
+        if (CollectionUtils.isEmpty(itemRuleList)) {
             LOGGER.warn("itemRuleList为空！param={}", JsonUtils.toJson(scanRuleInput));
             return resultList;
         }
@@ -46,10 +44,10 @@ public class JsoupParser implements Parser {
         for (Element element : elements) {
             element.setBaseUri(scanRuleInput.getBaseUrl());
             Map<String, String> resultMap = new HashMap<String, String>();
-            for (BaseItemRule baseItemRule : baseItemRuleList) {
-                String[] itemExpressions = baseItemRule.getItemExpressions();
+            for (ItemRule itemRule : itemRuleList) {
+                String[] itemExpressions = itemRule.getItemExpressions();
                 if (itemExpressions == null || itemExpressions.length < 1) {
-                    resultMap.put(baseItemRule.getAliasName(), buildTargetItem(baseItemRule, element));
+                    resultMap.put(itemRule.getAliasName(), buildTargetItem(itemRule, element));
                     continue;
                 }
                 Elements subElements = selectElements(itemExpressions, element);
@@ -58,9 +56,9 @@ public class JsoupParser implements Parser {
                 }
                 List<String> subList = new ArrayList<>();
                 for (Element subElement : subElements) {
-                    subList.add(buildTargetItem(baseItemRule, subElement));
+                    subList.add(buildTargetItem(itemRule, subElement));
                 }
-                resultMap.put(baseItemRule.getAliasName(), JsonUtils.toJson(subList));
+                resultMap.put(itemRule.getAliasName(), JsonUtils.toJson(subList));
             }
             resultList.add(resultMap);
         }
@@ -70,28 +68,22 @@ public class JsoupParser implements Parser {
     /**
      * 构建目标对象属性值
      *
-     * @param baseItemRule
+     * @param itemRule
      * @param element
      * @return
      */
-    private String buildTargetItem(BaseItemRule baseItemRule, Element element) {
-        if(baseItemRule instanceof ItemRule){
-            ItemRule itemRule = (ItemRule) baseItemRule;
-            ItemSourceEnum itemSourceEnum = ItemSourceEnum.idOf(itemRule.getItemSource());
-            if (itemSourceEnum == ItemSourceEnum.TEXT) {
-                return element.text();
-            } else if (itemSourceEnum == ItemSourceEnum.IN_HTML) {
-                return element.html();
-            } else if (itemSourceEnum == ItemSourceEnum.OUT_HTML) {
-                return element.outerHtml();
-            } else {
-                LOGGER.warn("itemSource=[{}]不支持的取值来源赋值！param={}", itemRule.getItemSource(), JsonUtils.toJson(itemRule));
-            }
-        }else if(baseItemRule instanceof AttrItemRule){
-            AttrItemRule attrItemRule = (AttrItemRule) baseItemRule;
-            return element.attr(attrItemRule.getAttrName());
-        }else {
-            LOGGER.warn("不支持的扫描规则定义！param={}", JsonUtils.toJson(baseItemRule));
+    private String buildTargetItem(ItemRule itemRule, Element element) {
+        ItemSourceEnum itemSourceEnum = ItemSourceEnum.idOf(itemRule.getItemSource());
+        if(itemSourceEnum == ItemSourceEnum.ATTR){
+            return element.attr(itemRule.getAttrName());
+        }else if (itemSourceEnum == ItemSourceEnum.TEXT) {
+            return element.text();
+        } else if (itemSourceEnum == ItemSourceEnum.IN_HTML) {
+            return element.html();
+        } else if (itemSourceEnum == ItemSourceEnum.OUT_HTML) {
+            return element.outerHtml();
+        } else {
+            LOGGER.warn("itemSource=[{}]不支持的取值来源赋值！param={}", itemRule.getItemSource(), JsonUtils.toJson(itemRule));
         }
         return null;
     }

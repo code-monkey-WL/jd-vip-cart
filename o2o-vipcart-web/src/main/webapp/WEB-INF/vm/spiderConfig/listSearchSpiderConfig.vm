@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("/common/import.vm" )
+    <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <title>SpiderConfig</title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            handler.initSearch("spiderConfigSearchDiv");
+        });
+    </script>
+</head>
+<body>
+	<div id="spiderConfigSearchDiv" v="spiderConfig">
+		<div id="operation">
+		<form method="post" id="spiderConfigSearchForm" name="spiderConfigSearchForm" action="">
+			<div id="operation_table">
+				<div class="title"><div class="text">查询区</div></div>
+				<div class="search">
+					<table>
+						<tr>
+							<th>自增ID</th>
+							<td><input id="id" name="id" type="text" value="$!{result.id}"/></td>
+							<th>爬取名称</th>
+							<td><input id="spiderName" name="spiderName" type="text" value="$!{result.spiderName}"/></td>
+							<th>爬取类型 1:URL 2:content</th>
+							<td><input id="spiderType" name="spiderType" type="text" value="$!{result.spiderType}"/></td>
+						</tr>
+						<tr>
+							<th>爬取url</th>
+							<td><input id="url" name="url" type="text" value="$!{result.url}"/></td>
+							<th>请求入参</th>
+							<td><input id="requestParam" name="requestParam" type="text" value="$!{result.requestParam}"/></td>
+							<th>解析内容</th>
+							<td><input id="content" name="content" type="text" value="$!{result.content}"/></td>
+						</tr>
+						<tr>
+							<th> 解析规则类型</th>
+							<td><input id="ruleEngine" name="ruleEngine" type="text" value="$!{result.ruleEngine}"/></td>
+							<th>解析返回值输出:json字符串对象格式</th>
+							<td><input id="targetOut" name="targetOut" type="text" value="$!{result.targetOut}"/></td>
+							<th>输出数据库表名称</th>
+							<td><input id="outTableName" name="outTableName" type="text" value="$!{result.outTableName}"/></td>
+						</tr>
+						<tr>
+							<th>基础url</th>
+							<td><input id="baseUrl" name="baseUrl" type="text" value="$!{result.baseUrl}"/></td>
+							<th>全局扫描表达式</th>
+							<td><input id="scanExpressions" name="scanExpressions" type="text" value="$!{result.scanExpressions}"/></td>
+							<th>爬取项目表达式:json字符串对象格式</th>
+							<td><input id="itemRules" name="itemRules" type="text" value="$!{result.itemRules}"/></td>
+						</tr>
+						<tr>
+							<th>爬取时间规则表达式</th>
+							<td><input id="scheduledCron" name="scheduledCron" type="text" value="$!{result.scheduledCron}"/></td>
+							<th>爬取深度（分页）</th>
+							<td><input id="deepNum" name="deepNum" type="text" value="$!{result.deepNum}"/></td>
+							<th>爬取状态 1:开启 2:运行中 3:暂停 4:废弃</th>
+							<td><input id="state" name="state" type="text" value="$!{result.state}"/></td>
+						</tr>
+						<tr>
+							<th>爬取次数</th>
+							<td><input id="spiderNum" name="spiderNum" type="text" value="$!{result.spiderNum}"/></td>
+							<th>上次爬取时间</th>
+							<td><input id="lastSpiderTime" name="lastSpiderTime" type="text" value="$!{result.lastSpiderTime}"/></td>
+							<th>备注</th>
+							<td><input id="remark" name="remark" type="text" value="$!{result.remark}"/></td>
+						</tr>
+						<tr>
+							<th>排序</th>
+							<td><input id="sort" name="sort" type="text" value="$!{result.sort}"/></td>
+							<th>创建时间</th>
+							<td><input id="createTime" name="createTime" type="text" value="$!{result.createTime}"/></td>
+							<th>创建人</th>
+							<td><input id="createPin" name="createPin" type="text" value="$!{result.createPin}"/></td>
+						</tr>
+						<tr>
+							<th>更新时间</th>
+							<td><input id="updateTime" name="updateTime" type="text" value="$!{result.updateTime}"/></td>
+							<th>更新人</th>
+							<td><input id="updatePin" name="updatePin" type="text" value="$!{result.updatePin}"/></td>
+							<th>版本号</th>
+							<td><input id="sysVersion" name="sysVersion" type="text" value="$!{result.sysVersion}"/></td>
+						</tr>
+						<tr>
+							<th>删除标识 0:有效 1:无效</th>
+							<td><input id="yn" name="yn" type="text" value="$!{result.yn}"/></td>
+							<th>时间戳</th>
+							<td><input id="ts" name="ts" type="text" value="$!{result.ts}"/></td>
+    						<th colspan="2" class="manage">
+    							<input class="b_foot_long find" type="button" onClick="checksubmit(spiderConfigSearchForm)" value="查 询"/>
+    							<input class="b_foot_long" type="reset" value="清 空"/>
+    						</th>
+    					</tr>
+    				</table>
+    			</div>
+    		</div>
+    	</form>
+    </div>
+##	#parse("/common/error.vm")
+    <div id="searchList">
+		#parse("/spiderConfig/listSpiderConfig.vm" )
+	</div>
+</div>
+</body>
+</html>

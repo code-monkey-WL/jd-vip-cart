@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="spider_configMapper">
+	<resultMap id="spiderConfigMap" type="com.jd.o2o.vipcart.domain.entity.SpiderConfigEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="spider_name" property="spiderName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="spider_type" property="spiderType" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="url" property="url" jdbcType="VARCHAR" javaType="String"/>
+		<result column="request_param" property="requestParam" jdbcType="VARCHAR" javaType="String"/>
+		<result column="content" property="content" jdbcType="VARCHAR" javaType="String"/>
+		<result column="rule_engine" property="ruleEngine" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="target_out" property="targetOut" jdbcType="VARCHAR" javaType="String"/>
+		<result column="out_table_name" property="outTableName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="base_url" property="baseUrl" jdbcType="VARCHAR" javaType="String"/>
+		<result column="scan_expressions" property="scanExpressions" jdbcType="VARCHAR" javaType="String"/>
+		<result column="item_rules" property="itemRules" jdbcType="VARCHAR" javaType="String"/>
+		<result column="scheduled_cron" property="scheduledCron" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="deep_num" property="deepNum" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="state" property="state" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="spider_num" property="spiderNum" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="last_spider_time" property="lastSpiderTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sort" property="sort" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="create_pin" property="createPin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_pin" property="updatePin" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sys_version" property="sysVersion" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="yn" property="yn" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="ts" property="ts" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			spider_name AS spiderName,
+			spider_type AS spiderType,
+			url AS url,
+			request_param AS requestParam,
+			content AS content,
+			rule_engine AS ruleEngine,
+			target_out AS targetOut,
+			out_table_name AS outTableName,
+			base_url AS baseUrl,
+			scan_expressions AS scanExpressions,
+			item_rules AS itemRules,
+			scheduled_cron AS scheduledCron,
+			deep_num AS deepNum,
+			state AS state,
+			spider_num AS spiderNum,
+			last_spider_time AS lastSpiderTime,
+			remark AS remark,
+			sort AS sort,
+			create_time AS createTime,
+			create_pin AS createPin,
+			update_time AS updateTime,
+			update_pin AS updatePin,
+			sys_version AS sysVersion,
+			yn AS yn,
+			ts AS ts
+		FROM spider_config
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="spiderName != null and spiderName != ''">
+			and spider_name = #{spiderName,jdbcType=VARCHAR}
+		</if>
+		<if test="spiderType != null">
+			and spider_type = #{spiderType,jdbcType=TINYINT}
+		</if>
+		<if test="url != null and url != ''">
+			and url = #{url,jdbcType=VARCHAR}
+		</if>
+		<if test="requestParam != null and requestParam != ''">
+			and request_param = #{requestParam,jdbcType=VARCHAR}
+		</if>
+		<if test="content != null and content != ''">
+			and content = #{content,jdbcType=VARCHAR}
+		</if>
+		<if test="ruleEngine != null">
+			and rule_engine = #{ruleEngine,jdbcType=TINYINT}
+		</if>
+		<if test="targetOut != null and targetOut != ''">
+			and target_out = #{targetOut,jdbcType=VARCHAR}
+		</if>
+		<if test="outTableName != null and outTableName != ''">
+			and out_table_name = #{outTableName,jdbcType=VARCHAR}
+		</if>
+		<if test="baseUrl != null and baseUrl != ''">
+			and base_url = #{baseUrl,jdbcType=VARCHAR}
+		</if>
+		<if test="scanExpressions != null and scanExpressions != ''">
+			and scan_expressions = #{scanExpressions,jdbcType=VARCHAR}
+		</if>
+		<if test="itemRules != null and itemRules != ''">
+			and item_rules = #{itemRules,jdbcType=VARCHAR}
+		</if>
+		<if test="scheduledCron != null">
+			and scheduled_cron = #{scheduledCron,jdbcType=INTEGER}
+		</if>
+		<if test="deepNum != null">
+			and deep_num = #{deepNum,jdbcType=INTEGER}
+		</if>
+		<if test="state != null">
+			and state = #{state,jdbcType=TINYINT}
+		</if>
+		<if test="spiderNum != null">
+			and spider_num = #{spiderNum,jdbcType=INTEGER}
+		</if>
+		<if test="lastSpiderTime != null">
+			and last_spider_time = #{lastSpiderTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="remark != null and remark != ''">
+			and remark = #{remark,jdbcType=VARCHAR}
+		</if>
+		<if test="sort != null">
+			and sort = #{sort,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createPin != null and createPin != ''">
+			and create_pin = #{createPin,jdbcType=VARCHAR}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatePin != null and updatePin != ''">
+			and update_pin = #{updatePin,jdbcType=VARCHAR}
+		</if>
+		<if test="sysVersion != null">
+			and sys_version = #{sysVersion,jdbcType=INTEGER}
+		</if>
+		<if test="yn != null">
+			and yn = #{yn,jdbcType=TINYINT}
+		</if>
+		<if test="ts != null">
+			and ts = #{ts,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectSpiderConfig" parameterType="com.jd.o2o.vipcart.domain.entity.SpiderConfigEntity" resultMap="spiderConfigMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneSpiderConfig" parameterType="java.lang.Long" resultMap="spiderConfigMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countSpiderConfig" parameterType="com.jd.o2o.vipcart.domain.entity.SpiderConfigEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM spider_config
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertSpiderConfig" parameterType="com.jd.o2o.vipcart.domain.entity.SpiderConfigEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO spider_config (
+	<if test="spiderName != null">
+		spider_name,
+	</if>
+	<if test="spiderType != null">
+		spider_type,
+	</if>
+	<if test="url != null">
+		url,
+	</if>
+	<if test="requestParam != null">
+		request_param,
+	</if>
+	<if test="content != null">
+		content,
+	</if>
+	<if test="ruleEngine != null">
+		rule_engine,
+	</if>
+	<if test="targetOut != null">
+		target_out,
+	</if>
+	<if test="outTableName != null">
+		out_table_name,
+	</if>
+	<if test="baseUrl != null">
+		base_url,
+	</if>
+	<if test="scanExpressions != null">
+		scan_expressions,
+	</if>
+	<if test="itemRules != null">
+		item_rules,
+	</if>
+	<if test="scheduledCron != null">
+		scheduled_cron,
+	</if>
+	<if test="deepNum != null">
+		deep_num,
+	</if>
+	<if test="state != null">
+		state,
+	</if>
+	<if test="spiderNum != null">
+		spider_num,
+	</if>
+	<if test="lastSpiderTime != null">
+		last_spider_time,
+	</if>
+	<if test="remark != null">
+		remark,
+	</if>
+	<if test="sort != null">
+		sort,
+	</if>
+	<if test="createPin != null">
+		create_pin,
+	</if>
+	<if test="updatePin != null">
+		update_pin,
+	</if>
+	<if test="sysVersion != null">
+		sys_version,
+	</if>
+	<if test="yn != null">
+		yn,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="spiderName != null">
+    	#{spiderName,jdbcType=VARCHAR},
+    </if>
+    <if test="spiderType != null">
+    	#{spiderType,jdbcType=TINYINT},
+    </if>
+    <if test="url != null">
+    	#{url,jdbcType=VARCHAR},
+    </if>
+    <if test="requestParam != null">
+    	#{requestParam,jdbcType=VARCHAR},
+    </if>
+    <if test="content != null">
+    	#{content,jdbcType=VARCHAR},
+    </if>
+    <if test="ruleEngine != null">
+    	#{ruleEngine,jdbcType=TINYINT},
+    </if>
+    <if test="targetOut != null">
+    	#{targetOut,jdbcType=VARCHAR},
+    </if>
+    <if test="outTableName != null">
+    	#{outTableName,jdbcType=VARCHAR},
+    </if>
+    <if test="baseUrl != null">
+    	#{baseUrl,jdbcType=VARCHAR},
+    </if>
+    <if test="scanExpressions != null">
+    	#{scanExpressions,jdbcType=VARCHAR},
+    </if>
+    <if test="itemRules != null">
+    	#{itemRules,jdbcType=VARCHAR},
+    </if>
+    <if test="scheduledCron != null">
+    	#{scheduledCron,jdbcType=INTEGER},
+    </if>
+    <if test="deepNum != null">
+    	#{deepNum,jdbcType=INTEGER},
+    </if>
+    <if test="state != null">
+    	#{state,jdbcType=TINYINT},
+    </if>
+    <if test="spiderNum != null">
+    	#{spiderNum,jdbcType=INTEGER},
+    </if>
+    <if test="lastSpiderTime != null">
+    	#{lastSpiderTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="remark != null">
+    	#{remark,jdbcType=VARCHAR},
+    </if>
+    <if test="sort != null">
+    	#{sort,jdbcType=INTEGER},
+    </if>
+    <if test="createPin != null">
+    	#{createPin,jdbcType=VARCHAR},
+    </if>
+    <if test="updatePin != null">
+    	#{updatePin,jdbcType=VARCHAR},
+    </if>
+    <if test="sysVersion != null">
+    	#{sysVersion,jdbcType=INTEGER},
+    </if>
+    <if test="yn != null">
+    	#{yn,jdbcType=TINYINT},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertSpiderConfigBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO spider_config (
+		spider_name,
+		spider_type,
+		url,
+		request_param,
+		content,
+		rule_engine,
+		target_out,
+		out_table_name,
+		base_url,
+		scan_expressions,
+		item_rules,
+		scheduled_cron,
+		deep_num,
+		state,
+		spider_num,
+		last_spider_time,
+		remark,
+		sort,
+		create_pin,
+		update_pin,
+		yn,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.spiderName,jdbcType=VARCHAR},
+		#{item.spiderType,jdbcType=TINYINT},
+		#{item.url,jdbcType=VARCHAR},
+		#{item.requestParam,jdbcType=VARCHAR},
+		#{item.content,jdbcType=VARCHAR},
+		#{item.ruleEngine,jdbcType=TINYINT},
+		#{item.targetOut,jdbcType=VARCHAR},
+		#{item.outTableName,jdbcType=VARCHAR},
+		#{item.baseUrl,jdbcType=VARCHAR},
+		#{item.scanExpressions,jdbcType=VARCHAR},
+		#{item.itemRules,jdbcType=VARCHAR},
+		#{item.scheduledCron,jdbcType=INTEGER},
+		#{item.deepNum,jdbcType=INTEGER},
+		#{item.state,jdbcType=TINYINT},
+		#{item.spiderNum,jdbcType=INTEGER},
+		#{item.lastSpiderTime,jdbcType=TIMESTAMP},
+		#{item.remark,jdbcType=VARCHAR},
+		#{item.sort,jdbcType=INTEGER},
+		#{item.createPin,jdbcType=VARCHAR},
+		#{item.updatePin,jdbcType=VARCHAR},
+		#{item.yn,jdbcType=TINYINT},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateSpiderConfig" parameterType="java.util.Map">
+		UPDATE spider_config
+		<set>
+    	<if test="spiderName != null">
+            spider_name = #{spiderName,jdbcType=VARCHAR},
+    	</if>
+    	<if test="spiderType != null">
+            spider_type = #{spiderType,jdbcType=TINYINT},
+    	</if>
+    	<if test="url != null">
+            url = #{url,jdbcType=VARCHAR},
+    	</if>
+    	<if test="requestParam != null">
+            request_param = #{requestParam,jdbcType=VARCHAR},
+    	</if>
+    	<if test="content != null">
+            content = #{content,jdbcType=VARCHAR},
+    	</if>
+    	<if test="ruleEngine != null">
+            rule_engine = #{ruleEngine,jdbcType=TINYINT},
+    	</if>
+    	<if test="targetOut != null">
+            target_out = #{targetOut,jdbcType=VARCHAR},
+    	</if>
+    	<if test="outTableName != null">
+            out_table_name = #{outTableName,jdbcType=VARCHAR},
+    	</if>
+    	<if test="baseUrl != null">
+            base_url = #{baseUrl,jdbcType=VARCHAR},
+    	</if>
+    	<if test="scanExpressions != null">
+            scan_expressions = #{scanExpressions,jdbcType=VARCHAR},
+    	</if>
+    	<if test="itemRules != null">
+            item_rules = #{itemRules,jdbcType=VARCHAR},
+    	</if>
+    	<if test="scheduledCron != null">
+            scheduled_cron = #{scheduledCron,jdbcType=INTEGER},
+    	</if>
+    	<if test="deepNum != null">
+            deep_num = #{deepNum,jdbcType=INTEGER},
+    	</if>
+    	<if test="state != null">
+            state = #{state,jdbcType=TINYINT},
+    	</if>
+    	<if test="spiderNum != null">
+            spider_num = #{spiderNum,jdbcType=INTEGER},
+    	</if>
+    	<if test="lastSpiderTime != null">
+            last_spider_time = #{lastSpiderTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+    	</if>
+    	<if test="sort != null">
+            sort = #{sort,jdbcType=INTEGER},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="createPin != null">
+            create_pin = #{createPin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updatePin != null">
+            update_pin = #{updatePin,jdbcType=VARCHAR},
+    	</if>
+    	<if test="yn != null">
+            yn = #{yn,jdbcType=TINYINT},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateSpiderConfigBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update spider_config 
+		<set>
+		<if test="item.spiderName != null">
+			spider_name = #{item.spiderName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.spiderType != null">
+			spider_type = #{item.spiderType,jdbcType=TINYINT},
+		</if>
+		<if test="item.url != null">
+			url = #{item.url,jdbcType=VARCHAR},
+		</if>
+		<if test="item.requestParam != null">
+			request_param = #{item.requestParam,jdbcType=VARCHAR},
+		</if>
+		<if test="item.content != null">
+			content = #{item.content,jdbcType=VARCHAR},
+		</if>
+		<if test="item.ruleEngine != null">
+			rule_engine = #{item.ruleEngine,jdbcType=TINYINT},
+		</if>
+		<if test="item.targetOut != null">
+			target_out = #{item.targetOut,jdbcType=VARCHAR},
+		</if>
+		<if test="item.outTableName != null">
+			out_table_name = #{item.outTableName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.baseUrl != null">
+			base_url = #{item.baseUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="item.scanExpressions != null">
+			scan_expressions = #{item.scanExpressions,jdbcType=VARCHAR},
+		</if>
+		<if test="item.itemRules != null">
+			item_rules = #{item.itemRules,jdbcType=VARCHAR},
+		</if>
+		<if test="item.scheduledCron != null">
+			scheduled_cron = #{item.scheduledCron,jdbcType=INTEGER},
+		</if>
+		<if test="item.deepNum != null">
+			deep_num = #{item.deepNum,jdbcType=INTEGER},
+		</if>
+		<if test="item.state != null">
+			state = #{item.state,jdbcType=TINYINT},
+		</if>
+		<if test="item.spiderNum != null">
+			spider_num = #{item.spiderNum,jdbcType=INTEGER},
+		</if>
+		<if test="item.lastSpiderTime != null">
+			last_spider_time = #{item.lastSpiderTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.remark != null">
+			remark = #{item.remark,jdbcType=VARCHAR},
+		</if>
+		<if test="item.sort != null">
+			sort = #{item.sort,jdbcType=INTEGER},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.createPin != null">
+			create_pin = #{item.createPin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.updatePin != null">
+			update_pin = #{item.updatePin,jdbcType=VARCHAR},
+		</if>
+		<if test="item.yn != null">
+			yn = #{item.yn,jdbcType=TINYINT},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteSpiderConfig" parameterType="com.jd.o2o.vipcart.domain.entity.SpiderConfigEntity">
+		DELETE FROM spider_config
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneSpiderConfig" parameterType="java.lang.Long">
+		DELETE FROM spider_config
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

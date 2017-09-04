@@ -8,8 +8,6 @@ import com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackFactory;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.ScanRuleInput;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.SpiderInput;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.constant.ItemSourceEnum;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.AttrItemRule;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.BaseItemRule;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.ItemRule;
 import com.jd.o2o.vipcart.common.plugins.spider.parse.HtmlSpider;
 import com.jd.o2o.vipcart.common.utils.NumUtils;
@@ -128,63 +126,60 @@ public class MiaoShaJDSpiderWorker implements SpiderWorker, SpiderService {
         return goodInfoEntityList;
     }
 
-    public static void main(String[] args) {
-    }
-
 
     public static void spiderJDMiaoSha() {
         String url = "https://miaosha.jd.com/";
         SpiderInput<GoodInfoEntity> spiderInput = new SpiderInput();
         ScanRuleInput scanRuleInput = new ScanRuleInput();
-        List<BaseItemRule> scanItemRuleList = new ArrayList<BaseItemRule>();
+        List<ItemRule> itemRuleList = new ArrayList<ItemRule>();
         spiderInput.setUrl(url);
         spiderInput.setScanRuleInput(scanRuleInput);
         spiderInput.setTargetClass(GoodInfoEntity.class);
         scanRuleInput.setBaseUrl(url);
         scanRuleInput.setScanExpressions(new String[]{"li.seckill_mod_goods"});
-        scanRuleInput.setItemRuleList(scanItemRuleList);
+        scanRuleInput.setItemRuleList(itemRuleList);
 
         ItemRule itemRule = new ItemRule();
         itemRule.setAliasName("skuName");
         itemRule.setItemExpressions(new String[]{"a"});
         itemRule.setItemSource(ItemSourceEnum.TEXT.getCode());
-        scanItemRuleList.add(itemRule);
+        itemRuleList.add(itemRule);
 
         itemRule = new ItemRule();
         itemRule.setAliasName("skuDesc");
         itemRule.setItemExpressions(new String[]{"span"});
         itemRule.setItemSource(ItemSourceEnum.TEXT.getCode());
-        scanItemRuleList.add(itemRule);
+        itemRuleList.add(itemRule);
 
         itemRule = new ItemRule();
         itemRule.setAliasName("skuPrice");
         itemRule.setItemExpressions(new String[]{".seckill_mod_goods_price"});
         itemRule.setItemSource(ItemSourceEnum.TEXT.getCode());
-        scanItemRuleList.add(itemRule);
+        itemRuleList.add(itemRule);
 
         itemRule = new ItemRule();
         itemRule.setAliasName("originPrice");
         itemRule.setItemExpressions(new String[]{".seckill_mod_goods_price_pre"});
         itemRule.setItemSource(ItemSourceEnum.TEXT.getCode());
-        scanItemRuleList.add(itemRule);
+        itemRuleList.add(itemRule);
 
-        AttrItemRule scanItemRule = new AttrItemRule();
-        scanItemRule.setAliasName("skuLink");
-        scanItemRule.setAttrName("href");
-        scanItemRule.setItemExpressions(new String[]{"a"});
-        scanItemRuleList.add(scanItemRule);
+        itemRule = new ItemRule();
+        itemRule.setAliasName("skuLink");
+        itemRule.setAttrName("href");
+        itemRule.setItemExpressions(new String[]{"a"});
+        itemRuleList.add(itemRule);
 
-        scanItemRule = new AttrItemRule();
-        scanItemRule.setAliasName("skuImg");
-        scanItemRule.setAttrName("src");
-        scanItemRule.setItemExpressions(new String[]{".seckill_mod_goods_link_img"});
-        scanItemRuleList.add(scanItemRule);
+        itemRule = new ItemRule();
+        itemRule.setAliasName("skuImg");
+        itemRule.setAttrName("src");
+        itemRule.setItemExpressions(new String[]{".seckill_mod_goods_link_img"});
+        itemRuleList.add(itemRule);
 
         itemRule = new ItemRule();
         itemRule.setAliasName("stockNum");
         itemRule.setItemExpressions(new String[]{".seckill_mod_goods_progress_txt"});
         itemRule.setItemSource(ItemSourceEnum.TEXT.getCode());
-        scanItemRuleList.add(itemRule);
+        itemRuleList.add(itemRule);
 
         System.err.println(JsonUtils.toJson(new HtmlSpider().analyse(spiderInput)));
     }

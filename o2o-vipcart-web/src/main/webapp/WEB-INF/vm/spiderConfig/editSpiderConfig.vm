@@ -1,0 +1,68 @@
+###parse("/common/error.vm")
+#set($result=${result.result})
+<div id="spiderConfigInputDiv" v="spiderConfig">
+    <div id="operation">
+    	<form method="post" id="spiderConfigInputForm" name="spiderConfigInputForm" action="">
+    		<div id="operation_table">
+    			<div class="title"><div class="text">输入区域</div></div>
+    			<div class="input">
+    				<table>
+    					<tr>
+	    				    <th>自增ID</th>
+	    				    <td><input id="id" name="id" type="text" value="$!{result.id}"  readonly="readonly" class="input_disabled"   maxLength=19 /></td>
+	    				    <th>爬取名称</th>
+	    				    <td><input id="spiderName" name="spiderName" type="text" value="$!{result.spiderName}"  class="required"   maxLength=128 /></td>
+	    				    <th>爬取类型 1:URL 2:content</th>
+	    				    <td><input id="spiderType" name="spiderType" type="text" value="$!{result.spiderType}"  class="required"   maxLength=3 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>爬取url</th>
+	    				    <td><input id="url" name="url" type="text" value="$!{result.url}"  class="required"   maxLength=512 /></td>
+	    				    <th>请求入参</th>
+	    				    <td><input id="requestParam" name="requestParam" type="text" value="$!{result.requestParam}"  class="required"   maxLength=512 /></td>
+	    				    <th>解析内容</th>
+	    				    <td><input id="content" name="content" type="text" value="$!{result.content}"  class="required"   maxLength=8192 /></td>
+    					</tr>
+    					<tr>
+	    				    <th> 解析规则类型</th>
+	    				    <td><input id="ruleEngine" name="ruleEngine" type="text" value="$!{result.ruleEngine}"  class="required"   maxLength=3 /></td>
+	    				    <th>解析返回值输出:json字符串对象格式</th>
+	    				    <td><input id="targetOut" name="targetOut" type="text" value="$!{result.targetOut}"  class="required"   maxLength=7168 /></td>
+	    				    <th>输出数据库表名称</th>
+	    				    <td><input id="outTableName" name="outTableName" type="text" value="$!{result.outTableName}"  class="required"   maxLength=64 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>基础url</th>
+	    				    <td><input id="baseUrl" name="baseUrl" type="text" value="$!{result.baseUrl}"  class="required"   maxLength=256 /></td>
+	    				    <th>全局扫描表达式</th>
+	    				    <td><input id="scanExpressions" name="scanExpressions" type="text" value="$!{result.scanExpressions}"  class="required"   maxLength=512 /></td>
+	    				    <th>爬取项目表达式:json字符串对象格式</th>
+	    				    <td><input id="itemRules" name="itemRules" type="text" value="$!{result.itemRules}"  class="required"   maxLength=3072 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>爬取时间规则表达式</th>
+	    				    <td><input id="scheduledCron" name="scheduledCron" type="text" value="$!{result.scheduledCron}"  class="required"   maxLength=10 /></td>
+	    				    <th>爬取深度（分页）</th>
+	    				    <td><input id="deepNum" name="deepNum" type="text" value="$!{result.deepNum}"  class="required"   maxLength=10 /></td>
+	    				    <th>爬取状态 1:开启 2:运行中 3:暂停 4:废弃</th>
+	    				    <td><input id="state" name="state" type="text" value="$!{result.state}"  class="required"   maxLength=3 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>爬取次数</th>
+	    				    <td><input id="spiderNum" name="spiderNum" type="text" value="$!{result.spiderNum}"  class="required"   maxLength=10 /></td>
+	    				    <th>上次爬取时间</th>
+	    				    <td><input id="lastSpiderTime" name="lastSpiderTime" type="text" value="$!{result.lastSpiderTime}"  class="required"   maxLength=19 /></td>
+	    				    <th>备注</th>
+	    				    <td><input id="remark" name="remark" type="text" value="$!{result.remark}"  class="required"   maxLength=512 /></td>
+    					</tr>
+    					<tr>
+	    				    <th>排序</th>
+	    				    <td><input id="sort" name="sort" type="text" value="$!{result.sort}"  class="required"   maxLength=10 /></td>
+	    				    <td colspan="4"></td>
+    					</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

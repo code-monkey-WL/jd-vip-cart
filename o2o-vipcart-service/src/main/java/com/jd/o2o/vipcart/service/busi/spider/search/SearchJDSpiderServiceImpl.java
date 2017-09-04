@@ -1,15 +1,10 @@
 package com.jd.o2o.vipcart.service.busi.spider.search;
 
 import com.jd.o2o.vipcart.common.domain.PageBean;
-import com.jd.o2o.vipcart.common.domain.response.ServiceResponse;
 import com.jd.o2o.vipcart.common.plugins.httpcliend.HttpClientExecutor;
 import com.jd.o2o.vipcart.common.plugins.log.track.LoggerTrackFactory;
-import com.jd.o2o.vipcart.common.plugins.spider.demo.Category;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.ScanRuleInput;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.SpiderInput;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.constant.ItemSourceEnum;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.AttrItemRule;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.BaseItemRule;
 import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.ItemRule;
 import com.jd.o2o.vipcart.common.plugins.spider.parse.HtmlSpider;
 import com.jd.o2o.vipcart.common.utils.json.JsonUtils;
@@ -38,25 +33,44 @@ public class SearchJDSpiderServiceImpl implements SpiderService {
         String baseUrl = "https://www.jd.com/";
         SpiderInput<GoodInfoEntity> spiderInput = new SpiderInput();
         ScanRuleInput scanRuleInput = new ScanRuleInput();
-        List<BaseItemRule> scanItemRuleList = new ArrayList<BaseItemRule>();
+        List<ItemRule> itemRuleList = new ArrayList<ItemRule>();
         spiderInput.setUrl(String.format(searchUrl,"Mac",spiderParam.getPageNo()));
         spiderInput.setScanRuleInput(scanRuleInput);
 //        spiderInput.setTargetClass(GoodInfoEntity.class);
         scanRuleInput.setBaseUrl(baseUrl);
         scanRuleInput.setScanExpressions(new String[]{"div.J-goods-list li"});
-        scanRuleInput.setItemRuleList(scanItemRuleList);
+        scanRuleInput.setItemRuleList(itemRuleList);
 
         ItemRule itemRule = new ItemRule();
-        itemRule.setAliasName("name");
-        itemRule.setItemExpressions(new String[]{});
-        itemRule.setItemSource(ItemSourceEnum.TEXT.getCode());
-        scanItemRuleList.add(itemRule);
+        itemRule.setAliasName("skuName");
+        itemRule.setItemExpressions(new String[]{".p-name"});
+        itemRuleList.add(itemRule);
 
-        AttrItemRule scanItemRule = new AttrItemRule();
-        scanItemRule.setAliasName("outSkuCode");
-        scanItemRule.setAttrName("data-sku");
-        scanItemRule.setItemExpressions(new String[]{});
-        scanItemRuleList.add(scanItemRule);
+        itemRule = new ItemRule();
+        itemRule.setAliasName("outSkuCode");
+        itemRule.setAttrName("data-sku");
+        itemRule.setItemExpressions(new String[]{});
+        itemRuleList.add(itemRule);
+
+        itemRule = new ItemRule();
+        itemRule.setAliasName("skuPrice");
+        itemRule.setAttrName("data-price");
+        itemRule.setItemExpressions(new String[]{"J_5225346"});
+        itemRuleList.add(itemRule);
+
+        itemRule = new ItemRule();
+        itemRule.setAliasName("skuLink");
+        itemRule.setAttrName("href");
+        itemRule.setItemExpressions(new String[]{".p-img > a"});
+        itemRuleList.add(itemRule);
+
+        itemRule = new ItemRule();
+        itemRule.setAliasName("skuImg");
+        itemRule.setAttrName("data-lazy-img");
+        itemRule.setItemExpressions(new String[]{"img"});
+        itemRuleList.add(itemRule);
+
+        System.err.println(JsonUtils.toJson(spiderInput));
         System.err.println(JsonUtils.toJson(new HtmlSpider().analyse(spiderInput)));
     }
 

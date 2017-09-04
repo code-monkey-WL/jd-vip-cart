@@ -271,3 +271,35 @@ CREATE TABLE `ID_generator_register` (
 INSERT INTO `ID_generator`(primary_key,step,sequence_no,create_pin,sys_version,yn,create_time,ts) VALUES ('sku_id', 500, 20170901,  'liuhuiqing', '1', '0',now(),now());
 INSERT INTO `ID_generator`(primary_key,step,sequence_no,create_pin,sys_version,yn,create_time,ts) VALUES ('sku_code', 500, 20180901, 'liuhuiqing', '1', '0',now(),now());
 
+DROP TABLE IF EXISTS `spider_config`;
+CREATE TABLE `spider_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `spider_name` varchar(128) not NULL COMMENT '爬取名称',
+  `spider_type` tinyint(4) NOT NULL COMMENT '爬取类型 1:URL 2:content',
+  `url` varchar(512) DEFAULT NULL COMMENT '爬取url',
+  `request_param` varchar(512) DEFAULT NULL COMMENT '请求入参',
+  `content` varchar(8192) DEFAULT NULL COMMENT '解析内容',
+  `rule_engine` tinyint(4) NOT NULL COMMENT ' 解析规则类型',
+  `target_out` varchar(7168) DEFAULT NULL COMMENT '解析返回值输出:json字符串对象格式',
+  `out_table_name` varchar(64) DEFAULT NULL COMMENT '输出数据库表名称',
+  `base_url` varchar(256) DEFAULT NULL COMMENT '基础url',
+  `scan_expressions` varchar(512) DEFAULT NULL COMMENT '全局扫描表达式',
+  `item_rules` varchar(3072) DEFAULT NULL COMMENT '爬取项目表达式:json字符串对象格式',
+  `scheduled_cron` int(11) NOT NULL COMMENT '爬取时间规则表达式',
+  `deep_num` int(11) NOT NULL COMMENT '爬取深度（分页）',
+  `state` tinyint(4) NOT NULL COMMENT '爬取状态 1:开启 2:运行中 3:暂停 4:废弃',
+  `spider_num` int(11) NOT NULL COMMENT '爬取次数',
+  `last_spider_time` datetime DEFAULT NULL COMMENT '上次爬取时间',
+  `remark` varchar(512) DEFAULT NULL COMMENT '备注',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_pin` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_pin` varchar(50) DEFAULT NULL COMMENT '更新人',
+  `sys_version` int(11) NOT NULL DEFAULT '1' COMMENT '版本号',
+  `yn` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标识 0:有效 1:无效',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`),
+  KEY `idx_sp_name` (`spider_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8 COMMENT='爬取配置表';
+

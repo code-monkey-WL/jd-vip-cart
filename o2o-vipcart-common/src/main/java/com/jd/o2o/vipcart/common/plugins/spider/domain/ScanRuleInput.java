@@ -1,7 +1,7 @@
 package com.jd.o2o.vipcart.common.plugins.spider.domain;
 
 import com.jd.o2o.vipcart.common.domain.BaseBean;
-import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.BaseItemRule;
+import com.jd.o2o.vipcart.common.plugins.spider.domain.rule.ItemRule;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ScanRuleInput extends BaseBean {
     /**
      * 解析项
      */
-    private List<BaseItemRule> itemRuleList;
+    private List<ItemRule> itemRuleList;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -51,11 +51,11 @@ public class ScanRuleInput extends BaseBean {
         this.scanExpressions = scanExpressions;
     }
 
-    public List<BaseItemRule> getItemRuleList() {
+    public List<ItemRule> getItemRuleList() {
         return itemRuleList;
     }
 
-    public void setItemRuleList(List<BaseItemRule> itemRuleList) {
+    public void setItemRuleList(List<ItemRule> itemRuleList) {
         this.itemRuleList = itemRuleList;
     }
 }
