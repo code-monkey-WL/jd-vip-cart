@@ -15,6 +15,7 @@ import com.jd.o2o.vipcart.common.plugins.spider.parse.HtmlSpider;
 import com.jd.o2o.vipcart.common.utils.NumUtils;
 import com.jd.o2o.vipcart.common.utils.json.JsonUtils;
 import com.jd.o2o.vipcart.domain.entity.GoodInfoEntity;
+import com.jd.o2o.vipcart.domain.spider.SpiderParam;
 import com.jd.o2o.vipcart.domain.spider.miaoshao.MiaoJDSha;
 import com.jd.o2o.vipcart.domain.spider.miaoshao.MiaoShaJDGoodInfo;
 import com.jd.o2o.vipcart.service.base.GoodInfoService;
@@ -55,9 +56,9 @@ public class MiaoShaJDSpiderWorker implements SpiderWorker, SpiderService {
 
 
     @Override
-    public PageBean spider(PageBean pageBean) {
+    public PageBean spider(SpiderParam spiderParam) {
         List<GoodInfoEntity> goodInfoEntityList = buildGoodInfoEntityList();
-        return buildPageBean(pageBean, goodInfoEntityList);
+        return buildPageBean(new PageBean(spiderParam.getPageNo(),spiderParam.getPageSize()), goodInfoEntityList);
     }
 
     private PageBean buildPageBean(PageBean pageBean, List resultList) {

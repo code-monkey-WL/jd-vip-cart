@@ -8,14 +8,14 @@ public class PageRequestBean extends RequestBean {
     /**
      * 分页查询的属性*
      */
-    private long pageNo = 1;
+    private int pageNo = 1;
     private int pageSize = 20;
 
-    public long getPageNo() {
+    public int getPageNo() {
         return pageNo;
     }
 
-    public void setPageNo(long pageNo) {
+    public void setPageNo(int pageNo) {
         this.pageNo = pageNo;
     }
 
