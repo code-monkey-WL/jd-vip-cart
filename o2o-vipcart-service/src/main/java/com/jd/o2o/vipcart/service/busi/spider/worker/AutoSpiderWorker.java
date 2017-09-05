@@ -31,12 +31,14 @@ public class AutoSpiderWorker implements SpiderWorker {
             LOGGER.info("没有要爬取的任务记录！");
             return;
         }
-
         for (SpiderConfigEntity spiderConfigEntity:spiderConfigEntityList){
+            Date lastSpiderTime = spiderConfigEntity.getLastSpiderTime();
+            if(lastSpiderTime == null){
+                lastSpiderTime = new Date();
+            }
+            CronSequenceGenerator cronSequenceGenerator = new CronSequenceGenerator(spiderConfigEntity.getScheduledCron());
+            Date nextDate = cronSequenceGenerator.next(lastSpiderTime);
             
-
-
-
         }
     }
 
