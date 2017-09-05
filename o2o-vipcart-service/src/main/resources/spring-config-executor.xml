@@ -11,7 +11,7 @@
     <task:executor id="executor" pool-size="10" keep-alive="30" queue-capacity="999"/>
     <task:scheduler id="scheduler" pool-size="10"/>
     <task:annotation-driven executor="executor" scheduler="scheduler" proxy-target-class="true"/>
-    <!--<task:scheduled-tasks scheduler="scheduler">-->
-        <!--<task:scheduled ref="miaoShaJDSpiderWorker" method="spider" cron="* * */2 * * ?"/>-->
-    <!--</task:scheduled-tasks>-->
+    <task:scheduled-tasks scheduler="scheduler">
+        <task:scheduled ref="autoSpiderWorker" method="spider" cron="* */5 * * * ?"/>
+    </task:scheduled-tasks>
 </beans>
