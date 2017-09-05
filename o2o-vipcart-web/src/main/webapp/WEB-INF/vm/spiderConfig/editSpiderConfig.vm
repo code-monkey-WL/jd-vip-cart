@@ -1,68 +1,149 @@
 ###parse("/common/error.vm")
+<script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+<script type="text/javascript" src="#springUrl('/static/js/business/spider/spiderConfig.js')"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        bindAttr($("#addItemExpressions").parent());
+        $("#addItemExpressions").click(function () {
+            var newItem = $("<tr><th> </th><td colspan='5'>" + $(this).parent().find("span").html() + "<a>删除</a></td></tr>");
+            newItem.find("input[name='attrName']").attr("readonly", false).val("");
+            bindAttr(newItem);
+            newItem.find("a").click(function () {
+                $(this).parent().parent().remove();
+            });
+            $("#spiderConfigTable").append(newItem);
+        });
+        var itemRulesTextArea = $(".itemRulesTR").find("textarea");
+        if (itemRulesTextArea && itemRulesTextArea.length > 0) {
+            itemRulesTextArea.text(handler.formatJson(itemRulesTextArea.text()));
+        }
+
+        function bindAttr(tr) {
+            tr.find("select").off().on("change", function () {
+                var attrName = tr.find("input[name='attrName']")
+                if ($(this).val() == 1) {
+                    attrName.attr("readonly", false).val("");
+                } else {
+                    attrName.attr("readonly", true);
+                }
+            });
+        }
+    });
+</script>
 #set($result=${result.result})
 <div id="spiderConfigInputDiv" v="spiderConfig">
     <div id="operation">
-    	<form method="post" id="spiderConfigInputForm" name="spiderConfigInputForm" action="">
-    		<div id="operation_table">
-    			<div class="title"><div class="text">输入区域</div></div>
-    			<div class="input">
-    				<table>
-    					<tr>
-	    				    <th>自增ID</th>
-	    				    <td><input id="id" name="id" type="text" value="$!{result.id}"  readonly="readonly" class="input_disabled"   maxLength=19 /></td>
-	    				    <th>爬取名称</th>
-	    				    <td><input id="spiderName" name="spiderName" type="text" value="$!{result.spiderName}"  class="required"   maxLength=128 /></td>
-	    				    <th>爬取类型 1:URL 2:content</th>
-	    				    <td><input id="spiderType" name="spiderType" type="text" value="$!{result.spiderType}"  class="required"   maxLength=3 /></td>
-    					</tr>
-    					<tr>
-	    				    <th>爬取url</th>
-	    				    <td><input id="url" name="url" type="text" value="$!{result.url}"  class="required"   maxLength=512 /></td>
-	    				    <th>请求入参</th>
-	    				    <td><input id="requestParam" name="requestParam" type="text" value="$!{result.requestParam}"  class="required"   maxLength=512 /></td>
-	    				    <th>解析内容</th>
-	    				    <td><input id="content" name="content" type="text" value="$!{result.content}"  class="required"   maxLength=8192 /></td>
-    					</tr>
-    					<tr>
-	    				    <th> 解析规则类型</th>
-	    				    <td><input id="ruleEngine" name="ruleEngine" type="text" value="$!{result.ruleEngine}"  class="required"   maxLength=3 /></td>
-	    				    <th>解析返回值输出:json字符串对象格式</th>
-	    				    <td><input id="targetOut" name="targetOut" type="text" value="$!{result.targetOut}"  class="required"   maxLength=7168 /></td>
-	    				    <th>输出数据库表名称</th>
-	    				    <td><input id="outTableName" name="outTableName" type="text" value="$!{result.outTableName}"  class="required"   maxLength=64 /></td>
-    					</tr>
-    					<tr>
-	    				    <th>基础url</th>
-	    				    <td><input id="baseUrl" name="baseUrl" type="text" value="$!{result.baseUrl}"  class="required"   maxLength=256 /></td>
-	    				    <th>全局扫描表达式</th>
-	    				    <td><input id="scanExpressions" name="scanExpressions" type="text" value="$!{result.scanExpressions}"  class="required"   maxLength=512 /></td>
-	    				    <th>爬取项目表达式:json字符串对象格式</th>
-	    				    <td><input id="itemRules" name="itemRules" type="text" value="$!{result.itemRules}"  class="required"   maxLength=3072 /></td>
-    					</tr>
-    					<tr>
-	    				    <th>爬取时间规则表达式</th>
-	    				    <td><input id="scheduledCron" name="scheduledCron" type="text" value="$!{result.scheduledCron}"  class="required"   maxLength=10 /></td>
-	    				    <th>爬取深度（分页）</th>
-	    				    <td><input id="deepNum" name="deepNum" type="text" value="$!{result.deepNum}"  class="required"   maxLength=10 /></td>
-	    				    <th>爬取状态 1:开启 2:运行中 3:暂停 4:废弃</th>
-	    				    <td><input id="state" name="state" type="text" value="$!{result.state}"  class="required"   maxLength=3 /></td>
-    					</tr>
-    					<tr>
-	    				    <th>爬取次数</th>
-	    				    <td><input id="spiderNum" name="spiderNum" type="text" value="$!{result.spiderNum}"  class="required"   maxLength=10 /></td>
-	    				    <th>上次爬取时间</th>
-	    				    <td><input id="lastSpiderTime" name="lastSpiderTime" type="text" value="$!{result.lastSpiderTime}"  class="required"   maxLength=19 /></td>
-	    				    <th>备注</th>
-	    				    <td><input id="remark" name="remark" type="text" value="$!{result.remark}"  class="required"   maxLength=512 /></td>
-    					</tr>
-    					<tr>
-	    				    <th>排序</th>
-	    				    <td><input id="sort" name="sort" type="text" value="$!{result.sort}"  class="required"   maxLength=10 /></td>
-	    				    <td colspan="4"></td>
-    					</tr>
-					</table>
-				</div>
-			</div>
-		</form>
-	</div>
+        <form method="post" id="spiderConfigInputForm" name="spiderConfigInputForm" action="">
+            <div id="operation_table">
+                <div class="title">
+                    <div class="text">输入区域</div>
+                </div>
+                <div class="input">
+                    <table id="spiderConfigTable">
+                        <tr>
+                            <th>自增ID</th>
+                            <td><input id="id" name="id" type="text" value="$!{result.id}" readonly="readonly"
+                                       class="input_disabled" maxLength=19/></td>
+                            <th>抓取名称</th>
+                            <td><input id="spiderName" name="spiderName" type="text" value="$!{result.spiderName}"
+                                       class="required" maxLength=128/></td>
+                            <th>抓取类型</th>
+                            <td>
+                                <select id="spiderType" name="spiderType">
+                                    <option value="1" #if(${result.spiderType}==1) selected #end>URL</option>
+                                    <option value="2" #if(${result.spiderType}==2) selected #end>content</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>抓取url</th>
+                            <td><input id="url" name="url" type="text" value="$!{result.url}" class="required"
+                                       maxLength=512/></td>
+                            <th>解析规则类型</th>
+                            <td>
+                                <select id="ruleEngine" name="ruleEngine">
+                                    <option value="1" #if(${result.ruleEngine}==1) selected #end>jsoup</option>
+                                </select>
+                            </td>
+                            <th>输出库表名称</th>
+                            <td><input id="outTableName" name="outTableName" type="text" value="$!{result.outTableName}"
+                                       class="required" maxLength=64/></td>
+                        </tr>
+                        <tr>
+                            <th>请求入参</th>
+                            <td colspan="5"><textarea id="requestParam" name="requestParam" rows="1" cols="110"
+                                                      maxLength=512>$!{result.requestParam}</textarea></td>
+                        </tr>
+                        <tr>
+                            <th>解析内容</th>
+                            <td colspan="5"><textarea id="content" name="content" rows="2" cols="110"
+                                                      maxLength=8192>$!{result.content}</textarea></td>
+                        </tr>
+                        <tr>
+                            <th>备注</th>
+                            <td colspan="5"><textarea id="remark" name="remark" rows="1" cols="110"
+                                                      maxLength=512>$!{result.remark}</textarea></td>
+                        </tr>
+                        <tr>
+                            <th>时间规则表达式</th>
+                            <td><input id="scheduledCron" name="scheduledCron" type="text"
+                                       value="$!{result.scheduledCron}" class="required" maxLength=32/></td>
+                            <th>分页/次数</th>
+                            <td><input id="deepNum" name="deepNum" type="text" value="$!{result.deepNum}"
+                                       style="width: 76px"
+                                       class="required" maxLength=10/>
+                                <input id="spiderNum" name="spiderNum" type="text" value="$!{result.spiderNum}"
+                                       style="width: 76px"
+                                       class="required" maxLength=10/></td>
+                            <th>状态</th>
+                            <td>
+                                <select id="state" name="state">
+                                    <option value="1" #if(${result.state}==1) selected #end>开启</option>
+                                    <option value="2" #if(${result.state}==2) selected #end>运行中</option>
+                                    <option value="3" #if(${result.state}==3) selected #end>暂停</option>
+                                    <option value="4" #if(${result.state}==4) selected #end>废弃</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>基础url</th>
+                            <td><input id="baseUrl" name="baseUrl" type="text" value="$!{result.baseUrl}"
+                                       class="required" maxLength=256/></td>
+                            <th>全局扫描表达式</th>
+                            <td><input id="scanExpressions" name="scanExpressions" type="text"
+                                       value="$!{result.scanExpressions}" class="required" maxLength=512/></td>
+                            <th>排序</th>
+                            <td><input id="sort" name="sort" type="text"
+                                       value="#if(${result.state}) $!{result.sort} #else 0 #end" class="required"
+                                       maxLength=10/></td>
+                        </tr>
+                        <tr>
+                            <th>项目表达式</th>
+                            <td colspan="5">
+                                <span>
+                                <input name="aliasName" type="text" title="采集项別名" placeholder="采集项別名"/>
+                                <select name="itemSource" title="采集来源" placeholder="采集来源">
+                                    <option value="1">属性</option>
+                                    <option value="2">文本</option>
+                                    <option value="3">标签内HTML</option>
+                                    <option value="4">标签+HTML片段</option>
+                                </select>
+                                <input name="itemExpressions" type="text" title="采集项表达式" placeholder="采集项表达式"/>
+                                <input name="attrName" type="text" value="" title="采集属性名" placeholder="采集属性名"/>
+                                </span>
+                                <a id="addItemExpressions">新增</a>
+                            </td>
+                        </tr>
+                        #if(${result.itemRules})
+                            <tr class="itemRulesTR">
+                                <th></th>
+                                <td colspan="5"><textarea name="itemRules" rows="10"
+                                                          cols="110">${result.itemRules}</textarea></td>
+                            </tr>
+                        #end
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

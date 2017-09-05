@@ -3,6 +3,7 @@
 <head>
     #parse("/common/import.vm" )
     <script type="text/javascript" src="#springUrl('/static/js/business/common/manage.js')"></script>
+    <script type="text/javascript" src="#springUrl('/static/js/business/spider/spiderConfig.js')"></script>
     <title></title>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -22,29 +23,9 @@
 					<select class="quickSearchKey">
 						<option value="spiderName">爬取名称</option>
 						<option value="spiderType">爬取类型 1:URL 2:content</option>
-						<option value="url">爬取url</option>
-						<option value="requestParam">请求入参</option>
-						<option value="content">解析内容</option>
-						<option value="ruleEngine"> 解析规则类型</option>
-						<option value="targetOut">解析返回值输出:json字符串对象格式</option>
 						<option value="outTableName">输出数据库表名称</option>
 						<option value="baseUrl">基础url</option>
-						<option value="scanExpressions">全局扫描表达式</option>
-						<option value="itemRules">爬取项目表达式:json字符串对象格式</option>
-						<option value="scheduledCron">爬取时间规则表达式</option>
-						<option value="deepNum">爬取深度（分页）</option>
 						<option value="state">爬取状态 1:开启 2:运行中 3:暂停 4:废弃</option>
-						<option value="spiderNum">爬取次数</option>
-						<option value="lastSpiderTime">上次爬取时间</option>
-						<option value="remark">备注</option>
-						<option value="sort">排序</option>
-						<option value="createTime">创建时间</option>
-						<option value="createPin">创建人</option>
-						<option value="updateTime">更新时间</option>
-						<option value="updatePin">更新人</option>
-						<option value="sysVersion">版本号</option>
-						<option value="yn">删除标识 0:有效 1:无效</option>
-						<option value="ts">时间戳</option>
 					</select>
 					<input type="text" quickSearchKey="spiderName" class="quickSearchValue" title="按下回车进行快速查询，按下Esc进行表单查询"/>
 					<input type="button" class="b_text quickSearchButton" value="搜 索"/>
@@ -56,30 +37,20 @@
 						<th><input type="checkbox" name="spiderConfigAllCheckbox"></th>
 						<th>自增ID</th>
 						<th>爬取名称</th>
-						<th>爬取类型 1:URL 2:content</th>
+						<th>爬取类型</th>
 						<th>爬取url</th>
-						<th>请求入参</th>
-						<th>解析内容</th>
-						<th> 解析规则类型</th>
-						<th>解析返回值输出:json字符串对象格式</th>
-						<th>输出数据库表名称</th>
+						<th>输出表</th>
 						<th>基础url</th>
-						<th>全局扫描表达式</th>
-						<th>爬取项目表达式:json字符串对象格式</th>
-						<th>爬取时间规则表达式</th>
+						<th>扫描表达式</th>
+						<th>项目表达式</th>
+						<th>时间规则表达式</th>
 						<th>爬取深度（分页）</th>
-						<th>爬取状态 1:开启 2:运行中 3:暂停 4:废弃</th>
+						<th>爬取状态 </th>
 						<th>爬取次数</th>
 						<th>上次爬取时间</th>
 						<th>备注</th>
-						<th>排序</th>
 						<th>创建时间</th>
-						<th>创建人</th>
 						<th>更新时间</th>
-						<th>更新人</th>
-						<th>版本号</th>
-						<th>删除标识 0:有效 1:无效</th>
-						<th>时间戳</th>
 						<th>操 作</th>
 					</tr>
             #if(${result} && ${result.result})
@@ -92,30 +63,40 @@
 						<td><input type="checkbox" name="spiderConfigCheckbox" value="${data.id}"></td>
 						<td>$!{data.id}</td>
 						<td>$!{data.spiderName}</td>
-						<td>$!{data.spiderType}</td>
+						<td>
+                            #if(${data.spiderType}==1)
+                                URL
+                            #elseif(${data.spiderType}==2)
+                                Content
+                            #else
+                                $!{data.spiderType}
+                            #end
+                        </td>
 						<td>$!{data.url}</td>
-						<td>$!{data.requestParam}</td>
-						<td>$!{data.content}</td>
-						<td>$!{data.ruleEngine}</td>
-						<td>$!{data.targetOut}</td>
 						<td>$!{data.outTableName}</td>
 						<td>$!{data.baseUrl}</td>
 						<td>$!{data.scanExpressions}</td>
-						<td>$!{data.itemRules}</td>
+						<td class="itemRules">$!{data.itemRules}</td>
 						<td>$!{data.scheduledCron}</td>
 						<td>$!{data.deepNum}</td>
-						<td>$!{data.state}</td>
+						<td>
+                            #if(${data.state}==1)
+                                开启
+                            #elseif(${data.state}==2)
+                                运行中
+                            #elseif(${data.state}==3)
+                                暂停
+                            #elseif(${data.state}==4)
+                                废弃
+                            #else
+                                ${data.state}
+                            #end
+                        </td>
 						<td>$!{data.spiderNum}</td>
 						<td>$!dateFormatUtils.format($!{data.lastSpiderTime},"yyyy-MM-dd HH:mm:ss")</td>
 						<td>$!{data.remark}</td>
-						<td>$!{data.sort}</td>
 						<td>$!dateFormatUtils.format($!{data.createTime},"yyyy-MM-dd HH:mm:ss")</td>
-						<td>$!{data.createPin}</td>
 						<td>$!dateFormatUtils.format($!{data.updateTime},"yyyy-MM-dd HH:mm:ss")</td>
-						<td>$!{data.updatePin}</td>
-						<td>$!{data.sysVersion}</td>
-						<td>$!{data.yn}</td>
-						<td>$!dateFormatUtils.format($!{data.ts},"yyyy-MM-dd HH:mm:ss")</td>
 						<td class="manage">
 							<input type="button" class="b_text edit" v="${data.id}" value="修 改">
 							<input type="button" class="b_text delete" v="${data.id}" value="删 除">

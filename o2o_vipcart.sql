@@ -285,7 +285,7 @@ CREATE TABLE `spider_config` (
   `base_url` varchar(256) DEFAULT NULL COMMENT '基础url',
   `scan_expressions` varchar(512) DEFAULT NULL COMMENT '全局扫描表达式',
   `item_rules` varchar(3072) DEFAULT NULL COMMENT '爬取项目表达式:json字符串对象格式',
-  `scheduled_cron` int(11) NOT NULL COMMENT '爬取时间规则表达式',
+  `scheduled_cron` varchar(32) NOT NULL COMMENT '爬取时间规则表达式',
   `deep_num` int(11) NOT NULL COMMENT '爬取深度（分页）',
   `state` tinyint(4) NOT NULL COMMENT '爬取状态 1:开启 2:运行中 3:暂停 4:废弃',
   `spider_num` int(11) NOT NULL COMMENT '爬取次数',

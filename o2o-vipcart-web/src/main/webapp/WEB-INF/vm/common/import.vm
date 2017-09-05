@@ -1,5 +1,5 @@
 #set($layout = "layout/null.vm")
-#set($iversion = "20160717")
+#set($iversion = "20170905")
 #set($itheme = "bootstrap")
 <link rel="stylesheet" type="text/css" href="#springUrl('')/static/plugins/$!{itheme}/css/bootstrap.min.css?v=$!{iversion}" charset="utf-8"/>
 ##<link rel="stylesheet" type="text/css" href="#springUrl('')/static/plugins/$!{itheme}/css/bootstrap-combined.min.css?v=$!{iversion}" charset="utf-8"/>

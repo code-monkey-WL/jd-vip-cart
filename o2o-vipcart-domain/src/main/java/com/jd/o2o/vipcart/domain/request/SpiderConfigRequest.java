@@ -66,7 +66,7 @@ public class SpiderConfigRequest extends RequestBean {
 	/**
 	 * 爬取时间规则表达式
 	 */
-	private Integer scheduledCron;
+	private String scheduledCron;
 
 	/**
 	 * 爬取深度（分页）
@@ -206,10 +206,10 @@ public class SpiderConfigRequest extends RequestBean {
 	public void setItemRules(String itemRules){
 		this.itemRules = itemRules;
 	}
-	public Integer getScheduledCron(){
+	public String getScheduledCron(){
 		return scheduledCron;
 	}
-	public void setScheduledCron(Integer scheduledCron){
+	public void setScheduledCron(String scheduledCron){
 		this.scheduledCron = scheduledCron;
 	}
 	public Integer getDeepNum(){

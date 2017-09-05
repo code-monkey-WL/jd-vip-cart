@@ -15,7 +15,7 @@
 		<result column="base_url" property="baseUrl" jdbcType="VARCHAR" javaType="String"/>
 		<result column="scan_expressions" property="scanExpressions" jdbcType="VARCHAR" javaType="String"/>
 		<result column="item_rules" property="itemRules" jdbcType="VARCHAR" javaType="String"/>
-		<result column="scheduled_cron" property="scheduledCron" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="scheduled_cron" property="scheduledCron" jdbcType="VARCHAR" javaType="String"/>
 		<result column="deep_num" property="deepNum" jdbcType="INTEGER" javaType="Integer"/>
 		<result column="state" property="state" jdbcType="TINYINT" javaType="Integer"/>
 		<result column="spider_num" property="spiderNum" jdbcType="INTEGER" javaType="Integer"/>
@@ -101,7 +101,7 @@
 			and item_rules = #{itemRules,jdbcType=VARCHAR}
 		</if>
 		<if test="scheduledCron != null">
-			and scheduled_cron = #{scheduledCron,jdbcType=INTEGER}
+			and scheduled_cron = #{scheduledCron,jdbcType=VARCHAR}
 		</if>
 		<if test="deepNum != null">
 			and deep_num = #{deepNum,jdbcType=INTEGER}
@@ -272,7 +272,7 @@
     	#{itemRules,jdbcType=VARCHAR},
     </if>
     <if test="scheduledCron != null">
-    	#{scheduledCron,jdbcType=INTEGER},
+    	#{scheduledCron,jdbcType=VARCHAR},
     </if>
     <if test="deepNum != null">
     	#{deepNum,jdbcType=INTEGER},
@@ -354,7 +354,7 @@
 		#{item.baseUrl,jdbcType=VARCHAR},
 		#{item.scanExpressions,jdbcType=VARCHAR},
 		#{item.itemRules,jdbcType=VARCHAR},
-		#{item.scheduledCron,jdbcType=INTEGER},
+		#{item.scheduledCron,jdbcType=VARCHAR},
 		#{item.deepNum,jdbcType=INTEGER},
 		#{item.state,jdbcType=TINYINT},
 		#{item.spiderNum,jdbcType=INTEGER},
@@ -408,7 +408,7 @@
             item_rules = #{itemRules,jdbcType=VARCHAR},
     	</if>
     	<if test="scheduledCron != null">
-            scheduled_cron = #{scheduledCron,jdbcType=INTEGER},
+            scheduled_cron = #{scheduledCron,jdbcType=VARCHAR},
     	</if>
     	<if test="deepNum != null">
             deep_num = #{deepNum,jdbcType=INTEGER},
@@ -486,7 +486,7 @@
 			item_rules = #{item.itemRules,jdbcType=VARCHAR},
 		</if>
 		<if test="item.scheduledCron != null">
-			scheduled_cron = #{item.scheduledCron,jdbcType=INTEGER},
+			scheduled_cron = #{item.scheduledCron,jdbcType=VARCHAR},
 		</if>
 		<if test="item.deepNum != null">
 			deep_num = #{item.deepNum,jdbcType=INTEGER},

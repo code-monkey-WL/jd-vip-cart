@@ -11,7 +11,7 @@ public enum ItemSourceEnum {
     ATTR(1,"元素属性"),
     TEXT(2,"文本"),
     IN_HTML(3,"标签内HTML片段"),
-    OUT_HTML(3,"包含标签本身加内部HTML片段");
+    OUT_HTML(4,"包含标签本身加内部HTML片段");
 
 
     ItemSourceEnum(Integer code, String name) {

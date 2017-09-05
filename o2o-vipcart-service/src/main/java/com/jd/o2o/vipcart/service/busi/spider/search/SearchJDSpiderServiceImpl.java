@@ -55,7 +55,7 @@ public class SearchJDSpiderServiceImpl implements SpiderService {
         itemRule = new ItemRule();
         itemRule.setAliasName("skuPrice");
         itemRule.setAttrName("data-price");
-        itemRule.setItemExpressions(new String[]{"J_5225346"});
+        itemRule.setItemExpressions(new String[]{".J_5225346"});
         itemRuleList.add(itemRule);
 
         itemRule = new ItemRule();
